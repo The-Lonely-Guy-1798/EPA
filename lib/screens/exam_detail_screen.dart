@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:exam_prep_adda/screens/level_selection_screen.dart'; // Import the new level selection screen
+import 'package:exam_prep_adda/screens/level_selection_screen.dart';
+import 'package:exam_prep_adda/screens/quiz_level_selection_screen.dart'; // Import the new quiz level selection screen
 
 // Import all your subject-specific question data files
 import 'package:exam_prep_adda/data/ib_acio/current_affairs_questions.dart';
@@ -14,15 +15,13 @@ import 'package:exam_prep_adda/data/ib_acio/english_questions.dart';
 // ... and so on for all exams and their subjects
 
 // Define a class to represent a single question
-// It's good practice to put this in a shared 'models' folder if many files use it.
-// For now, keeping it here as per previous context.
 class Question {
   final String questionText;
   final List<String> options;
-  final int correctAnswerIndex; // Index of the correct option in the options list
-  final String explanation; // Explanation for the answer
+  final int correctAnswerIndex;
+  final String explanation;
 
-  Question({
+  const Question({
     required this.questionText,
     required this.options,
     required this.correctAnswerIndex,
@@ -35,57 +34,75 @@ class ExamDetailScreen extends StatelessWidget {
 
   const ExamDetailScreen({super.key, required this.examName});
 
-  // Define practice questions for each exam and topic by referencing imported lists
-  static final Map<String, Map<String, List<Question>>> examQuestions = {
-    'IB-ACIO': {
-      'Current Affairs': ibAcioCurrentAffairsQuestions, // Reference the imported list
-      'General Studies': ibAcioGeneralStudiesQuestions, // Reference the imported list
-      'Numerical Aptitude': ibAcioNumericalAptitudeQuestions,
-      'Reasoning Logical Aptitude': ibAcioReasoningLogicalAptitudeQuestions,
-      'English': ibAcioEnglishQuestions,
-    },
-    // Add other exams and their subjects here, referencing their imported lists
-    'Bank-Clerk': {
-      // Example for Bank-Clerk, assuming you've created and imported these files:
-      // 'Reasoning Ability': bankClerkReasoningAbilityQuestions,
-      // 'Quantitative Aptitude': bankClerkQuantitativeAptitudeQuestions,
-      // 'English Language': bankClerkEnglishLanguageQuestions,
-      // 'General Awareness': bankClerkGeneralAwarenessQuestions,
-      // 'Computer Knowledge': bankClerkComputerKnowledgeQuestions,
-    },
-    // ... add other exams
+  // A map to hold all practice questions for a given exam, grouped by topic.
+  Map<String, List<Question>> getTopicsWithQuestions(String examName) {
+    // This is a placeholder. You would have a switch or if-else to
+    // return the correct map based on the examName.
+    if (examName == 'IB-ACIO') {
+      return {
+        'Current Affairs': ibAcioCurrentAffairsQuestions,
+        'General Studies': ibAcioGeneralStudiesQuestions,
+        'Numerical Aptitude': ibAcioNumericalAptitudeQuestions,
+        'Reasoning & Logical Aptitude': ibAcioReasoningLogicalAptitudeQuestions,
+        'English': ibAcioEnglishQuestions,
+      };
+    }
+    return {}; // Return an empty map for other exams
+  }
+
+  // Placeholder for quiz data. You would fetch this based on the exam.
+  final Map<int, String> ibAcioQuizzes = const {
+    1: 'Very Easy Quiz 1',
+    2: 'Very Easy Quiz 2',
+    3: 'Very Easy Quiz 3',
+    4: 'Very Easy Quiz 4',
+    5: 'Very Easy Quiz 5',
+    6: 'Easy Quiz 1',
+    7: 'Easy Quiz 2',
+    8: 'Easy Quiz 3',
+    9: 'Easy Quiz 4',
+    10: 'Easy Quiz 5',
+    11: 'Medium Quiz 1',
+    12: 'Medium Quiz 2',
+    13: 'Medium Quiz 3',
+    14: 'Medium Quiz 4',
+    15: 'Medium Quiz 5',
+    16: 'Hard Quiz 1',
+    17: 'Hard Quiz 2',
+    18: 'Hard Quiz 3',
+    19: 'Hard Quiz 4',
+    20: 'Hard Quiz 5',
+    21: 'Very Hard Quiz 1',
+    22: 'Very Hard Quiz 2',
+    23: 'Very Hard Quiz 3',
+    24: 'Very Hard Quiz 4',
+    25: 'Very Hard Quiz 5',
   };
 
   @override
   Widget build(BuildContext context) {
-    // Get the topics (subjects) for the current exam, or an empty map if not found
-    final Map<String, List<Question>> topicsWithQuestions = examQuestions[examName] ?? {};
+    final topicsWithQuestions = getTopicsWithQuestions(examName);
+    final Map<int, String> quizzesForExam = examName == 'IB-ACIO' ? ibAcioQuizzes : {};
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          examName, // Display the exam name in the app bar
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
-          ),
+          '$examName Details',
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Exam Header Section
             Text(
-              'Welcome to the $examName Exam Page!',
+              'Welcome to the $examName preparation hub!',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 16),
-            const Text(
-              'Here you can find detailed information, study materials, and practice quizzes for this exam.',
-              style: TextStyle(fontSize: 16),
-            ),
             const SizedBox(height: 24),
+
             // Practice Questions Expandable Bar
             Card(
               elevation: 4,
@@ -93,7 +110,8 @@ class ExamDetailScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: ExpansionTile(
-                leading: const Icon(Icons.question_answer, color: Colors.deepPurple),
+                leading: const Icon(Icons.question_answer,
+                    color: Colors.deepPurple),
                 title: const Text(
                   'Practice Questions',
                   style: TextStyle(
@@ -105,8 +123,8 @@ class ExamDetailScreen extends StatelessWidget {
                   return ListTile(
                     title: Text(topic),
                     onTap: () {
-                      // Get the list of questions for the selected topic
-                      final List<Question> questions = topicsWithQuestions[topic]!;
+                      final List<Question> questions =
+                          topicsWithQuestions[topic]!;
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -120,6 +138,41 @@ class ExamDetailScreen extends StatelessWidget {
                     },
                   );
                 }).toList(),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            // Quizzes Expandable Bar (New)
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ExpansionTile(
+                leading: const Icon(Icons.star, color: Colors.amber),
+                title: const Text(
+                  'Quizzes',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                children: [
+                  ListTile(
+                    title: const Text('Start Quiz Challenge'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QuizLevelSelectionScreen(
+                            examName: examName,
+                            quizzes: quizzesForExam,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],
