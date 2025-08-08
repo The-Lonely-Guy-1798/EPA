@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
-import 'package:exam_prep_adda/screens/quiz_screen.dart'; // Import QuizScreen
+import 'package:exam_prep_adda/screens/practice_questions.dart'; // Import the new PracticeQuestionsScreen
 
 class LevelSelectionScreen extends StatelessWidget {
   final String examName;
@@ -40,12 +40,12 @@ class LevelSelectionScreen extends StatelessWidget {
                 ),
                 itemCount: questions.length,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
+                  return InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => QuizScreen(
+                          builder: (context) => PracticeQuestionsScreen(
                             question: questions[index],
                             questionNumber: index + 1, // Pass question number
                             totalQuestions: questions.length, // Pass total questions
@@ -59,7 +59,7 @@ class LevelSelectionScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
+                      color: Theme.of(context).colorScheme.primary.withAlpha((255 * 0.8).round()),
                       child: Center(
                         child: Text(
                           '${index + 1}', // Display question number
