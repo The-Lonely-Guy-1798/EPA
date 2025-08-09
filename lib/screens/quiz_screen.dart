@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
+import 'package:exam_prep_adda/screens/quiz_analysis_screen.dart'; // Import the new analysis screen
 import 'dart:async'; // Required for the Timer class
+import 'dart:math'; // Required for the ceil function
 
 class QuizScreen extends StatefulWidget {
   final String examName;
@@ -20,73 +22,70 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   int _currentQuestionIndex = 0;
-  int _correctAnswers = 0;
   bool _quizFinished = false;
-  bool _answerSelected = false;
-  int? _selectedOptionIndex;
+  // Use a list to store the selected option for each question. null means not answered.
+  final List<int?> _userAnswers = [];
 
   // Timer variables
   late Timer _timer;
   late int _totalQuizTimeInSeconds;
   late int _warningTimeInSeconds;
+  int _timeLeft = 0;
 
   @override
   void initState() {
     super.initState();
+    // Initialize the user answers list with null values
+    for (var i = 0; i < widget.questions.length; i++) {
+      _userAnswers.add(null);
+    }
     // Calculate total time: number of questions * 40 seconds
     _totalQuizTimeInSeconds = widget.questions.length * 40;
     // Calculate the warning time based on the new rules
     _warningTimeInSeconds = _calculateWarningTime(_totalQuizTimeInSeconds);
+    _timeLeft = _totalQuizTimeInSeconds;
     _startTimer();
   }
 
   @override
   void dispose() {
-    _timer.cancel(); // Cancel the timer to prevent memory leaks
+    _timer.cancel();
     super.dispose();
   }
 
-  // Helper function to calculate the warning time based on the new conditions
+  // New method to calculate warning time
   int _calculateWarningTime(int totalTime) {
-    const int fiveMinutes = 300; // 5 minutes in seconds
-    final int twentyPercentOfTime = (totalTime / 20).round();
-
-    if (twentyPercentOfTime > fiveMinutes) {
-      // Round up to the nearest integer minute
-      return (twentyPercentOfTime / 60).ceil() * 60;
+    if (totalTime <= 180) {
+      return 60; // For quizzes up to 3 minutes, warning at 1 minute
     } else {
-      // Always use 5 minutes if 1/20th of the time is less than or equal to 5 minutes
-      return fiveMinutes;
+      return 180; // For quizzes longer than 3 minutes, warning at 3 minutes
     }
   }
 
+  // Method to start the quiz timer
   void _startTimer() {
-    _timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (timer) {
-        if (_totalQuizTimeInSeconds == 0) {
-          // Time is up, finish the quiz
-          setState(() {
-            _quizFinished = true;
-          });
-          _timer.cancel();
-        } else {
-          setState(() {
-            _totalQuizTimeInSeconds--;
-          });
-        }
-      },
-    );
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_timeLeft > 0) {
+        setState(() {
+          _timeLeft--;
+        });
+      } else {
+        _timer.cancel();
+        _finishQuiz();
+      }
+    });
+  }
+
+  String _formatTime(int seconds) {
+    final minutes = seconds ~/ 60;
+    final remainingSeconds = seconds % 60;
+    return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
   void _checkAnswer(int selectedIndex) {
-    if (!_answerSelected) {
+    if (_userAnswers[_currentQuestionIndex] == null) {
       setState(() {
-        _selectedOptionIndex = selectedIndex;
-        _answerSelected = true;
-        if (selectedIndex == widget.questions[_currentQuestionIndex].correctAnswerIndex) {
-          _correctAnswers++;
-        }
+        _userAnswers[_currentQuestionIndex] = selectedIndex;
       });
     }
   }
@@ -95,197 +94,195 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_currentQuestionIndex < widget.questions.length - 1) {
       setState(() {
         _currentQuestionIndex++;
-        _selectedOptionIndex = null;
-        _answerSelected = false;
       });
     } else {
-      // If there are no more questions, finish the quiz
-      _timer.cancel();
-      setState(() {
-        _quizFinished = true;
-      });
+      _finishQuiz();
     }
   }
 
-  // Helper function to format the time into hh:mm:ss
-  String _formatTime(int seconds) {
-    final int hours = (seconds / 3600).truncate();
-    final int minutes = ((seconds % 3600) / 60).truncate();
-    final int remainingSeconds = seconds % 60;
-
-    String hoursStr = (hours).toString().padLeft(2, '0');
-    String minutesStr = (minutes).toString().padLeft(2, '0');
-    String secondsStr = (remainingSeconds).toString().padLeft(2, '0');
-
-    return '$hoursStr:$minutesStr:$secondsStr';
+  void _finishQuiz() {
+    _timer.cancel();
+    setState(() {
+      _quizFinished = true;
+    });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_quizFinished) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Quiz Finished'),
+  void _goToAnalysisScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => QuizAnalysisScreen(
+          examName: widget.examName,
+          quizName: widget.quizName,
+          questions: widget.questions,
+          userAnswers: _userAnswers,
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'You scored $_correctAnswers out of ${widget.questions.length}!',
-                style: Theme.of(context).textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // Go back to the previous screen
-                },
-                child: const Text('Go Back'),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    final currentQuestion = widget.questions[_currentQuestionIndex];
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.quizName),
-        actions: [
-          // Display the global timer
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Center(
-              child: Text(
-                _formatTime(_totalQuizTimeInSeconds),
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: _totalQuizTimeInSeconds <= _warningTimeInSeconds ? Colors.red : null,
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
-      body: SingleChildScrollView(
+    );
+  }
+
+  Widget _buildQuizFinishedView() {
+    int correctAnswers = 0;
+    int incorrectAnswers = 0;
+
+    for (int i = 0; i < widget.questions.length; i++) {
+      if (_userAnswers[i] == null) {
+        // do nothing
+      } else if (_userAnswers[i] == widget.questions[i].correctAnswerIndex) {
+        correctAnswers++;
+      } else {
+        incorrectAnswers++;
+      }
+    }
+
+    final totalQuestions = widget.questions.length;
+    final scorePercentage = (correctAnswers / totalQuestions) * 100;
+    
+    return Center(
+      child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Question text
             Text(
-              'Question ${ _currentQuestionIndex + 1 }/${widget.questions.length}:',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+              'Quiz Complete!',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 32),
+            SizedBox(
+              height: 200,
+              width: 200,
+              child: CustomPaint(
+                painter: PieChartPainter(
+                  correctAnswers: correctAnswers,
+                  incorrectAnswers: incorrectAnswers,
+                  totalQuestions: totalQuestions,
+                ),
               ),
             ),
             const SizedBox(height: 16),
             Text(
-              currentQuestion.questionText,
-              style: Theme.of(context).textTheme.headlineSmall,
+              'Your Score: ${scorePercentage.toStringAsFixed(2)}%',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: 24),
-
-            // Options list
-            ...currentQuestion.options.asMap().entries.map((entry) {
-              int index = entry.key;
-              String option = entry.value;
-              return OptionTile(
-                option: option,
-                index: index,
-                selectedOptionIndex: _selectedOptionIndex,
-                correctAnswerIndex: currentQuestion.correctAnswerIndex,
-                answerSelected: _answerSelected,
-                onTap: () => _checkAnswer(index),
-              );
-            }),
-            const SizedBox(height: 24),
-
-            // Explanation Section
-            if (_answerSelected)
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                color: Colors.lightBlue.shade50,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Explanation:',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade900,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        currentQuestion.explanation,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-            if (_answerSelected) const SizedBox(height: 24),
-
-            // Next Question Button
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (_answerSelected)
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle next question or finish quiz
-                        _nextQuestion();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                        textStyle: const TextStyle(fontSize: 18),
-                      ),
-                      child: Text(
-                        (_currentQuestionIndex == widget.questions.length - 1)
-                            ? 'Finish Quiz'
-                            : 'Next Question',
-                      ),
-                    ),
-                ],
-              ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _goToAnalysisScreen,
+              child: const Text('View Analysis'),
             ),
           ],
         ),
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_quizFinished) {
+      return _buildQuizFinishedView();
+    }
+
+    final currentQuestion = widget.questions[_currentQuestionIndex];
+    
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.quizName),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Chip(
+              label: Text(
+                _formatTime(_timeLeft),
+                style: TextStyle(
+                  color: _timeLeft <= _warningTimeInSeconds ? Colors.red : Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: _timeLeft <= _warningTimeInSeconds
+                  ? Colors.red.shade100
+                  : Colors.grey.shade200,
+            ),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Question ${_currentQuestionIndex + 1}/${widget.questions.length}',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    currentQuestion.questionText,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              ...currentQuestion.options.asMap().entries.map((entry) {
+                int index = entry.key;
+                String option = entry.value;
+                return OptionTile(
+                  option: option,
+                  index: index,
+                  selectedOptionIndex: _userAnswers[_currentQuestionIndex],
+                  onTap: () => _checkAnswer(index),
+                  answerSelected: _userAnswers[_currentQuestionIndex] != null,
+                  correctAnswerIndex: currentQuestion.correctAnswerIndex,
+                );
+              }),
+              const SizedBox(height: 24),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: ElevatedButton(
+                  onPressed: _userAnswers[_currentQuestionIndex] != null
+                      ? _nextQuestion
+                      : null,
+                  child: Text(
+                    _currentQuestionIndex == widget.questions.length - 1
+                        ? 'Finish Quiz'
+                        : 'Next Question',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-// Helper widget for displaying options
+// Helper widget for displaying options with feedback
 class OptionTile extends StatelessWidget {
   const OptionTile({
     super.key,
     required this.option,
     required this.index,
     required this.selectedOptionIndex,
-    required this.correctAnswerIndex,
-    required this.answerSelected,
     required this.onTap,
+    required this.answerSelected,
+    required this.correctAnswerIndex,
   });
 
   final String option;
   final int index;
   final int? selectedOptionIndex;
-  final int correctAnswerIndex;
-  final bool answerSelected;
   final VoidCallback onTap;
+  final bool answerSelected;
+  final int correctAnswerIndex;
 
   Color _getTileColor() {
     if (!answerSelected) {
@@ -336,9 +333,74 @@ class OptionTile extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        trailing: Icon(_getIcon()),
-        onTap: answerSelected ? null : onTap,
+        leading: Icon(
+          _getIcon(),
+          color: _getIcon() == Icons.check_circle ? Colors.green : Colors.red,
+        ),
+        onTap: onTap,
       ),
     );
+  }
+}
+
+class PieChartPainter extends CustomPainter {
+  final int correctAnswers;
+  final int incorrectAnswers;
+  final int totalQuestions;
+
+  PieChartPainter({
+    required this.correctAnswers,
+    required this.incorrectAnswers,
+    required this.totalQuestions,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final correctSweepAngle = (2 * pi * correctAnswers) / totalQuestions;
+    final incorrectSweepAngle = (2 * pi * incorrectAnswers) / totalQuestions;
+
+    final correctPaint = Paint()..color = Colors.green;
+    final incorrectPaint = Paint()..color = Colors.red;
+    final notAttemptedPaint = Paint()..color = Colors.grey;
+
+    double startAngle = -pi / 2;
+
+    // Draw correct answers slice
+    canvas.drawArc(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      startAngle,
+      correctSweepAngle,
+      true,
+      correctPaint,
+    );
+    startAngle += correctSweepAngle;
+
+    // Draw incorrect answers slice
+    canvas.drawArc(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      startAngle,
+      incorrectSweepAngle,
+      true,
+      incorrectPaint,
+    );
+    startAngle += incorrectSweepAngle;
+
+    // Draw not attempted slice
+    final notAttemptedAnswers = totalQuestions - correctAnswers - incorrectAnswers;
+    if (notAttemptedAnswers > 0) {
+      final notAttemptedSweepAngle = (2 * pi * notAttemptedAnswers) / totalQuestions;
+      canvas.drawArc(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+        startAngle,
+        notAttemptedSweepAngle,
+        true,
+        notAttemptedPaint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
