@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/level_selection_screen.dart';
 import 'package:exam_prep_adda/screens/quiz_level_selection_screen.dart'; // Import the new quiz level selection screen
+import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
+import 'package:exam_prep_adda/screens/exam_syllabus_screen.dart'; // Import the new Syllabus Screen
+import 'package:exam_prep_adda/screens/exam_pattern_screen.dart'; // Import the new Exam Pattern Screen
 
 // Import all your subject-specific question data files
 import 'package:exam_prep_adda/data/ib_acio/current_affairs_questions.dart';
@@ -103,6 +106,46 @@ class ExamDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 24),
 
+            // New buttons for Syllabus and Exam Pattern
+            Row(
+              children: [
+                Expanded(
+                  child: ExamInfoCard(
+                    title: 'Exam Syllabus',
+                    icon: Icons.assignment,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SyllabusScreen(examName: examName),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: ExamInfoCard(
+                    title: 'Exam Pattern',
+                    icon: Icons.list_alt,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExamPatternScreen(examName: examName),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            // Banner Ad Placeholder
+            const BannerAdPlaceholder(),
+            const SizedBox(height: 16),
+
             // Practice Questions Expandable Bar
             Card(
               elevation: 4,
@@ -175,7 +218,60 @@ class ExamDetailScreen extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 16),
+
+            // Native Ad Placeholder
+            const NativeAdPlaceholder(),
+            const SizedBox(height: 16),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// Reusable card widget for the new buttons
+class ExamInfoCard extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const ExamInfoCard({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Icon(
+                icon,
+                size: 30,
+                color: Colors.blueAccent,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

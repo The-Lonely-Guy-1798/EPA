@@ -3,6 +3,7 @@ import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Quest
 import 'package:exam_prep_adda/screens/quiz_analysis_screen.dart'; // Import the new analysis screen
 import 'dart:async'; // Required for the Timer class
 import 'dart:math'; // Required for the ceil function
+import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 
 class QuizScreen extends StatefulWidget {
   final String examName;
@@ -83,6 +84,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 
   void _checkAnswer(int selectedIndex) {
+    // Only allow the user to select an answer if they haven't already
     if (_userAnswers[_currentQuestionIndex] == null) {
       setState(() {
         _userAnswers[_currentQuestionIndex] = selectedIndex;
@@ -169,6 +171,11 @@ class _QuizScreenState extends State<QuizScreen> {
               onPressed: _goToAnalysisScreen,
               child: const Text('View Analysis'),
             ),
+            const SizedBox(height: 24),
+            // Native Ad Placeholder at the very bottom
+            const NativeAdPlaceholder(),
+            // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
+            const SizedBox(height: 32),
           ],
         ),
       ),
@@ -237,8 +244,6 @@ class _QuizScreenState extends State<QuizScreen> {
                   index: index,
                   selectedOptionIndex: _userAnswers[_currentQuestionIndex],
                   onTap: () => _checkAnswer(index),
-                  answerSelected: _userAnswers[_currentQuestionIndex] != null,
-                  correctAnswerIndex: currentQuestion.correctAnswerIndex,
                 );
               }),
               const SizedBox(height: 24),
@@ -255,6 +260,12 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                 ),
               ),
+              // Spacing before the native ad
+              const SizedBox(height: 24),
+              // Native Ad Placeholder at the very bottom
+              const NativeAdPlaceholder(),
+              // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
+              const SizedBox(height: 32),
             ],
           ),
         ),
@@ -263,7 +274,7 @@ class _QuizScreenState extends State<QuizScreen> {
   }
 }
 
-// Helper widget for displaying options with feedback
+// Helper widget for displaying options without revealing correctness
 class OptionTile extends StatelessWidget {
   const OptionTile({
     super.key,
@@ -271,47 +282,22 @@ class OptionTile extends StatelessWidget {
     required this.index,
     required this.selectedOptionIndex,
     required this.onTap,
-    required this.answerSelected,
-    required this.correctAnswerIndex,
   });
 
   final String option;
   final int index;
   final int? selectedOptionIndex;
   final VoidCallback onTap;
-  final bool answerSelected;
-  final int correctAnswerIndex;
 
-  Color _getTileColor() {
-    if (!answerSelected) {
-      return Colors.white;
-    }
-    if (selectedOptionIndex == index) {
-      return index == correctAnswerIndex ? Colors.green.shade100 : Colors.red.shade100;
-    } else if (index == correctAnswerIndex) {
-      return Colors.green.shade100;
-    }
-    return Colors.white;
+  Color _getTileColor(BuildContext context) {
+    // Only show a color change for the selected option, no red or green
+    return selectedOptionIndex == index
+        ? Theme.of(context).colorScheme.primary.withAlpha((255 * 0.5).round())
+        : Colors.white;
   }
 
   Color _getTextColor() {
-    if (selectedOptionIndex != null &&
-        (index == selectedOptionIndex || index == correctAnswerIndex)) {
-      return Colors.black;
-    }
-    return Colors.black54;
-  }
-
-  IconData? _getIcon() {
-    if (selectedOptionIndex == null) {
-      return null;
-    }
-    if (index == selectedOptionIndex) {
-      return index == correctAnswerIndex ? Icons.check_circle : Icons.cancel;
-    } else if (index == correctAnswerIndex) {
-      return Icons.check_circle_outline;
-    }
-    return null;
+    return Colors.black;
   }
 
   @override
@@ -321,7 +307,7 @@ class OptionTile extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      color: _getTileColor(),
+      color: _getTileColor(context),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         title: Text(
@@ -331,10 +317,12 @@ class OptionTile extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        leading: Icon(
-          _getIcon(),
-          color: _getIcon() == Icons.check_circle ? Colors.green : Colors.red,
-        ),
+        leading: selectedOptionIndex == index
+            ? Icon(
+                Icons.check_circle,
+                color: Theme.of(context).colorScheme.primary,
+              )
+            : null,
         onTap: onTap,
       ),
     );
@@ -464,8 +452,8 @@ class PieChart3DPainter extends CustomPainter {
           color: Colors.grey.shade600,
           sideColor: Colors.grey.shade800,
           isExtruded: false,
-        ),
-      );
+      ),
+    );
     }
 
     // Sort the slices by end angle to draw them in the correct order for a 3D effect.

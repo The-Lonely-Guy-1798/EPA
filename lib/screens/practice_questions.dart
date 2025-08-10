@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
+import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 
 class PracticeQuestionsScreen extends StatefulWidget {
   final Question question;
@@ -223,6 +224,12 @@ class _PracticeQuestionsScreenState extends State<PracticeQuestionsScreen> {
                     ),
                   ),
                 ),
+              // Spacing before the native ad
+              const SizedBox(height: 24),
+              // Native Ad Placeholder at the very bottom
+              const NativeAdPlaceholder(),
+              // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
+              const SizedBox(height: 32),
             ],
           ),
         ),

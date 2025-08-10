@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
 import 'package:exam_prep_adda/screens/practice_questions.dart'; // Import the new PracticeQuestionsScreen
+import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 
 class LevelSelectionScreen extends StatelessWidget {
   final String examName;
@@ -25,6 +26,9 @@ class LevelSelectionScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Banner Ad Placeholder
+            const BannerAdPlaceholder(),
+            const SizedBox(height: 24),
             Text(
               'Select a question to practice for $topicName:',
               style: Theme.of(context).textTheme.headlineSmall,
@@ -33,7 +37,7 @@ class LevelSelectionScreen extends StatelessWidget {
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5, // 6 columns for level blocks
+                  crossAxisCount: 4, // 6 columns for level blocks
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
                   childAspectRatio: 1.0, // Square blocks
@@ -74,6 +78,8 @@ class LevelSelectionScreen extends StatelessWidget {
                 },
               ),
             ),
+            const SizedBox(height: 16),
+            const BannerAdPlaceholder(),
           ],
         ),
       ),
