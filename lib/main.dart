@@ -1,6 +1,5 @@
-// lib/main.dart
 import 'package:flutter/material.dart';
-import 'package:exam_prep_adda/screens/home_screen.dart';
+import 'package:exam_prep_adda/screens/splash_screen.dart'; // Import the new splash screen
 import 'package:exam_prep_adda/utils/app_theme.dart'; // Import the new theme file
 
 void main() {
@@ -13,12 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Exam Prep App',
+      title: 'Exam Prep Hub',
       // Apply the new custom theme here
       theme: AppTheme.lightTheme,
-      // You can also define a dark theme here if you want to support it
-      // darkTheme: AppTheme.darkTheme,
-      home: const HomeScreen(),
+      home: const SplashScreen(), // Set the splash screen as the initial route
     );
   }
 }

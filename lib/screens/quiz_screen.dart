@@ -137,7 +137,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
     final totalQuestions = widget.questions.length;
     final scorePercentage = (correctAnswers / totalQuestions) * 100;
-    
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -153,12 +153,10 @@ class _QuizScreenState extends State<QuizScreen> {
             SizedBox(
               height: 200,
               width: 200,
-              child: CustomPaint(
-                painter: PieChartPainter(
-                  correctAnswers: correctAnswers,
-                  incorrectAnswers: incorrectAnswers,
-                  totalQuestions: totalQuestions,
-                ),
+              child: AnimatedPieChart(
+                correctAnswers: correctAnswers,
+                incorrectAnswers: incorrectAnswers,
+                totalQuestions: totalQuestions,
               ),
             ),
             const SizedBox(height: 16),
@@ -184,7 +182,7 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     final currentQuestion = widget.questions[_currentQuestionIndex];
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.quizName),
@@ -343,12 +341,74 @@ class OptionTile extends StatelessWidget {
   }
 }
 
-class PieChartPainter extends CustomPainter {
+// Animated pie chart widget
+class AnimatedPieChart extends StatefulWidget {
   final int correctAnswers;
   final int incorrectAnswers;
   final int totalQuestions;
 
-  PieChartPainter({
+  const AnimatedPieChart({
+    super.key,
+    required this.correctAnswers,
+    required this.incorrectAnswers,
+    required this.totalQuestions,
+  });
+
+  @override
+  State<AnimatedPieChart> createState() => _AnimatedPieChartState();
+}
+
+class _AnimatedPieChartState extends State<AnimatedPieChart> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return CustomPaint(
+          painter: PieChart3DPainter(
+            animationValue: _animation.value,
+            correctAnswers: widget.correctAnswers,
+            incorrectAnswers: widget.incorrectAnswers,
+            totalQuestions: widget.totalQuestions,
+          ),
+        );
+      },
+    );
+  }
+}
+
+// CustomPainter for a 3D-style pie chart with separation
+class PieChart3DPainter extends CustomPainter {
+  final double animationValue;
+  final int correctAnswers;
+  final int incorrectAnswers;
+  final int totalQuestions;
+
+  PieChart3DPainter({
+    required this.animationValue,
     required this.correctAnswers,
     required this.incorrectAnswers,
     required this.totalQuestions,
@@ -356,51 +416,158 @@ class PieChartPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final correctSweepAngle = (2 * pi * correctAnswers) / totalQuestions;
-    final incorrectSweepAngle = (2 * pi * incorrectAnswers) / totalQuestions;
+    final correctPercentage = correctAnswers / totalQuestions;
+    final incorrectPercentage = incorrectAnswers / totalQuestions;
+    final notAttemptedPercentage = (totalQuestions - correctAnswers - incorrectAnswers) / totalQuestions;
 
-    final correctPaint = Paint()..color = Colors.green;
-    final incorrectPaint = Paint()..color = Colors.red;
-    final notAttemptedPaint = Paint()..color = Colors.grey;
+    final correctSweepAngle = (2 * pi * correctPercentage);
+    final incorrectSweepAngle = (2 * pi * incorrectPercentage);
+    final notAttemptedSweepAngle = (2 * pi * notAttemptedPercentage);
 
-    double startAngle = -pi / 2;
+    double currentStartAngle = -pi / 2;
+    const double gapAngle = 0.04; // Small gap between slices
 
-    // Draw correct answers slice
-    canvas.drawArc(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      startAngle,
-      correctSweepAngle,
-      true,
-      correctPaint,
+    final slices = <_SliceData>[];
+
+    // Correct slice
+    slices.add(
+      _SliceData(
+        startAngle: currentStartAngle,
+        sweepAngle: correctSweepAngle,
+        color: Colors.green.shade600,
+        sideColor: Colors.green.shade800,
+        isExtruded: false,
+      ),
     );
-    startAngle += correctSweepAngle;
+    currentStartAngle += correctSweepAngle;
 
-    // Draw incorrect answers slice
-    canvas.drawArc(
-      Rect.fromLTWH(0, 0, size.width, size.height),
-      startAngle,
-      incorrectSweepAngle,
-      true,
-      incorrectPaint,
-    );
-    startAngle += incorrectSweepAngle;
+    // Incorrect slice - This one will be extruded
+    if (incorrectPercentage > 0) {
+      slices.add(
+        _SliceData(
+          startAngle: currentStartAngle,
+          sweepAngle: incorrectSweepAngle,
+          color: Colors.red.shade600,
+          sideColor: Colors.red.shade800,
+          isExtruded: true,
+        ),
+      );
+      currentStartAngle += incorrectSweepAngle;
+    }
 
-    // Draw not attempted slice
-    final notAttemptedAnswers = totalQuestions - correctAnswers - incorrectAnswers;
-    if (notAttemptedAnswers > 0) {
-      final notAttemptedSweepAngle = (2 * pi * notAttemptedAnswers) / totalQuestions;
-      canvas.drawArc(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-        startAngle,
-        notAttemptedSweepAngle,
-        true,
-        notAttemptedPaint,
+    // Not attempted slice
+    if (notAttemptedPercentage > 0) {
+      slices.add(
+        _SliceData(
+          startAngle: currentStartAngle,
+          sweepAngle: notAttemptedSweepAngle,
+          color: Colors.grey.shade600,
+          sideColor: Colors.grey.shade800,
+          isExtruded: false,
+        ),
+      );
+    }
+
+    // Sort the slices by end angle to draw them in the correct order for a 3D effect.
+    slices.sort((a, b) => (b.startAngle + b.sweepAngle).compareTo(a.startAngle + a.sweepAngle));
+
+    for (final slice in slices) {
+      _drawSlice(
+        canvas,
+        size,
+        slice.startAngle,
+        slice.sweepAngle,
+        slice.color,
+        slice.sideColor,
+        slice.isExtruded,
+        gapAngle,
       );
     }
   }
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+  void _drawSlice(
+    Canvas canvas,
+    Size size,
+    double startAngle,
+    double sweepAngle,
+    Color topColor,
+    Color sideColor,
+    bool isExtruded,
+    double gapAngle,
+  ) {
+    final center = size.center(Offset.zero);
+    final radius = size.width / 2;
+    const tiltOffset = 15.0; // Adjust for tilt effect
+    const extrusionOffset = 10.0; // Offset for the extruded slice
+
+    // Apply animation and gap
+    final animatedSweep = sweepAngle * animationValue;
+    final animatedStart = startAngle;
+
+    final centerOffset = isExtruded
+        ? Offset(
+            extrusionOffset * cos(animatedStart + animatedSweep / 2),
+            extrusionOffset * sin(animatedStart + animatedSweep / 2),
+          )
+        : Offset.zero;
+
+    // Draw the side/bottom part of the slice (for 3D effect)
+    final sidePaint = Paint()..color = sideColor;
+    final path = Path();
+    path.moveTo(center.dx + centerOffset.dx, center.dy + centerOffset.dy);
+    path.lineTo(
+      center.dx + centerOffset.dx + radius * cos(animatedStart + gapAngle / 2),
+      center.dy + centerOffset.dy + radius * sin(animatedStart + gapAngle / 2) + tiltOffset,
+    );
+    path.arcTo(
+      Rect.fromCircle(
+          center: Offset(center.dx + centerOffset.dx, center.dy + centerOffset.dy + tiltOffset),
+          radius: radius),
+      animatedStart + gapAngle / 2,
+      animatedSweep - gapAngle,
+      false,
+    );
+    path.lineTo(
+      center.dx + centerOffset.dx + radius * cos(animatedStart + animatedSweep - gapAngle / 2),
+      center.dy + centerOffset.dy + radius * sin(animatedStart + animatedSweep - gapAngle / 2) + tiltOffset,
+    );
+    path.lineTo(center.dx + centerOffset.dx, center.dy + centerOffset.dy + tiltOffset);
+    path.close();
+    canvas.drawPath(path, sidePaint);
+
+    // Draw the top part of the slice
+    final topPaint = Paint()..color = topColor;
+    canvas.drawArc(
+      Rect.fromCircle(center: center + centerOffset, radius: radius),
+      animatedStart + gapAngle / 2,
+      animatedSweep - gapAngle,
+      true,
+      topPaint,
+    );
   }
+
+  @override
+  bool shouldRepaint(covariant PieChart3DPainter oldDelegate) {
+    return oldDelegate.animationValue != animationValue ||
+        oldDelegate.correctAnswers != correctAnswers ||
+        oldDelegate.incorrectAnswers != incorrectAnswers ||
+        oldDelegate.totalQuestions != totalQuestions;
+  }
+}
+
+// A helper class to hold slice data
+class _SliceData {
+  final double startAngle;
+  final double sweepAngle;
+  final Color color;
+  final Color sideColor;
+  final bool isExtruded;
+
+  _SliceData({
+    required this.startAngle,
+    required this.sweepAngle,
+    required this.color,
+    required this.sideColor,
+    required this.isExtruded,
+  });
 }

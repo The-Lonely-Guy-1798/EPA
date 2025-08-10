@@ -7,13 +7,29 @@ class HomeScreen extends StatelessWidget {
 
   // List of exams, sorted alphabetically
   final List<String> exams = const [
-    'Bank-Clerk',
-    'Bank-PO',
+    'AFCAT',
     'CAT',
     'CDS',
+    'CTET',
+    'GATE',
     'IB-ACIO',
+    'IBPS Clerk',
+    'IBPS PO',
+    'IBPS RRB',
+    'ISRO',
+    'JEE Main',
     'NDA',
-    'SSC-CGL',
+    'NEET-UG',
+    'SBI PO',
+    'SSC CHSL',
+    'SSC CGL',
+    'SSC GD Constable',
+    'State PSC',
+    'UGC NET',
+    'UPSC CAPF',
+    'UPSC',
+    'UPSC ESE',
+    'UPSC EPFO',
   ];
 
   @override

@@ -33,7 +33,7 @@ class LevelSelectionScreen extends StatelessWidget {
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4, // 4 columns for level blocks
+                  crossAxisCount: 5, // 6 columns for level blocks
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
                   childAspectRatio: 1.0, // Square blocks
