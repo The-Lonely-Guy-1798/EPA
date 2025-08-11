@@ -4,6 +4,7 @@ import 'package:exam_prep_adda/screens/quiz_analysis_screen.dart'; // Import the
 import 'dart:async'; // Required for the Timer class
 import 'dart:math'; // Required for the ceil function
 import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
+import 'package:exam_prep_adda/services/progress_service.dart'; // Import the progress service
 
 class QuizScreen extends StatefulWidget {
   final String examName;
@@ -57,9 +58,9 @@ class _QuizScreenState extends State<QuizScreen> {
   // New method to calculate warning time
   int _calculateWarningTime(int totalTime) {
     if (totalTime <= 600) {
-      return 60; // For quizzes up to 3 minutes, warning at 1 minute
+      return 60; // For quizzes up to 10 minutes, warning at 1 minute
     } else {
-      return 180; // For quizzes longer than 3 minutes, warning at 3 minutes
+      return 180; // For quizzes longer than 10 minutes, warning at 3 minutes
     }
   }
 
@@ -102,12 +103,38 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
+  /// This method is called when the quiz ends.
+  /// It calculates the score and saves it to the device using ProgressService.
   void _finishQuiz() {
     _timer.cancel();
-    setState(() {
-      _quizFinished = true;
-    });
+    _saveQuizResult(); // Save the score
+    if (mounted) {
+      setState(() {
+        _quizFinished = true;
+      });
+    }
   }
+
+  /// Calculates the final score and uses the ProgressService to save it locally.
+  Future<void> _saveQuizResult() async {
+    int correctAnswers = 0;
+    for (int i = 0; i < widget.questions.length; i++) {
+      if (_userAnswers[i] == widget.questions[i].correctAnswerIndex) {
+        correctAnswers++;
+      }
+    }
+    final totalQuestions = widget.questions.length;
+    if (totalQuestions > 0) {
+      final scorePercentage = (correctAnswers / totalQuestions) * 100;
+      // Use the service to save the score
+      await ProgressService.saveQuizScore(
+          widget.examName, widget.quizName, scorePercentage);
+      // Also, mark this quiz as completed
+      await ProgressService.saveCompletionStatus(
+          widget.examName, widget.quizName);
+    }
+  }
+
 
   void _goToAnalysisScreen() {
     Navigator.pushReplacement(
@@ -139,48 +166,53 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     final totalQuestions = widget.questions.length;
-    final scorePercentage = (correctAnswers / totalQuestions) * 100;
+    final scorePercentage = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0.0;
 
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Practice Set Complete!',
-              style: Theme.of(context).textTheme.headlineLarge,
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Practice Set Complete!',
+                  style: Theme.of(context).textTheme.headlineLarge,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: AnimatedPieChart(
+                    correctAnswers: correctAnswers,
+                    incorrectAnswers: incorrectAnswers,
+                    totalQuestions: totalQuestions,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Your Score: ${scorePercentage.toStringAsFixed(2)}%',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: _goToAnalysisScreen,
+                  child: const Text('View Analysis'),
+                ),
+                const SizedBox(height: 24),
+                // Display quiz statistics
+                _buildQuizStats(correctAnswers, incorrectAnswers, notAttempted),
+                const SizedBox(height: 24),
+                // Native Ad Placeholder at the very bottom
+                const NativeAdPlaceholder(),
+                // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
+                const SizedBox(height: 32),
+              ],
             ),
-            const SizedBox(height: 32),
-            SizedBox(
-              height: 200,
-              width: 200,
-              child: AnimatedPieChart(
-                correctAnswers: correctAnswers,
-                incorrectAnswers: incorrectAnswers,
-                totalQuestions: totalQuestions,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Your Score: ${scorePercentage.toStringAsFixed(2)}%',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: _goToAnalysisScreen,
-              child: const Text('View Analysis'),
-            ),
-            const SizedBox(height: 24),
-            // Display quiz statistics
-            _buildQuizStats(correctAnswers, incorrectAnswers, notAttempted),
-            const SizedBox(height: 24),
-            // Native Ad Placeholder at the very bottom
-            const NativeAdPlaceholder(),
-            // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
-            const SizedBox(height: 32),
-          ],
+          ),
         ),
       ),
     );
@@ -468,6 +500,8 @@ class PieChart3DPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (totalQuestions == 0) return; // Avoid division by zero
+
     final correctPercentage = correctAnswers / totalQuestions;
     final incorrectPercentage = incorrectAnswers / totalQuestions;
     final notAttemptedPercentage = (totalQuestions - correctAnswers - incorrectAnswers) / totalQuestions;
@@ -482,16 +516,18 @@ class PieChart3DPainter extends CustomPainter {
     final slices = <_SliceData>[];
 
     // Correct slice
-    slices.add(
-      _SliceData(
-        startAngle: currentStartAngle,
-        sweepAngle: correctSweepAngle,
-        color: Colors.green.shade600,
-        sideColor: Colors.green.shade800,
-        isExtruded: false,
-      ),
-    );
-    currentStartAngle += correctSweepAngle;
+    if (correctPercentage > 0) {
+      slices.add(
+        _SliceData(
+          startAngle: currentStartAngle,
+          sweepAngle: correctSweepAngle,
+          color: Colors.green.shade600,
+          sideColor: Colors.green.shade800,
+          isExtruded: false,
+        ),
+      );
+      currentStartAngle += correctSweepAngle;
+    }
 
     // Incorrect slice - This one will be extruded
     if (incorrectPercentage > 0) {

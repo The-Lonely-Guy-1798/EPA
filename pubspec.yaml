@@ -37,7 +37,7 @@ dependencies:
   google_fonts: ^6.1.0
   connectivity_plus: ^5.0.2
   google_mobile_ads: ^3.0.0
-
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
