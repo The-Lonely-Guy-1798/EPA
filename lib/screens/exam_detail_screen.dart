@@ -55,31 +55,22 @@ class ExamDetailScreen extends StatelessWidget {
 
   // Placeholder for quiz data. You would fetch this based on the exam.
   final Map<int, String> ibAcioQuizzes = const {
-    1: 'Very Easy Quiz 1',
-    2: 'Very Easy Quiz 2',
-    3: 'Very Easy Quiz 3',
-    4: 'Very Easy Quiz 4',
-    5: 'Very Easy Quiz 5',
-    6: 'Easy Quiz 1',
-    7: 'Easy Quiz 2',
-    8: 'Easy Quiz 3',
-    9: 'Easy Quiz 4',
-    10: 'Easy Quiz 5',
-    11: 'Medium Quiz 1',
-    12: 'Medium Quiz 2',
-    13: 'Medium Quiz 3',
-    14: 'Medium Quiz 4',
-    15: 'Medium Quiz 5',
-    16: 'Hard Quiz 1',
-    17: 'Hard Quiz 2',
-    18: 'Hard Quiz 3',
-    19: 'Hard Quiz 4',
-    20: 'Hard Quiz 5',
-    21: 'Very Hard Quiz 1',
-    22: 'Very Hard Quiz 2',
-    23: 'Very Hard Quiz 3',
-    24: 'Very Hard Quiz 4',
-    25: 'Very Hard Quiz 5',
+    1: 'Practice Set 1',
+    2: 'Practice Set 2',
+    3: 'Practice Set 3',
+    4: 'Practice Set 4',
+    5: 'Practice Set 5',
+    6: 'Practice Set 6',
+    7: 'Practice Set 7',
+    8: 'Practice Set 8',
+    9: 'Practice Set 9',
+    10: 'Practice Set 10',
+    11: 'Practice Set 11',
+    12: 'Practice Set 12',
+    13: 'Practice Set 13',
+    14: 'Practice Set 14',
+    15: 'Practice Set 15',
+    
   };
 
   @override
@@ -101,7 +92,7 @@ class ExamDetailScreen extends StatelessWidget {
           children: [
             // Exam Header Section
             Text(
-              'Welcome to the $examName preparation hub!',
+              'Start your $examName preparation!',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 24),
@@ -194,7 +185,7 @@ class ExamDetailScreen extends StatelessWidget {
               child: ExpansionTile(
                 leading: const Icon(Icons.star, color: Colors.amber),
                 title: const Text(
-                  'Quizzes',
+                  'Practice Set',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
@@ -202,7 +193,7 @@ class ExamDetailScreen extends StatelessWidget {
                 ),
                 children: [
                   ListTile(
-                    title: const Text('Start Quiz Challenge'),
+                    title: const Text('Start Your Final Practice'),
                     onTap: () {
                       Navigator.push(
                         context,

@@ -19,61 +19,66 @@ class QuizLevelSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate the number of ads to be shown. We'll show one ad every 5 quiz cards.
+    final int numberOfAds = quizzes.length ~/ 5;
+    // Calculate the total number of items in the grid, including quizzes and ads.
+    final int totalItems = quizzes.length + numberOfAds;
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('$examName Quizzes'),
-        flexibleSpace: const Align(
-          alignment: Alignment.bottomCenter,
-          child: BannerAdPlaceholder(),
-        ),
+        title: Text('$examName Practice Sets'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const BannerAdPlaceholder(),
             const SizedBox(height: 24),
             const Text(
-              'Select a Quiz Level:',
+              'Select the Practice Set you want to Attempt:',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 24),
-            // The list of items will now be a ListView.builder to allow for
-            // a dynamic number of items including ads.
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: quizzes.length + (quizzes.length ~/ 5),
+            // The list of items is now a GridView.builder to show cards
+            GridView.builder(
+              shrinkWrap: true, // Use this with SingleChildScrollView
+              physics: const NeverScrollableScrollPhysics(), // Disable internal scrolling
+              itemCount: totalItems,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16.0,
+                mainAxisSpacing: 16.0,
+                childAspectRatio: 1.0,
+              ),
               itemBuilder: (context, index) {
-                // Check if an ad should be placed here (after every 5 levels)
+                // Determine if this index should be an ad placeholder.
+                // We place an ad every 6th item (index 5, 11, etc.)
                 if ((index + 1) % 6 == 0) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 24.0),
-                    child: NativeAdPlaceholder(),
-                  );
-                }
-
-                // Adjust the index to get the correct quiz number from the map
-                // The quiz numbers are 1-based, and we need to account for the ads
-                int quizNumber = index + 1 - (index ~/ 6);
-                
-                // Get the quiz questions for the current quiz number
-                final List<Question> quizQuestions;
-                switch (quizNumber) {
-                  case 1:
-                    quizQuestions = ibAcioQuiz1Questions;
-                    break;
-                  // Add more cases for other quiz files here
-                  default:
-                    quizQuestions = [];
-                }
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: InkWell(
+                  return const NativeAdPlaceholder();
+                } else {
+                  // This is a quiz card position.
+                  // Calculate the actual quiz number, adjusting for the ads.
+                  // For example, at index 5, there has been one ad, so the
+                  // quiz number should be 5.
+                  final int quizNumber = index + 1 - (index ~/ 6);
+                  
+                  // This is a placeholder for a list of questions.
+                  // You should replace this with a dynamic method to load the correct quiz.
+                  final List<Question> quizQuestions;
+                  switch (quizNumber) {
+                    case 1:
+                      quizQuestions = ibAcioQuiz1Questions;
+                      break;
+                    default:
+                      quizQuestions = [];
+                  }
+                  
+                  // Build the quiz card
+                  return InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -91,7 +96,7 @@ class QuizLevelSelectionScreen extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      color: Theme.of(context).colorScheme.primary.withAlpha((255 * 0.8).round()),
+                      color: Theme.of(context).colorScheme.primary.withAlpha(200),
                       child: Center(
                         child: Text(
                           '$quizNumber',
@@ -102,14 +107,10 @@ class QuizLevelSelectionScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
             ),
-
-            // Spacing before the native ad
-            const SizedBox(height: 24),
-            // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
             const SizedBox(height: 32),
           ],
         ),

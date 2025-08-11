@@ -56,7 +56,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   // New method to calculate warning time
   int _calculateWarningTime(int totalTime) {
-    if (totalTime <= 180) {
+    if (totalTime <= 600) {
       return 60; // For quizzes up to 3 minutes, warning at 1 minute
     } else {
       return 180; // For quizzes longer than 3 minutes, warning at 3 minutes
@@ -148,7 +148,7 @@ class _QuizScreenState extends State<QuizScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Quiz Complete!',
+              'Practice Set Complete!',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(height: 32),
@@ -255,7 +255,7 @@ class _QuizScreenState extends State<QuizScreen> {
                       : null,
                   child: Text(
                     _currentQuestionIndex == widget.questions.length - 1
-                        ? 'Finish Quiz'
+                        ? 'Finish Practice Set'
                         : 'Next Question',
                   ),
                 ),
