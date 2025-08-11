@@ -126,10 +126,11 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget _buildQuizFinishedView() {
     int correctAnswers = 0;
     int incorrectAnswers = 0;
+    int notAttempted = 0;
 
     for (int i = 0; i < widget.questions.length; i++) {
       if (_userAnswers[i] == null) {
-        // do nothing
+        notAttempted++;
       } else if (_userAnswers[i] == widget.questions[i].correctAnswerIndex) {
         correctAnswers++;
       } else {
@@ -172,10 +173,73 @@ class _QuizScreenState extends State<QuizScreen> {
               child: const Text('View Analysis'),
             ),
             const SizedBox(height: 24),
+            // Display quiz statistics
+            _buildQuizStats(correctAnswers, incorrectAnswers, notAttempted),
+            const SizedBox(height: 24),
             // Native Ad Placeholder at the very bottom
             const NativeAdPlaceholder(),
             // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
             const SizedBox(height: 32),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuizStats(int correct, int incorrect, int notAttempted) {
+    final totalQuestions = widget.questions.length;
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Table(
+          columnWidths: const {
+            0: FlexColumnWidth(3),
+            1: FlexColumnWidth(1),
+          },
+          children: [
+            TableRow(
+              children: [
+                const Text(
+                  'Correctly Attempted:',
+                  style: TextStyle(fontSize: 16, color: Colors.green, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  '$correct/$totalQuestions',
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(fontSize: 16, color: Colors.green, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                const Text(
+                  'Wrongly Attempted:',
+                  style: TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  '$incorrect/$totalQuestions',
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            TableRow(
+              children: [
+                const Text(
+                  'Not Attempted:',
+                  style: TextStyle(fontSize: 16, color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  '$notAttempted/$totalQuestions',
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(fontSize: 16, color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ],
         ),
       ),
