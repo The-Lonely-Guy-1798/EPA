@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 
-// Import the new syllabus data file
-import 'package:exam_prep_adda/data/ib_acio/ib_acio_syllabus.dart';
+// Import all the syllabus data files with prefixes
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_syllabus.dart'
+    as ib_acio_syllabus;
+import 'package:exam_prep_adda/data/afcat/afcat_syllabus.dart'
+    as afcat_syllabus;
+import 'package:exam_prep_adda/data/cat/cat_syllabus.dart' as cat_syllabus;
+import 'package:exam_prep_adda/data/cds/cds_syllabus.dart' as cds_syllabus;
+import 'package:exam_prep_adda/data/ctet/ctet_syllabus.dart' as ctet_syllabus;
+import 'package:exam_prep_adda/data/gate/gate_syllabus.dart' as gate_syllabus;
+import 'package:exam_prep_adda/data/ibps_clerk/ibps_clerk_syllabus.dart'
+    as ibps_clerk_syllabus;
+import 'package:exam_prep_adda/data/ibps_po/ibps_po_syllabus.dart'
+    as ibps_po_syllabus;
+import 'package:exam_prep_adda/data/ibps_rrb/ibps_rrb_syllabus.dart'
+    as ibps_rrb_syllabus;
 
 // A model class to hold syllabus data for different exams.
-// This makes it easy to add more exams in the future.
 class ExamSyllabus {
-  // Updated to handle a tiered syllabus structure
+  // This structure now supports multiple tiers (e.g., Tier-I, Tier-II)
   final Map<String, Map<String, List<String>>> syllabusByTier;
   ExamSyllabus({required this.syllabusByTier});
 }
 
 /// A screen that displays the syllabus for a selected exam.
-/// It dynamically loads the syllabus data based on the exam name.
 class SyllabusScreen extends StatelessWidget {
   final String examName;
 
@@ -22,12 +33,38 @@ class SyllabusScreen extends StatelessWidget {
   // A helper method to get the correct syllabus data based on the exam name.
   ExamSyllabus _getSyllabusForExam(String examName) {
     switch (examName) {
+      case 'AFCAT':
+        // Wrap single-tier syllabuses in a map for consistent UI handling
+        return ExamSyllabus(
+          syllabusByTier: {'Syllabus': afcat_syllabus.afcatSyllabus},
+        );
+      case 'CAT':
+        return ExamSyllabus(
+          syllabusByTier: {'Syllabus': cat_syllabus.catSyllabus},
+        );
+      case 'CDS':
+        return ExamSyllabus(
+          syllabusByTier: {'Syllabus': cds_syllabus.cdsSyllabus},
+        );
+      case 'CTET':
+        return ExamSyllabus(syllabusByTier: ctet_syllabus.ctetSyllabus);
+      case 'GATE':
+        return ExamSyllabus(syllabusByTier: gate_syllabus.gateSyllabus);
+
       case 'IB-ACIO':
-        // The data file now exports a map organized by tiers
-        return ExamSyllabus(syllabusByTier: ibAcioSyllabus);
-      // Add cases for other exams here
-      // case 'SSC-CGL':
-      //   return ExamSyllabus(syllabusByTier: sscCglSyllabus);
+        return ExamSyllabus(syllabusByTier: ib_acio_syllabus.ibAcioSyllabus);
+
+      case 'IBPS CLERK':
+        return ExamSyllabus(
+          syllabusByTier: ibps_clerk_syllabus.ibpsClerkSyllabus,
+        );
+
+      case 'IBPS PO':
+        return ExamSyllabus(syllabusByTier: ibps_po_syllabus.ibpsPoSyllabus);
+
+      case 'IBPS RRB':
+        return ExamSyllabus(syllabusByTier: ibps_rrb_syllabus.ibpsRrbSyllabus);
+
       default:
         // Return a default or empty syllabus if the exam is not found
         return ExamSyllabus(syllabusByTier: {});
@@ -40,17 +77,12 @@ class SyllabusScreen extends StatelessWidget {
     final syllabusTiers = examSyllabus.syllabusByTier.entries.toList();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('$examName Syllabus'),
-      ),
-      // Replaced SingleChildScrollView and Column with a ListView for better scrollable behavior.
+      appBar: AppBar(title: Text('$examName Syllabus')),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
           if (syllabusTiers.isEmpty)
-            const Center(
-              child: Text('Syllabus details are not available yet.'),
-            )
+            const Center(child: Text('Syllabus details are not available yet.'))
           else
             // Use spread operator to insert the list of tier widgets directly
             ...syllabusTiers.expand((tierEntry) {
@@ -62,10 +94,9 @@ class SyllabusScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
                   child: Text(
                     tierName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 _SyllabusExpansionPanel(syllabusTopics: subjects),
@@ -115,8 +146,9 @@ class _SyllabusExpansionPanelState extends State<_SyllabusExpansionPanel> {
             _isExpanded[index] = !isExpanded;
           });
         },
-        children:
-            widget.syllabusTopics.asMap().entries.map<ExpansionPanel>((entry) {
+        children: widget.syllabusTopics.asMap().entries.map<ExpansionPanel>((
+          entry,
+        ) {
           final int index = entry.key;
           final String subject = entry.value.key;
           final List<String> topics = entry.value.value;

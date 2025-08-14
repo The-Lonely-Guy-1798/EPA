@@ -1,0 +1,80 @@
+// lib/data/ibps_po/ibps_po_syllabus.dart
+
+final Map<String, Map<String, List<String>>> ibpsPoSyllabus = {
+  'Preliminary Exam': {
+    'Reasoning Ability': [
+      'Logical Reasoning',
+      'Alphanumeric Series',
+      'Ranking/Direction/Alphabet Test',
+      'Data Sufficiency',
+      'Coded Inequalities',
+      'Seating Arrangement',
+      'Puzzle',
+      'Syllogism',
+      'Blood Relations',
+      'Input-Output',
+    ],
+    'Quantitative Aptitude': [
+      'Simplification/Approximation',
+      'Profit & Loss',
+      'Mixtures & Alligations',
+      'Simple Interest & Compound Interest',
+      'Work & Time',
+      'Time & Distance',
+      'Data Interpretation',
+      'Number Series',
+      'Quadratic Equations',
+    ],
+    'English Language': [
+      'Reading Comprehension',
+      'Cloze Test',
+      'Para jumbles',
+      'Spotting Error',
+      'Fill in the blanks',
+      'Sentence Improvement',
+    ],
+  },
+  'Main Exam': {
+    'Reasoning & Computer Aptitude': [
+      'Verbal Reasoning',
+      'Syllogism',
+      'Circular Seating Arrangement',
+      'Linear Seating Arrangement',
+      'Puzzles',
+      'Input-Output',
+      'Computer Basics & History',
+      'Internet, LAN, WAN',
+      'MS Office',
+    ],
+    'General/ Economy/ Banking Awareness': [
+      'Financial Awareness',
+      'Current Affairs',
+      'General Knowledge',
+      'Static Awareness',
+      'Banking and Insurance Awareness',
+    ],
+    'English Language': [
+      'Reading Comprehension',
+      'Vocabulary',
+      'Grammar',
+      'Verbal Ability',
+      'Descriptive Writing (Letter & Essay)',
+    ],
+    'Data Analysis & Interpretation': [
+      'Tabular Graphs',
+      'Line Graphs',
+      'Pie Charts',
+      'Bar Graphs',
+      'Data Sufficiency',
+      'Probability',
+      'Permutation and Combination',
+    ],
+  },
+  'Interview': {
+    'Personal Interview': [
+      'Questions related to banking sector',
+      'Current affairs',
+      'Personal background and suitability for the role',
+    ],
+  },
+};

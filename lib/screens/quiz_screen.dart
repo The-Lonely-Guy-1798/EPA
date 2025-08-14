@@ -38,9 +38,7 @@ class _QuizScreenState extends State<QuizScreen> {
   void initState() {
     super.initState();
     // Initialize the user answers list with null values
-    for (var i = 0; i < widget.questions.length; i++) {
-      _userAnswers.add(null);
-    }
+    _userAnswers.addAll(List<int?>.filled(widget.questions.length, null));
     // Calculate total time: number of questions * 40 seconds
     _totalQuizTimeInSeconds = widget.questions.length * 40;
     // Calculate the warning time based on the new rules
@@ -99,8 +97,87 @@ class _QuizScreenState extends State<QuizScreen> {
         _currentQuestionIndex++;
       });
     } else {
+      _handleFinishAttempt();
+    }
+  }
+
+  /// Skips the current question and moves to the next one.
+  void _skipQuestion() {
+    if (_currentQuestionIndex < widget.questions.length - 1) {
+      setState(() {
+        _currentQuestionIndex++;
+      });
+    } else {
+      _handleFinishAttempt();
+    }
+  }
+
+  /// Jumps to a specific question index.
+  void _jumpToQuestion(int questionIndex) {
+    if (questionIndex >= 0 && questionIndex < widget.questions.length) {
+      setState(() {
+        _currentQuestionIndex = questionIndex;
+      });
+    }
+  }
+
+  /// Checks for skipped questions before finishing the quiz.
+  void _handleFinishAttempt() {
+    final skippedQuestionIndexes = <int>[];
+    for (int i = 0; i < _userAnswers.length; i++) {
+      if (_userAnswers[i] == null) {
+        skippedQuestionIndexes.add(i);
+      }
+    }
+
+    if (skippedQuestionIndexes.isNotEmpty && mounted) {
+      _showSkippedQuestionsDialog(skippedQuestionIndexes);
+    } else {
       _finishQuiz();
     }
+  }
+
+  /// Shows a dialog to the user if they have skipped questions.
+  void _showSkippedQuestionsDialog(List<int> skippedIndexes) {
+    final skippedQuestionNumbers = skippedIndexes.map((i) => i + 1).toList();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Skipped Questions'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                const Text('You have skipped the following questions:'),
+                const SizedBox(height: 8),
+                Text(
+                  skippedQuestionNumbers.join(', '),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 16),
+                const Text('Do you want to go back or finish the quiz?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Go Back'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _jumpToQuestion(skippedIndexes.first);
+              },
+            ),
+            ElevatedButton(
+              child: const Text('Finish Anyway'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _finishQuiz();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   /// This method is called when the quiz ends.
@@ -128,13 +205,17 @@ class _QuizScreenState extends State<QuizScreen> {
       final scorePercentage = (correctAnswers / totalQuestions) * 100;
       // Use the service to save the score
       await ProgressService.saveQuizScore(
-          widget.examName, widget.quizName, scorePercentage);
+        widget.examName,
+        widget.quizName,
+        scorePercentage,
+      );
       // Also, mark this quiz as completed
       await ProgressService.saveCompletionStatus(
-          widget.examName, widget.quizName);
+        widget.examName,
+        widget.quizName,
+      );
     }
   }
-
 
   void _goToAnalysisScreen() {
     Navigator.pushReplacement(
@@ -166,7 +247,9 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     final totalQuestions = widget.questions.length;
-    final scorePercentage = totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0.0;
+    final scorePercentage = totalQuestions > 0
+        ? (correctAnswers / totalQuestions) * 100
+        : 0.0;
 
     return Scaffold(
       body: Center(
@@ -222,27 +305,30 @@ class _QuizScreenState extends State<QuizScreen> {
     final totalQuestions = widget.questions.length;
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Table(
-          columnWidths: const {
-            0: FlexColumnWidth(3),
-            1: FlexColumnWidth(1),
-          },
+          columnWidths: const {0: FlexColumnWidth(3), 1: FlexColumnWidth(1)},
           children: [
             TableRow(
               children: [
                 const Text(
                   'Correctly Attempted:',
-                  style: TextStyle(fontSize: 16, color: Colors.green, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   '$correct/$totalQuestions',
                   textAlign: TextAlign.end,
-                  style: const TextStyle(fontSize: 16, color: Colors.green, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.green,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -250,12 +336,20 @@ class _QuizScreenState extends State<QuizScreen> {
               children: [
                 const Text(
                   'Wrongly Attempted:',
-                  style: TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   '$incorrect/$totalQuestions',
                   textAlign: TextAlign.end,
-                  style: const TextStyle(fontSize: 16, color: Colors.red, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -263,12 +357,20 @@ class _QuizScreenState extends State<QuizScreen> {
               children: [
                 const Text(
                   'Not Attempted:',
-                  style: TextStyle(fontSize: 16, color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   '$notAttempted/$totalQuestions',
                   textAlign: TextAlign.end,
-                  style: const TextStyle(fontSize: 16, color: Colors.blueGrey, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -296,7 +398,9 @@ class _QuizScreenState extends State<QuizScreen> {
               label: Text(
                 _formatTime(_timeLeft),
                 style: TextStyle(
-                  color: _timeLeft <= _warningTimeInSeconds ? Colors.red : Colors.black,
+                  color: _timeLeft <= _warningTimeInSeconds
+                      ? Colors.red
+                      : Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -343,18 +447,25 @@ class _QuizScreenState extends State<QuizScreen> {
                 );
               }),
               const SizedBox(height: 24),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: ElevatedButton(
-                  onPressed: _userAnswers[_currentQuestionIndex] != null
-                      ? _nextQuestion
-                      : null,
-                  child: Text(
-                    _currentQuestionIndex == widget.questions.length - 1
-                        ? 'Finish Practice Set'
-                        : 'Next Question',
+              // Row for Skip and Next buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OutlinedButton(
+                    onPressed: _skipQuestion,
+                    child: const Text('Skip'),
                   ),
-                ),
+                  ElevatedButton(
+                    onPressed: _userAnswers[_currentQuestionIndex] != null
+                        ? _nextQuestion
+                        : null,
+                    child: Text(
+                      _currentQuestionIndex == widget.questions.length - 1
+                          ? 'Finish'
+                          : 'Next',
+                    ),
+                  ),
+                ],
               ),
               // Spacing before the native ad
               const SizedBox(height: 24),
@@ -400,18 +511,13 @@ class OptionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       color: _getTileColor(context),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         title: Text(
           option,
-          style: TextStyle(
-            color: _getTextColor(),
-            fontWeight: FontWeight.w500,
-          ),
+          style: TextStyle(color: _getTextColor(), fontWeight: FontWeight.w500),
         ),
         leading: selectedOptionIndex == index
             ? Icon(
@@ -442,7 +548,8 @@ class AnimatedPieChart extends StatefulWidget {
   State<AnimatedPieChart> createState() => _AnimatedPieChartState();
 }
 
-class _AnimatedPieChartState extends State<AnimatedPieChart> with SingleTickerProviderStateMixin {
+class _AnimatedPieChartState extends State<AnimatedPieChart>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -453,10 +560,7 @@ class _AnimatedPieChartState extends State<AnimatedPieChart> with SingleTickerPr
       duration: const Duration(seconds: 1),
       vsync: this,
     );
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.forward();
   }
 
@@ -504,7 +608,8 @@ class PieChart3DPainter extends CustomPainter {
 
     final correctPercentage = correctAnswers / totalQuestions;
     final incorrectPercentage = incorrectAnswers / totalQuestions;
-    final notAttemptedPercentage = (totalQuestions - correctAnswers - incorrectAnswers) / totalQuestions;
+    final notAttemptedPercentage =
+        (totalQuestions - correctAnswers - incorrectAnswers) / totalQuestions;
 
     final correctSweepAngle = (2 * pi * correctPercentage);
     final incorrectSweepAngle = (2 * pi * incorrectPercentage);
@@ -552,12 +657,15 @@ class PieChart3DPainter extends CustomPainter {
           color: Colors.grey.shade600,
           sideColor: Colors.grey.shade800,
           isExtruded: false,
-      ),
-    );
+        ),
+      );
     }
 
     // Sort the slices by end angle to draw them in the correct order for a 3D effect.
-    slices.sort((a, b) => (b.startAngle + b.sweepAngle).compareTo(a.startAngle + a.sweepAngle));
+    slices.sort(
+      (a, b) =>
+          (b.startAngle + b.sweepAngle).compareTo(a.startAngle + a.sweepAngle),
+    );
 
     for (final slice in slices) {
       _drawSlice(
@@ -605,21 +713,36 @@ class PieChart3DPainter extends CustomPainter {
     path.moveTo(center.dx + centerOffset.dx, center.dy + centerOffset.dy);
     path.lineTo(
       center.dx + centerOffset.dx + radius * cos(animatedStart + gapAngle / 2),
-      center.dy + centerOffset.dy + radius * sin(animatedStart + gapAngle / 2) + tiltOffset,
+      center.dy +
+          centerOffset.dy +
+          radius * sin(animatedStart + gapAngle / 2) +
+          tiltOffset,
     );
     path.arcTo(
       Rect.fromCircle(
-          center: Offset(center.dx + centerOffset.dx, center.dy + centerOffset.dy + tiltOffset),
-          radius: radius),
+        center: Offset(
+          center.dx + centerOffset.dx,
+          center.dy + centerOffset.dy + tiltOffset,
+        ),
+        radius: radius,
+      ),
       animatedStart + gapAngle / 2,
       animatedSweep - gapAngle,
       false,
     );
     path.lineTo(
-      center.dx + centerOffset.dx + radius * cos(animatedStart + animatedSweep - gapAngle / 2),
-      center.dy + centerOffset.dy + radius * sin(animatedStart + animatedSweep - gapAngle / 2) + tiltOffset,
+      center.dx +
+          centerOffset.dx +
+          radius * cos(animatedStart + animatedSweep - gapAngle / 2),
+      center.dy +
+          centerOffset.dy +
+          radius * sin(animatedStart + animatedSweep - gapAngle / 2) +
+          tiltOffset,
     );
-    path.lineTo(center.dx + centerOffset.dx, center.dy + centerOffset.dy + tiltOffset);
+    path.lineTo(
+      center.dx + centerOffset.dx,
+      center.dy + centerOffset.dy + tiltOffset,
+    );
     path.close();
     canvas.drawPath(path, sidePaint);
 

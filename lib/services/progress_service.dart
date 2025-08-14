@@ -12,6 +12,8 @@ class ProgressService {
   // Define prefixes for different types of keys to keep data organized.
   static const String _completedKeyPrefix = 'completed_';
   static const String _scoreKeyPrefix = 'score_';
+  // Add a key for the username
+  static const String _usernameKey = 'username';
 
   /// Generates a unique key for a completed practice set or quiz.
   /// Example key: 'completed_IB_ACIO_Quiz_1'
@@ -25,9 +27,25 @@ class ProgressService {
     return '$_scoreKeyPrefix${examName}_$quizName';
   }
 
+  /// Saves the user's chosen username to local storage.
+  static Future<void> saveUsername(String username) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_usernameKey, username);
+  }
+
+  /// Retrieves the user's saved username.
+  /// Returns a default name if none is found.
+  static Future<String> getUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_usernameKey) ?? 'John Doe';
+  }
+
   /// Saves the completion status of a specific item (practice question or quiz).
   /// This will save a boolean value of `true` to indicate completion.
-  static Future<void> saveCompletionStatus(String examName, String itemName) async {
+  static Future<void> saveCompletionStatus(
+    String examName,
+    String itemName,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final key = _generateCompletedKey(examName, itemName);
     await prefs.setBool(key, true);
@@ -43,7 +61,11 @@ class ProgressService {
 
   /// Saves the percentage score for a completed quiz.
   /// The score is stored as a double.
-  static Future<void> saveQuizScore(String examName, String quizName, double score) async {
+  static Future<void> saveQuizScore(
+    String examName,
+    String quizName,
+    double score,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     final key = _generateScoreKey(examName, quizName);
     await prefs.setDouble(key, score);
