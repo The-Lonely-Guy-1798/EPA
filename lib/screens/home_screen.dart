@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   final List<String> exams = const [
     'AFCAT', 'BSF Constable', 'CAT', 'CDS', 'CRPF Constable', 'CTET', 'GATE', 'IAF (Group X & Y)', 'IB-ACIO', 'IBPS Clerk', 'IBPS PO',
-    'IBPS RRB', 'Indian Navy Sailor (SSR & AA)', 'ISRO', 'JEE Main', 'NDA', 'NEET-UG', 'SBI PO', 'SSC CHSL',
+    'IBPS RRB', 'Indian Navy Sailor (SSR & AA)', 'ISRO', 'JEE Main', 'NDA', 'NEET-UG', 'SBI Clerk', 'SBI PO', 'SSC CHSL',
     'SSC CGL', 'SSC GD Constable', 'SSC Stenographer', 'State PSC', 'UGC NET', 'UPSC CAPF',
     'UPSC', 'UPSC ESE', 'RBI Grade B', 'RRB NTPC', 'RRB Group D', 'LIC AAO', 'IPPB Officer',
   ];

@@ -18,6 +18,28 @@ import 'package:exam_prep_adda/data/ibps_po/ibps_po_exam_pattern.dart'
     as ibps_po_pattern;
 import 'package:exam_prep_adda/data/ibps_rrb/ibps_rrb_exam_pattern.dart'
     as ibps_rrb_pattern;
+import 'package:exam_prep_adda/data/isro/isro_exam_pattern.dart'
+    as isro_pattern;
+import 'package:exam_prep_adda/data/bsf_constable/bsf_constable_exam_pattern.dart'
+    as bsf_constable_pattern;
+import 'package:exam_prep_adda/data/crpf_constable/crpf_constable_exam_pattern.dart'
+    as crpf_constable_pattern;
+import 'package:exam_prep_adda/data/indian_airforce/indian_airforce_exam_pattern.dart'
+    as indian_airforce_pattern;
+import 'package:exam_prep_adda/data/indian_navy_sailor/indian_navy_sailor_exam_pattern.dart'
+    as indian_navy_pattern;
+import 'package:exam_prep_adda/data/jee_mains/jee_mains_exam_pattern.dart'
+    as jee_mains_pattern;
+import 'package:exam_prep_adda/data/lic_aao/lic_aao_exam_pattern.dart'
+    as lic_aao_pattern;
+import 'package:exam_prep_adda/data/nda/nda_exam_pattern.dart'
+    as nda_pattern;
+import 'package:exam_prep_adda/data/neet_ug/neet_ug_exam_pattern.dart'
+    as neet_ug_pattern;
+import 'package:exam_prep_adda/data/rbi_grade_b/rbi_grade_b_exam_pattern.dart'
+    as rbi_grade_b_pattern;
+import 'package:exam_prep_adda/data/rrb_group_d/rrb_group_d_exam_pattern.dart'
+    as rrb_group_d_pattern;
 
 /// A screen that displays the exam pattern for a selected exam.
 /// It dynamically loads the pattern data based on the exam name.
@@ -41,16 +63,37 @@ class ExamPatternScreen extends StatelessWidget {
       case 'GATE':
         return gate_pattern.gateExamPattern;
       case 'IB-ACIO':
-        // Now using the prefix for consistency
         return ib_acio_pattern.ibAcioExamPattern;
       case 'IBPS CLERK':
         return ibps_clerk_pattern.ibpsClerkExamPattern;
-
       case 'IBPS PO':
         return ibps_po_pattern.ibpsPoExamPattern;
-
       case 'IBPS RRB':
         return ibps_rrb_pattern.ibpsRrbExamPattern;
+      case 'ISRO':
+        return isro_pattern.isroExamPattern;
+      case 'BSF CONSTABLE':
+        return bsf_constable_pattern.bsfConstableExamPattern;
+      case 'CRPF CONSTABLE':
+        return crpf_constable_pattern.crpfConstableExamPattern;
+      case 'INDAIN AIRFORCE (GROUP X&Y)':
+        return indian_airforce_pattern.indianAirforceExamPattern;
+      case 'INDAIN NAVY SAILOR':
+        return indian_navy_pattern.indianNavySailorExamPattern;
+      case 'JEE MAINS':
+        return jee_mains_pattern.jeeMainsExamPattern;
+      case 'LIC AAO':
+        return lic_aao_pattern.licAaoExamPattern;
+      case 'NDA':
+        return nda_pattern.ndaExamPattern;
+      case 'NEET-UG':
+        return neet_ug_pattern.neetUgExamPattern;
+      case 'RBI GRADE B':
+        return rbi_grade_b_pattern.rbiGradeBExamPattern;
+      case 'RRB GROUP D':
+        return rrb_group_d_pattern.rrbGroupDExamPattern;
+      
+
       // Add cases for other exams here
       // case 'SSC-CGL':
       //   return sscCglExamPattern;

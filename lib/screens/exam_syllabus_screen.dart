@@ -16,6 +16,25 @@ import 'package:exam_prep_adda/data/ibps_po/ibps_po_syllabus.dart'
     as ibps_po_syllabus;
 import 'package:exam_prep_adda/data/ibps_rrb/ibps_rrb_syllabus.dart'
     as ibps_rrb_syllabus;
+import 'package:exam_prep_adda/data/ippb_officer/ippb_officer_syllabus.dart'
+    as ippb_officer_syllabus;
+import 'package:exam_prep_adda/data/isro/isro_syllabus.dart' as isro_syllabus;
+import 'package:exam_prep_adda/data/bsf_constable/bsf_constable_syllabus.dart'
+    as bsf_constable_syllabus;
+import 'package:exam_prep_adda/data/crpf_constable/crpf_constable_syllabus.dart'
+    as crpf_constable_syllabus;
+import 'package:exam_prep_adda/data/indian_airforce/indian_airforce_syllabus.dart'
+    as indian_airforce_syllabus;
+import 'package:exam_prep_adda/data/indian_navy_sailor/indian_navy_sailor_syllabus.dart'
+    as indian_navy_sailor_syllabus;
+import 'package:exam_prep_adda/data/jee_mains/jee_mains_syllabus.dart'
+    as jee_mains_syllabus;
+import 'package:exam_prep_adda/data/lic_aao/lic_aao_syllabus.dart'
+    as lic_aao_syllabus;
+import 'package:exam_prep_adda/data/nda/nda_syllabus.dart' as nda_syllabus;
+import 'package:exam_prep_adda/data/neet_ug/neet_ug_syllabus.dart' as neet_ug_syllabus;
+import 'package:exam_prep_adda/data/rbi_grade_b/rbi_grade_b_syllabus.dart' as rbi_grade_b;
+import 'package:exam_prep_adda/data/rrb_group_d/rrb_group_d_syllabus.dart' as rrb_group_d;
 
 // A model class to hold syllabus data for different exams.
 class ExamSyllabus {
@@ -34,37 +53,47 @@ class SyllabusScreen extends StatelessWidget {
   ExamSyllabus _getSyllabusForExam(String examName) {
     switch (examName) {
       case 'AFCAT':
-        // Wrap single-tier syllabuses in a map for consistent UI handling
-        return ExamSyllabus(
-          syllabusByTier: {'Syllabus': afcat_syllabus.afcatSyllabus},
-        );
+        return ExamSyllabus(syllabusByTier: {'Syllabus': afcat_syllabus.afcatSyllabus});
+      case 'BSF Constable':
+        return ExamSyllabus(syllabusByTier: {'Syllabus': bsf_constable_syllabus.bsfConstableSyllabus});
       case 'CAT':
-        return ExamSyllabus(
-          syllabusByTier: {'Syllabus': cat_syllabus.catSyllabus},
-        );
+        return ExamSyllabus(syllabusByTier: {'Syllabus': cat_syllabus.catSyllabus});
       case 'CDS':
-        return ExamSyllabus(
-          syllabusByTier: {'Syllabus': cds_syllabus.cdsSyllabus},
-        );
+        return ExamSyllabus(syllabusByTier: {'Syllabus': cds_syllabus.cdsSyllabus});
+      case 'CRPF Constable':
+         return ExamSyllabus(syllabusByTier: {'Syllabus': crpf_constable_syllabus.crpfConstableSyllabus});
       case 'CTET':
         return ExamSyllabus(syllabusByTier: ctet_syllabus.ctetSyllabus);
       case 'GATE':
         return ExamSyllabus(syllabusByTier: gate_syllabus.gateSyllabus);
-
       case 'IB-ACIO':
         return ExamSyllabus(syllabusByTier: ib_acio_syllabus.ibAcioSyllabus);
-
-      case 'IBPS CLERK':
-        return ExamSyllabus(
-          syllabusByTier: ibps_clerk_syllabus.ibpsClerkSyllabus,
-        );
-
+      case 'IBPS Clerk':
+        return ExamSyllabus(syllabusByTier: ibps_clerk_syllabus.ibpsClerkSyllabus);
       case 'IBPS PO':
         return ExamSyllabus(syllabusByTier: ibps_po_syllabus.ibpsPoSyllabus);
-
       case 'IBPS RRB':
         return ExamSyllabus(syllabusByTier: ibps_rrb_syllabus.ibpsRrbSyllabus);
-
+      case 'Indian Air Force':
+        return ExamSyllabus(syllabusByTier: indian_airforce_syllabus.indianAirforceSyllabus);
+      case 'Indian Navy Sailor':
+        return ExamSyllabus(syllabusByTier: indian_navy_sailor_syllabus.indianNavySailorSyllabus);
+      case 'IPPB Officer':
+        return ExamSyllabus(syllabusByTier: ippb_officer_syllabus.ippbOfficerSyllabus);
+      case 'ISRO':
+         return ExamSyllabus(syllabusByTier: {'Syllabus': isro_syllabus.isroSyllabus});
+      case 'JEE Mains':
+         return ExamSyllabus(syllabusByTier: {'Syllabus': jee_mains_syllabus.jeeMainsSyllabus});
+      case 'LIC AAO':
+        return ExamSyllabus(syllabusByTier: lic_aao_syllabus.licAaoSyllabus);
+      case 'NDA':
+        return ExamSyllabus(syllabusByTier: nda_syllabus.ndaSyllabus);
+      case 'NEET-UG' :
+        return ExamSyllabus(syllabusByTier: {'Syllabus': neet_ug_syllabus.neetUgSyllabus});
+      case 'RBI GRADE B' :
+        return ExamSyllabus(syllabusByTier: rbi_grade_b.rbiGradeBSyllabus);
+      case 'RRB GROUP D' :
+        return ExamSyllabus(syllabusByTier: {'Syllabus': rrb_group_d.rrbGroupDSyllabus});
       default:
         // Return a default or empty syllabus if the exam is not found
         return ExamSyllabus(syllabusByTier: {});
@@ -94,9 +123,10 @@ class SyllabusScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
                   child: Text(
                     tierName,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
                 _SyllabusExpansionPanel(syllabusTopics: subjects),
@@ -146,9 +176,8 @@ class _SyllabusExpansionPanelState extends State<_SyllabusExpansionPanel> {
             _isExpanded[index] = !isExpanded;
           });
         },
-        children: widget.syllabusTopics.asMap().entries.map<ExpansionPanel>((
-          entry,
-        ) {
+        children:
+            widget.syllabusTopics.asMap().entries.map<ExpansionPanel>((entry) {
           final int index = entry.key;
           final String subject = entry.value.key;
           final List<String> topics = entry.value.value;
@@ -166,7 +195,8 @@ class _SyllabusExpansionPanelState extends State<_SyllabusExpansionPanel> {
               );
             },
             body: Container(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              padding:
+                  const EdgeInsets.only(left: 16, right: 16, bottom: 16),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
