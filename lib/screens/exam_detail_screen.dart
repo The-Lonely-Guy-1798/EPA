@@ -4,6 +4,7 @@ import 'package:exam_prep_adda/screens/quiz_level_selection_screen.dart'; // Imp
 import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 import 'package:exam_prep_adda/screens/exam_syllabus_screen.dart'; // Import the new Syllabus Screen
 import 'package:exam_prep_adda/screens/exam_pattern_screen.dart'; // Import the new Exam Pattern Screen
+import 'package:exam_prep_adda/utils/app_theme.dart'; // Import the app theme for the background
 
 // Import all your subject-specific question data files
 import 'package:exam_prep_adda/data/ib_acio/current_affairs_questions.dart';
@@ -85,136 +86,138 @@ class ExamDetailScreen extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Exam Header Section
-            Text(
-              'Start your $examName preparation!',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const SizedBox(height: 24),
-
-            // New buttons for Syllabus and Exam Pattern
-            Row(
-              children: [
-                Expanded(
-                  child: ExamInfoCard(
-                    title: 'Exam Syllabus',
-                    icon: Icons.assignment,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SyllabusScreen(examName: examName),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: ExamInfoCard(
-                    title: 'Exam Pattern',
-                    icon: Icons.list_alt,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ExamPatternScreen(examName: examName),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-
-            // Banner Ad Placeholder
-            const BannerAdPlaceholder(),
-            const SizedBox(height: 16),
-
-            // Practice Questions Expandable Bar
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+      body: AppBackground( // Added the AppBackground widget here
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Exam Header Section
+              Text(
+                'Start your $examName preparation!',
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-              child: ExpansionTile(
-                leading: const Icon(Icons.question_answer,
-                    color: Colors.deepPurple),
-                title: const Text(
-                  'Practice Questions',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                children: topicsWithQuestions.keys.map((topic) {
-                  return ListTile(
-                    title: Text(topic),
-                    onTap: () {
-                      final List<Question> questions =
-                          topicsWithQuestions[topic]!;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LevelSelectionScreen(
-                            examName: examName,
-                            topicName: topic,
-                            questions: questions,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 24),
 
-            // Quizzes Expandable Bar (New)
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ExpansionTile(
-                leading: const Icon(Icons.star, color: Colors.amber),
-                title: const Text(
-                  'Practice Set',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+              // New buttons for Syllabus and Exam Pattern
+              Row(
                 children: [
-                  ListTile(
-                    title: const Text('Start Your Final Practice'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QuizLevelSelectionScreen(
-                            examName: examName,
-                            quizzes: quizzesForExam,
+                  Expanded(
+                    child: ExamInfoCard(
+                      title: 'Exam Syllabus',
+                      icon: Icons.assignment,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SyllabusScreen(examName: examName),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ExamInfoCard(
+                      title: 'Exam Pattern',
+                      icon: Icons.list_alt,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ExamPatternScreen(examName: examName),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            // Native Ad Placeholder
-            const NativeAdPlaceholder(),
-            const SizedBox(height: 16),
-          ],
+              // Banner Ad Placeholder
+              const BannerAdPlaceholder(),
+              const SizedBox(height: 16),
+
+              // Practice Questions Expandable Bar
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ExpansionTile(
+                  leading: const Icon(Icons.question_answer,
+                      color: Colors.deepPurple),
+                  title: const Text(
+                    'Practice Questions',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  children: topicsWithQuestions.keys.map((topic) {
+                    return ListTile(
+                      title: Text(topic),
+                      onTap: () {
+                        final List<Question> questions =
+                            topicsWithQuestions[topic]!;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LevelSelectionScreen(
+                              examName: examName,
+                              topicName: topic,
+                              questions: questions,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Quizzes Expandable Bar (New)
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ExpansionTile(
+                  leading: const Icon(Icons.star, color: Colors.amber),
+                  title: const Text(
+                    'Practice Set',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  children: [
+                    ListTile(
+                      title: const Text('Start Your Final Practice'),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => QuizLevelSelectionScreen(
+                              examName: examName,
+                              quizzes: quizzesForExam,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Native Ad Placeholder
+              const NativeAdPlaceholder(),
+              const SizedBox(height: 16),
+            ],
+          ),
         ),
       ),
     );

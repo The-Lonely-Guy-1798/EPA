@@ -82,13 +82,17 @@ class _QuizScreenState extends State<QuizScreen> {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
+  /// Updated to allow changing or deselecting an answer.
   void _checkAnswer(int selectedIndex) {
-    // Only allow the user to select an answer if they haven't already
-    if (_userAnswers[_currentQuestionIndex] == null) {
-      setState(() {
+    setState(() {
+      // If the user taps the same option again, deselect it.
+      if (_userAnswers[_currentQuestionIndex] == selectedIndex) {
+        _userAnswers[_currentQuestionIndex] = null;
+      } else {
+        // Otherwise, select the new option.
         _userAnswers[_currentQuestionIndex] = selectedIndex;
-      });
-    }
+      }
+    });
   }
 
   void _nextQuestion() {
@@ -205,15 +209,10 @@ class _QuizScreenState extends State<QuizScreen> {
       final scorePercentage = (correctAnswers / totalQuestions) * 100;
       // Use the service to save the score
       await ProgressService.saveQuizScore(
-        widget.examName,
-        widget.quizName,
-        scorePercentage,
-      );
+          widget.examName, widget.quizName, scorePercentage);
       // Also, mark this quiz as completed
       await ProgressService.saveCompletionStatus(
-        widget.examName,
-        widget.quizName,
-      );
+          widget.examName, widget.quizName);
     }
   }
 
@@ -247,9 +246,8 @@ class _QuizScreenState extends State<QuizScreen> {
     }
 
     final totalQuestions = widget.questions.length;
-    final scorePercentage = totalQuestions > 0
-        ? (correctAnswers / totalQuestions) * 100
-        : 0.0;
+    final scorePercentage =
+        totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0.0;
 
     return Scaffold(
       body: Center(
@@ -309,26 +307,27 @@ class _QuizScreenState extends State<QuizScreen> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Table(
-          columnWidths: const {0: FlexColumnWidth(3), 1: FlexColumnWidth(1)},
+          columnWidths: const {
+            0: FlexColumnWidth(3),
+            1: FlexColumnWidth(1),
+          },
           children: [
             TableRow(
               children: [
                 const Text(
                   'Correctly Attempted:',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '$correct/$totalQuestions',
                   textAlign: TextAlign.end,
                   style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      color: Colors.green,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -337,19 +336,17 @@ class _QuizScreenState extends State<QuizScreen> {
                 const Text(
                   'Wrongly Attempted:',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '$incorrect/$totalQuestions',
                   textAlign: TextAlign.end,
                   style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -358,19 +355,17 @@ class _QuizScreenState extends State<QuizScreen> {
                 const Text(
                   'Not Attempted:',
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   '$notAttempted/$totalQuestions',
                   textAlign: TextAlign.end,
                   style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.blueGrey,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 16,
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),

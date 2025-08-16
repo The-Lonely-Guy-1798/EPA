@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/services/progress_service.dart'; // Import the progress service
+import 'package:exam_prep_adda/utils/app_theme.dart'; // Import the app theme for the background
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -159,129 +160,131 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: [
-                // User Info Card
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    leading: const CircleAvatar(
-                      radius: 30,
-                      backgroundImage: NetworkImage(
-                        'https://placehold.co/100x100/000000/FFFFFF?text=User',
+      body: AppBackground( // Added the AppBackground widget here
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : ListView(
+                padding: const EdgeInsets.all(16.0),
+                children: [
+                  // User Info Card
+                  Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      leading: const CircleAvatar(
+                        radius: 30,
+                        backgroundImage: NetworkImage(
+                          'https://placehold.co/100x100/000000/FFFFFF?text=User',
+                        ),
+                      ),
+                      title: Text(
+                        _username,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: const Text('Aspiring for Greatness'),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () => _showEditUsernameDialog(context),
                       ),
                     ),
-                    title: Text(
-                      _username,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    subtitle: const Text('Aspiring for Greatness'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () => _showEditUsernameDialog(context),
-                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-                // Performance Dashboard Section
-                const Text(
-                  'Performance Dashboard',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                const Divider(),
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                  // Performance Dashboard Section
+                  const Text(
+                    'Performance Dashboard',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                  const Divider(),
+                  Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          _buildStatRow(
+                            'Quizzes Attempted',
+                            quizzesAttempted.toString(),
+                            Icons.list_alt,
+                            Colors.blue,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildStatRow(
+                            'Average Score',
+                            '${averageScore.toStringAsFixed(2)}%',
+                            Icons.show_chart,
+                            Colors.orange,
+                          ),
+                          const SizedBox(height: 16),
+                          _buildStatRow(
+                            'Highest Score',
+                            '${highestScore.toStringAsFixed(2)}%',
+                            Icons.star,
+                            Colors.green,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Connect with Us Section
+                  const Text(
+                    'Connect with Us',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
+                  const Divider(),
+                  Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     child: Column(
                       children: [
-                        _buildStatRow(
-                          'Quizzes Attempted',
-                          quizzesAttempted.toString(),
-                          Icons.list_alt,
-                          Colors.blue,
+                        ListTile(
+                          leading: const Icon(Icons.message, color: Colors.green),
+                          title: const Text('Join our WhatsApp Channel'),
+                          trailing: const Icon(Icons.arrow_forward_ios),
+                          onTap: () {
+                            // Placeholder URL for a WhatsApp QR code
+                            _showConnectDialog(
+                              context,
+                              'WhatsApp Channel',
+                              'https://placehold.co/200x200/25D366/FFFFFF?text=WhatsApp+QR',
+                            );
+                          },
                         ),
-                        const SizedBox(height: 16),
-                        _buildStatRow(
-                          'Average Score',
-                          '${averageScore.toStringAsFixed(2)}%',
-                          Icons.show_chart,
-                          Colors.orange,
-                        ),
-                        const SizedBox(height: 16),
-                        _buildStatRow(
-                          'Highest Score',
-                          '${highestScore.toStringAsFixed(2)}%',
-                          Icons.star,
-                          Colors.green,
+                        const Divider(height: 1, indent: 16, endIndent: 16),
+                        ListTile(
+                          leading: const Icon(
+                            Icons.telegram,
+                            color: Colors.blueAccent,
+                          ),
+                          title: const Text('Join our Telegram Channel'),
+                          trailing: const Icon(Icons.arrow_forward_ios),
+                          onTap: () {
+                            // Placeholder URL for a Telegram QR code
+                            _showConnectDialog(
+                              context,
+                              'Telegram Channel',
+                              'https://placehold.co/200x200/0088CC/FFFFFF?text=Telegram+QR',
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
-                ),
-                const SizedBox(height: 24),
-
-                // Connect with Us Section
-                const Text(
-                  'Connect with Us',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-                const Divider(),
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: const Icon(Icons.message, color: Colors.green),
-                        title: const Text('Join our WhatsApp Channel'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          // Placeholder URL for a WhatsApp QR code
-                          _showConnectDialog(
-                            context,
-                            'WhatsApp Channel',
-                            'https://placehold.co/200x200/25D366/FFFFFF?text=WhatsApp+QR',
-                          );
-                        },
-                      ),
-                      const Divider(height: 1, indent: 16, endIndent: 16),
-                      ListTile(
-                        leading: const Icon(
-                          Icons.telegram,
-                          color: Colors.blueAccent,
-                        ),
-                        title: const Text('Join our Telegram Channel'),
-                        trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          // Placeholder URL for a Telegram QR code
-                          _showConnectDialog(
-                            context,
-                            'Telegram Channel',
-                            'https://placehold.co/200x200/0088CC/FFFFFF?text=Telegram+QR',
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+      ),
     );
   }
 
