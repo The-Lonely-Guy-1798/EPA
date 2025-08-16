@@ -38,11 +38,10 @@ class _HomeScreenState extends State<HomeScreen>
   bool _isBannerAdLoaded = false;
 
   final List<String> exams = const [
-    'AFCAT', 'CAT', 'CDS', 'CTET', 'GATE', 'IB-ACIO', 'IBPS Clerk', 'IBPS PO',
-    'IBPS RRB', 'ISRO', 'JEE Main', 'NDA', 'NEET-UG', 'SBI PO', 'SSC CHSL',
-    'SSC CGL', 'SSC GD Constable', 'State PSC', 'UGC NET', 'UPSC CAPF',
-    'UPSC', 'UPSC ESE', 'UPSC EPFO', 'RBI Grade B', 'NABARD Grade A', 'SEBI Grade A',
-    'RRB NTPC', 'RRB Group D', 'DFCCIL', 'LIC AAO', 'NIACL AO', 'IPPB Officer',
+    'AFCAT', 'BSF Constable', 'CAT', 'CDS', 'CRPF Constable', 'CTET', 'GATE', 'IAF (Group X & Y)', 'IB-ACIO', 'IBPS Clerk', 'IBPS PO',
+    'IBPS RRB', 'Indian Navy Sailor (SSR & AA)', 'ISRO', 'JEE Main', 'NDA', 'NEET-UG', 'SBI PO', 'SSC CHSL',
+    'SSC CGL', 'SSC GD Constable', 'SSC Stenographer', 'State PSC', 'UGC NET', 'UPSC CAPF',
+    'UPSC', 'UPSC ESE', 'RBI Grade B', 'RRB NTPC', 'RRB Group D', 'LIC AAO', 'IPPB Officer',
   ];
 
   late final List<String> _sortedExams;
@@ -139,10 +138,10 @@ class _HomeScreenState extends State<HomeScreen>
                     height: 250,
                     child: CustomPaint(
                       painter: ComicCloudPainter(),
-                      child: Center(
+                      child: const Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Icon(
                               Icons.lightbulb_outline,
                               color: Colors.orangeAccent,
@@ -157,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 17,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),

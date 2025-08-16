@@ -1,6 +1,5 @@
 // lib/utils/app_theme.dart
 import 'package:flutter/material.dart';
-import 'dart:math';
 import 'app_gradients.dart';
 
 // This file defines a custom Theme for the entire app,
@@ -114,12 +113,12 @@ class GradientButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: BorderRadius.circular(30.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: const Color.fromARGB(51, 0, 0, 0),
+            color: Color.fromARGB(51, 0, 0, 0),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: const Offset(0, 3),
+            offset: Offset(0, 3),
           ),
         ],
       ),

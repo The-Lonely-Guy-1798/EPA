@@ -3,1201 +3,1201 @@
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
 
 final List<Question> ibAcioCurrentAffairsQuestions = [
-  Question(
+  const Question(
     questionText: 'Which NASA-ISRO mission was launched by India on July 30, 2025 to track climate change and natural disasters?',
     options: ['Chandrayaan-3', 'Aditya-L1', 'NISAR (NASA-ISRO Synthetic Aperture Radar)', 'INSAT-4C'],
     correctAnswerIndex: 2,
     explanation: 'On July 30, 2025 India successfully launched NISAR, a USD 1.5 billion joint NASA-ISRO radar imaging satellite. NISAR is the first collaboration between NASA and ISRO for such a mission, designed to map the entire planet every 12 days and aid climate and disaster monitoring.',
   ),
-  Question(
+  const Question(
     questionText: 'NISAR, launched in July 2025, is unique because it carries two radar instruments. What frequencies do these radars operate on?',
     options: ['X-band and Ku-band', 'Ka-band and S-band', 'L-band and S-band', 'C-band and L-band'],
     correctAnswerIndex: 2,
     explanation: 'The NISAR satellite carries two synthetic-aperture radars: an L-band radar provided by NASA and an S-band radar developed by ISRO. This dual-frequency capability allows NISAR to measure changes in the Earth’s surface with high precision.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the approximate orbital altitude of the NISAR satellite launched in 2025?',
     options: ['360 km', '747 km', '1000 km', '550 km'],
     correctAnswerIndex: 1,
     explanation: 'NISAR was placed into a near-polar Sun-synchronous orbit approximately 747 km above Earth. This orbit allows it to map the planet regularly, covering wide swaths for climate and disaster monitoring.',
   ),
-  Question(
+  const Question(
     questionText: 'What future Indian space goal was mentioned alongside the NISAR launch in mid-2025?',
     options: ['Launching a human mission to Mars by 2030', 'Building its own space station by 2035', 'Establishing a permanent lunar base by 2040', 'Sending a robotic mission to Venus by 2027'],
     correctAnswerIndex: 1,
     explanation: 'The Reuters report on NISAR notes that India “has said it aims to build its own space station by 2035 and send astronauts to the moon in partnership with other countries” as part of its broader space vision.',
   ),
-  Question(
+  const Question(
     questionText: 'In August 2025, which country was Prime Minister Narendra Modi reported to visit for the Shanghai Cooperation Organisation (SCO) summit?',
     options: ['Russia', 'China', 'Kazakhstan', 'Uzbekistan'],
     correctAnswerIndex: 1,
     explanation: 'Media reports in early August 2025 indicated that PM Modi would visit China on August 31, 2025, to attend the SCO summit there.',
   ),
-  Question(
+  const Question(
     questionText: 'What was India\'s vote on the UN General Assembly resolutions on the Ukraine conflict in late February 2025?',
     options: ['For', 'Against', 'Abstained', 'Absent'],
     correctAnswerIndex: 2,
     explanation: 'On the third anniversary of the Russia-Ukraine war (Feb 24-25, 2025), India abstained from two UNGA resolutions that called for peace and the restoration of Ukraine’s sovereignty.',
   ),
-  Question(
+  const Question(
     questionText: 'What did India’s Foreign Ministry emphasize in its March 19, 2025 statement on the Gaza situation?',
     options: ['Calling for an end to Israel’s air strikes', 'Complete condemnation of Hamas', 'Release of all hostages and sustained humanitarian aid for Gaza', 'Support for a two-state solution immediately'],
     correctAnswerIndex: 2,
     explanation: 'India’s MEA statement on March 19, 2025 stressed the importance of releasing all hostages and ensuring that humanitarian assistance to Gaza continues. It expressed concern over the humanitarian crisis and called for sustained aid to the people of Gaza.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Middle Eastern country attended a 2025 BRICS foreign ministers meeting but held off on formally joining the BRICS bloc?',
     options: ['United Arab Emirates', 'Saudi Arabia', 'Egypt', 'Turkey'],
     correctAnswerIndex: 1,
     explanation: 'Reuters reported in May 2025 that Saudi Arabia attended a BRICS meeting in Rio de Janeiro but has not formally joined the BRICS group. Riyadh has been cautious about joining due to its strategic ties with the United States.',
   ),
-  Question(
+  const Question(
     questionText: 'What did U.S. President Donald Trump announce regarding India in connection with its oil imports from Russia (mid-2025)?',
     options: ['He would lower tariffs in exchange for price controls', 'He planned to impose additional 25% tariffs on Indian imports', 'He endorsed a free-trade agreement with India', 'He offered subsidies to Indian refiners'],
     correctAnswerIndex: 1,
     explanation: 'News reports around August 2025 noted that President Trump had threatened to impose a 25% tariff on Indian imports, criticizing India’s continued purchase of Russian oil and alleging it fueled the war. India’s government called such threats “unjustified and unreasonable”',
   ),
-  Question(
+  const Question(
     questionText: 'In mid-2025, how much Russian crude did India import (average) in the first half of the year, making it the top foreign buyer?',
     options: ['0.5 million barrels per day', '1.0 million barrels per day', '1.75 million barrels per day', '2.5 million barrels per day'],
     correctAnswerIndex: 2,
     explanation: 'India purchased an average of about 1.75 million barrels per day of Russian seaborne crude between January and June 2025, the highest of any foreign buyer during that period.',
   ),
-  Question(
+  const Question(
     questionText: 'What key statement did U.S. Middle East envoy Steve Witkoff make during his August 2025 visit to Israel?',
     options: ['He would open a new consulate in Jerusalem.', 'He aimed to negotiate Israeli withdrawal from Gaza.', 'He was working on a plan that would effectively end the Gaza war.', 'He announced U.S. sanctions on Israel.'],
     correctAnswerIndex: 2,
     explanation: 'Reuters reported on August 4, 2025 that Steve Witkoff, the U.S. special envoy, said he was working with Israeli officials on a plan “that would effectively end the war in Gaza”',
   ),
-  Question(
+  const Question(
     questionText: 'After ceasefire talks between Israel and Hamas collapsed in early August 2025, what options did Israeli officials reportedly discuss?',
     options: ['Pursuing diplomatic negotiations in Geneva', 'Full military expansion of the war or partial annexation of Gaza', 'Releasing more hostages unilaterally', 'Establishing a Palestinian state'],
     correctAnswerIndex: 1,
     explanation: 'Reports from early August 2025 indicated that Israeli officials had considered two main options if ceasefire negotiations failed: either a full-scale military operation to expand the war or the annexation of parts of Gaza.',
   ),
-  Question(
+  const Question(
     questionText: 'What was approved by Israel’s security cabinet on August 8, 2025?',
     options: ['A ceasefire in Gaza', 'Full military takeover of Gaza City', 'Opening border crossings for aid', 'Sharing governance with Palestinian authorities'],
     correctAnswerIndex: 1,
     explanation: 'On August 8, 2025, the Israeli security cabinet backed plans to prepare for a full military conquest of Gaza City, according to a government statement.',
   ),
-  Question(
+  const Question(
     questionText: 'Which city hosted the 2025 International Olympiad on Astronomy and Astrophysics (IOAA) with nearly 300 contestants from 64 countries?',
     options: ['New Delhi', 'Mumbai', 'Bangalore', 'Chennai'],
     correctAnswerIndex: 1,
     explanation: 'In August 2025 Mumbai hosted the IOAA, a youth astronomy competition. The event marked a record with almost 300 student contestants and about 140 team leaders from 64 countries.',
   ),
-  Question(
+  const Question(
     questionText: 'Which statement is true about India’s National Health Authority (AB PM-JAY) as of April 2025?',
     options: ['It had been implemented in all 34 states/UTs except Delhi.', 'It provides a cover of ₹10 lakh per family by default.', 'Delhi became the 35th state/UT to implement the scheme.', 'It is classified as an insurance (not assurance) scheme.'],
     correctAnswerIndex: 2,
     explanation: 'A press release on April 5, 2025 announced that Delhi had become the 35th state/UT to implement Ayushman Bharat – PM Jan Arogya Yojana (AB-PMJAY). (Option D is false because Nadda explicitly said it is an “assurance” scheme, not insurance.)',
   ),
-  Question(
+  const Question(
     questionText: 'How many people (approx.) did Delhi’s implementation of AB PM-JAY cover under 6.54 lakh families?',
     options: ['6.54 lakh', '12 lakh', '30 lakh', '50 lakh'],
     correctAnswerIndex: 2,
     explanation: 'The press release noted that about 30 lakh people (from 6.54 lakh families, plus an estimated 6 lakh senior citizens) in Delhi would benefit from AB PM-JAY.',
   ),
-  Question(
+  const Question(
     questionText: 'With Delhi’s entry into AB PM-JAY in 2025, what was the total cover (central + state) available per family?',
     options: ['₹5 lakh', '₹7.5 lakh', '₹10 lakh', '₹15 lakh'],
     correctAnswerIndex: 2,
     explanation: 'Delhi announced a top-up of ₹5 lakh above the central cover of ₹5 lakh, making the total coverage ₹10 lakh per family under AB PM-JAY.',
   ),
-  Question(
+  const Question(
     questionText: 'According to government statements in 2025, AB PM-JAY covers how many people in India (as per the Economic Caste Census basis)?',
     options: ['10 crore', '25 crore', '50 crore', '100 crore'],
     correctAnswerIndex: 2,
     explanation: 'Union Health Minister JP Nadda noted that AB PM-JAY is built on trust and was the first scheme to bring 50 crore people under its ambit based on the economic caste census.',
   ),
-  Question(
+  const Question(
     questionText: 'What milestone did India’s RBI Digital Rupee (e₹) reach in July 2025?',
     options: ['Launched in all 28 states', 'Crossed ₹1,000 crore in total transactions', 'Surpassed UPI transaction volume', 'Enabled offline payments nationwide'],
     correctAnswerIndex: 1,
     explanation: 'In July 2025, digital rupee transactions officially crossed ₹1,000 crore for the first time (approximately ₹1,030 crore in that month), marking a significant increase in CBDC adoption.',
   ),
-  Question(
+  const Question(
     questionText: 'What are the two variants of India’s RBI digital rupee (e₹)?',
     options: ['e₹-R (Retail) and e₹-W (Wholesale)', 'e₹-C (Cash) and e₹-N (Non-cash)', 'e₹-P (Public) and e₹-M (Merchant)', 'e₹-S (Smart) and e₹-L (Ledger)'],
     correctAnswerIndex: 0,
     explanation: 'The RBI Digital Rupee has two variants: e₹-R for retail (general consumer transactions) and e₹-W for wholesale (interbank and institutional settlements)',
   ),
-  Question(
+  const Question(
     questionText: 'By March 2026, the RBI aimed to onboard how many users and achieve what level of monthly e₹ transactions?',
     options: ['5 million users; ₹5,000 crore', '10 million users; ₹10,000 crore', '20 million users; ₹20,000 crore', '1 million users; ₹1,000 crore'],
     correctAnswerIndex: 1,
     explanation: 'RBI’s phased rollout strategy targets onboarding 10 million users and achieving ₹10,000 crore in monthly e₹ transactions by March 2026.',
   ),
-  Question(
+  const Question(
     questionText: 'What new train service did Railway Minister Ashwini Vaishnaw announce for September 2025?',
     options: ['India’s first Maglev train', 'The 100th Vande Bharat Express', 'India’s first Vande Bharat Sleeper Train', 'A high-speed train to Bhutan'],
     correctAnswerIndex: 2,
     explanation: 'In August 2025, Ashwini Vaishnaw announced that the first Vande Bharat Sleeper Train (a high-speed overnight train) would be launched in September 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the top operating speed of the Vande Bharat Sleeper train?',
     options: ['120 km/h', '150 km/h', '180 km/h', '220 km/h'],
     correctAnswerIndex: 2,
     explanation: 'The Vande Bharat Sleeper train, designed with modern coaches, is capable of reaching a top speed of 180 km/h.',
   ),
-  Question(
+  const Question(
     questionText: 'What future travel time was projected for the Mumbai–Ahmedabad bullet train once operational?',
     options: ['30 minutes', '1 hour', '2 hours 7 minutes', '3 hours 30 minutes'],
     correctAnswerIndex: 2,
     explanation: 'Railway Minister Ashwini Vaishnaw stated that India’s first bullet train from Mumbai to Ahmedabad would cut travel time to about two hours and seven minutes once it becomes operational.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the distance (route length) of the Mumbai–Ahmedabad high-speed rail corridor?',
     options: ['320 km', '508 km', '800 km', '125 km'],
     correctAnswerIndex: 1,
     explanation: 'The Mumbai–Ahmedabad bullet train corridor spans approximately 508 kilometres, connecting Bandra-Kurla in Mumbai to Ahmedabad in Gujarat.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the current projected GDP growth rate for India in 2025 according to the IMF (as of July 2025)?',
     options: ['5.0%', '6.4%', '7.5%', '8.2%'],
     correctAnswerIndex: 1,
     explanation: 'In July 2025, the IMF raised India’s GDP growth forecast to 6.4% for 2025 (calendar year basis), reaffirming India as the fastest-growing major economy.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the IMF’s projected global economic growth for 2025?',
     options: ['2.0%', '3.0%', '4.0%', '5.0%'],
     correctAnswerIndex: 1,
     explanation: 'The IMF modestly raised its global growth forecast for 2025 to 3.0%, citing factors like lower-than-expected trade impact and improved financial conditions.',
   ),
-  Question(
+  const Question(
     questionText: 'Who was the President of the United Nations General Assembly (UNGA) for its 79th session, who visited India in January–February 2025?',
     options: ['Volkan Bozkir of Turkey', 'Abdulla Shahid of Maldives', 'Philemon Yang of Cameroon', 'Peter Thomson of Fiji'],
     correctAnswerIndex: 2,
     explanation: 'Philemon Yang, a diplomat from Cameroon, was elected President of the 79th UNGA. He visited India from January 4 to February 8, 2025 on an official visit.',
   ),
-  Question(
+  const Question(
     questionText: 'What was one of the goals of UNGA President Philemon Yang’s January–February 2025 visit to India?',
     options: ['Launching a new nuclear reactor', 'Strengthening multilateral cooperation on global issues including international peace and security', 'Inaugurating the India-Africa Summit in Delhi', 'Signing a free trade agreement with South Africa'],
     correctAnswerIndex: 1,
     explanation: 'During his visit (Jan 4 – Feb 8, 2025), UNGA President Philemon Yang aimed to strengthen multilateral cooperation with India on key global issues, notably international peace and security.',
   ),
-  Question(
+  const Question(
     questionText: 'When was the continuation of the Pradhan Mantri Fasal Bima Yojana (PMFBY) and the Restructured Weather-Based Crop Insurance Scheme approved?',
     options: ['January 1, 2025', 'February 19, 2025', 'March 25, 2025', 'April 15, 2025'],
     correctAnswerIndex: 0,
     explanation: 'The Union Cabinet on January 1, 2025 approved the continuation of PMFBY and the restructured weather-based crop insurance scheme through the year 2025–26.',
   ),
-  Question(
+  const Question(
     questionText: 'In early 2025, what fertilizer subsidy package did the Indian Cabinet extend?',
     options: ['Subsidy on urea until 2030', 'One-time special package on Diammonium Phosphate (DAP) from Jan 1, 2025 onwards', 'Nitrogen-phosphate-potassium (NPK) subsidy for Rabi crops', 'Export subsidy on DAP'],
     correctAnswerIndex: 1,
     explanation: 'On January 1, 2025 the Cabinet approved the extension of a one-time special package on DAP fertilizer, effective from January 1, 2025 until further orders.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total outlay approved for the National Mission on Natural Farming (NMNF) in November 2024?',
     options: ['₹1,000 crore', '₹2,481 crore', '₹10,103 crore', '₹50 crore'],
     correctAnswerIndex: 1,
     explanation: 'The Cabinet on November 25, 2024 approved launching the National Mission on Natural Farming with a total outlay of ₹2,481 crore.',
   ),
-  Question(
+  const Question(
     questionText: 'What does PMFBY stand for?',
     options: ['Pradhan Mantri Fasal Bima Yojana', 'Pradhan Mantri Financial Banking Yojana', 'Primary Market Funding By Yojana', 'Performance Mandated Farmer Benefit Yojana'],
     correctAnswerIndex: 0,
     explanation: 'PMFBY is the acronym for Pradhan Mantri Fasal Bima Yojana, India’s flagship crop insurance scheme.',
   ),
-  Question(
+  const Question(
     questionText: 'What does WBCIS stand for (in the context of Indian agriculture insurance)?',
     options: ['Weather-Based Crop Insurance Scheme', 'Wholesale Banking and Credit Insurance Scheme', 'Water-Bank Crop Index Strategy', 'World Bank Cooperative Integration Strategy'],
     correctAnswerIndex: 0,
     explanation: 'WBCIS refers to the Weather-Based Crop Insurance Scheme, which was restructured and continued alongside PMFBY.',
   ),
-  Question(
+  const Question(
     questionText: 'What additional budget was allocated to the Revised National Program for Dairy Development (NPDD) in March 2025?',
     options: ['₹500 crore', '₹1,000 crore', '₹2,000 crore', '₹5,000 crore'],
     correctAnswerIndex: 1,
     explanation: 'In March 2025 the Cabinet approved the Revised NPDD with an additional outlay of ₹1,000 crore (raising its total for 2021-26 to ₹2,790 crore).',
   ),
-  Question(
+  const Question(
     questionText: 'After the revision announced in 2025, what is the total budget for the Rashtriya Gokul Mission (RGM) through 2025–26?',
     options: ['₹1,500 crore', '₹2,400 crore', '₹3,400 crore', '₹5,000 crore'],
     correctAnswerIndex: 2,
     explanation: 'The Revised RGM, aimed at boosting the livestock sector, received an additional ₹1,000 crore, bringing the total budget to ₹3,400 crore for the 15th Finance Commission period (2021–26).',
   ),
-  Question(
+  const Question(
     questionText: 'What is the Kisan Credit Card (KCC) loan limit for farmers after the Budget 2025–26 changes?',
     options: ['₹1 lakh', '₹3 lakh', '₹5 lakh', '₹10 lakh'],
     correctAnswerIndex: 2,
     explanation: 'The Budget 2025–26 raised the loan limit under the Modified Interest Subvention Scheme for KCC from ₹3 lakh to ₹5 lakh, expected to benefit 7.7 crore farmers, fishermen, and dairy farmers.',
   ),
-  Question(
+  const Question(
     questionText: 'Which new agricultural scheme launched in Budget 2025 targets 100 low-productivity districts?',
     options: ['PM-Kisan', 'PM Dhan-Dhaanya Krishi Yojana', 'Pradhan Mantri Fasal Bima Yojana', 'Krishi Sinchai Yojana'],
     correctAnswerIndex: 1,
     explanation: 'Budget 2025 introduced the Prime Minister Dhan-Dhaanya Krishi Yojana, a scheme focusing on 100 low-productivity districts and aiming to enhance agricultural productivity in those regions.',
   ),
-  Question(
+  const Question(
     questionText: 'Under the Budget 2025 Mission for Atmanirbharta in Pulses, which three pulses are specifically targeted?',
     options: ['Chickpea, Lentil, and Pea', 'Tur (pigeon pea), Urad (black gram), and Masoor (lentil)', 'Green gram, Soybean, and Groundnut', 'Horsegram, Black-eye pea, and Cowpea'],
     correctAnswerIndex: 1,
     explanation: 'The six-year Mission for Atmanirbharta in Pulses focuses on Tur, Urad, and Masoor, with goals including developing climate-resilient seeds and ensuring remunerative MSP-supported procurement.',
   ),
-  Question(
+  const Question(
     questionText: 'How many users did India’s RBI aim to have on the digital rupee platform by March 2026?',
     options: ['1 million', '5 million', '10 million', '20 million'],
     correctAnswerIndex: 2,
     explanation: 'RBI’s rollout plan aimed to onboard 10 million users by March 2026, alongside achieving ₹10,000 crore in monthly e₹ transactions',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following was not one of the two umbrella schemes into which various agriculture CSS were rationalized on Oct 3, 2024?',
     options: ['PM Rashtriya Krishi Vikas Yojana (PM-RKVY)', 'Krishonnati Yojana (KY)', 'PM Kisan Sampada Yojana', 'None of the above (both A and B were the umbrella schemes)'],
     correctAnswerIndex: 2,
     explanation: 'On October 3, 2024 the Cabinet approved the consolidation of agriculture CSS schemes under two umbrella programs: PM-RKVY and Krishonnati Yojana. PM Kisan Sampada Yojana is not one of these two.',
   ),
-  Question(
+  const Question(
     questionText: 'Which new urea plant project was announced in Budget 2025–26?',
     options: ['Vijaipur, Madhya Pradesh', 'Namrup, Assam', 'Talcher, Odisha', 'Mathura, Uttar Pradesh'],
     correctAnswerIndex: 1,
     explanation: 'The Budget 2025–26 announced a new urea plant with 12.7 lakh metric tons annual capacity at Namrup in Assam, aimed at enhancing India’s self-sufficiency in urea production.',
   ),
-  Question(
+  const Question(
     questionText: 'In July 2025, India’s GDP for FY 2024–25 was estimated to have grown by what percentage?',
     options: ['4.5%', '5.9%', '6.5%', '7.8%'],
     correctAnswerIndex: 2,
     explanation: '(According to external sources beyond the browsing citations, India’s economy grew 6.5% year over year in FY 2024–25. This aligns with IMF’s outlook data and Deloitte’s August 2025 report.)',
   ),
-  Question(
+  const Question(
     questionText: 'Which two crops saw the highest absolute increase in MSP for Kharif 2025-26 (in ₹ per quintal)?',
     options: ['Bajra and Jowar', 'Nigerseed and Ragi', 'Rice and Maize', 'Groundnut and Cotton'],
     correctAnswerIndex: 1,
     explanation: 'The highest absolute MSP hikes were for Nigerseed (₹820 per quintal increase) and Ragi (₹596).',
   ),
-  Question(
+  const Question(
     questionText: 'Which Kharif crop was given the highest margin over cost in MSP for 2025-26, according to government data?',
     options: ['Bajra (Pearl millet)', 'Maize', 'Tur (Pigeon pea)', 'Urad (Black gram)'],
     correctAnswerIndex: 0,
     explanation: 'The MSP increase provided the largest profit margin to farmers for bajra, at 63% above cost, higher than maize (59%) and others.',
   ),
-  Question(
+  const Question(
     questionText: 'India plans to launch its own human spaceflight program by when?',
     options: ['2027', '2030', '2035', '2040'],
     correctAnswerIndex: 1,
     explanation: 'India’s upcoming human spaceflight program is called Gaganyaan, with initial crewed missions targeted by around 2030.',
   ),
-  Question(
+  const Question(
     questionText: 'Who is the Chairman of ISRO mentioned during the NISAR launch, noting its global significance?',
     options: ['K. Sivan', 'V. Narayanan', 'M. Annadurai', 'R. Shekhar'],
     correctAnswerIndex: 1,
     explanation: 'ISRO Chairman V. Narayanan commented on the launch, highlighting NISAR’s global utility and collaborative nature.',
   ),
-  Question(
+  const Question(
     questionText: 'As of early 2025, which country has become the second-largest buyer of Russian oil after China?',
     options: ['India', 'Japan', 'Germany', 'South Korea'],
     correctAnswerIndex: 0,
     explanation: 'Reuters reported that India has become the second-largest buyer of Russian oil (after China), having refrained from sanctions and purchased large quantities in early 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the primary goal of the Union Budget 2025–26 as stated in government documents?',
     options: ['Restrict agriculture to achieve food export surpluses', 'Continue expanding subsidies without targeting productivity', 'Strengthen agriculture as the foremost engine of development', 'Shift focus entirely to industrial and service sectors'],
     correctAnswerIndex: 2,
     explanation: 'Government documents emphasize that the Budget 2025–26 focuses on agriculture as the “foremost engine” of India’s development, with measures for productivity, incomes, and rural infrastructure.',
   ),
-  Question(
+  const Question(
     questionText: 'What travel technology is “Kavach”, mentioned in the context of Vande Bharat trains?',
     options: ['A high-speed tilting mechanism', 'An anti-collision signalling system', 'A bulletproof exterior coating', 'A wireless passenger entertainment network'],
     correctAnswerIndex: 1,
     explanation: '“Kavach” is an indigenous automatic train protection (ATP) anti-collision system used on Indian Railways, including some Vande Bharat trains for enhanced safety.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following was not one of the key components of the Revised National Program for Dairy Development (NPDD) approved in 2025?',
     options: ['Improved milk procurement and processing capacity', 'Enhanced market access and value addition for farmers', 'Launch of a dedicated dairy satellite communication network', 'Strengthening the dairy supply chain'],
     correctAnswerIndex: 2,
     explanation: 'The Revised NPDD components included improving procurement/processing, market access, and supply chains (Options A, B, D). Satellite communications was not mentioned.',
   ),
-  Question(
+  const Question(
     questionText: 'The Revised Rashtriya Gokul Mission approved in 2025 provides support for high genetic merit (HGM) heifers. What form does this support take?',
     options: ['Direct subsidy for cattle feed', '3% interest subvention on loans for purchasing HGM heifers', 'Free veterinary care for 5 years', '50% rebate on milk processing equipment'],
     correctAnswerIndex: 1,
     explanation: 'One of the key additions to the Revised RGM is a 3% interest subvention on loans taken by farmers to buy high genetic merit IVF heifers.',
   ),
-  Question(
+  const Question(
     questionText: 'According to the revised RGM (Rashtriya Gokul Mission), what percentage of planned heifer center capital cost will the government subsidize?',
     options: ['10%', '25%', '35%', '50%'],
     correctAnswerIndex: 2,
     explanation: 'The Revised RGM provides a one-time assistance of 35% of the capital cost for setting up 30 heifer rearing centers.',
   ),
-  Question(
+  const Question(
     questionText: 'What does PMFBY aim to achieve in India?',
     options: ['Provide loans to farmers for purchasing machinery', 'Supply free fertilizer to all farmers', 'Insure farmers against crop losses due to natural calamities', 'Establish farmers’ producer organizations nationwide'],
     correctAnswerIndex: 2,
     explanation: 'Pradhan Mantri Fasal Bima Yojana (PMFBY) is designed to provide crop insurance to farmers, covering losses from events like drought, flood, and pests, ensuring financial support when crops fail.',
   ),
-  Question(
+  const Question(
     questionText: 'Under the AB PM-JAY scheme in Delhi, how many families became eligible for coverage as of April 2025?',
     options: ['1.5 lakh families', '3.2 lakh families', '6.54 lakh families', '10 lakh families'],
     correctAnswerIndex: 2,
     explanation: 'The Delhi government stated that 6.54 lakh families (around 30 lakh individuals) would be covered under AB PM-JAY when the scheme was rolled out in Delhi.',
   ),
-  Question(
+  const Question(
     questionText: 'Which statement about the AB PM-JAY in India is correct?',
     options: ['It is a purely state-funded scheme.', 'It offers life insurance cover only.', 'It is described as an “assurance” scheme, not an “insurance” scheme.', 'It only covers people above 60 years of age.'],
     correctAnswerIndex: 2,
     explanation: 'Health Minister Nadda highlighted that AB PM-JAY is built on trust and thus is an “assurance” scheme rather than an insurance scheme.',
   ),
-  Question(
+  const Question(
     questionText: 'What is one major difference between RBI’s Digital Rupee (e₹) and existing UPI payments, as per RBI analysis?',
     options: ['e₹ transactions are slower than UPI.', 'UPI is government-issued, e₹ is private.', 'e₹ operates on a central ledger, offering offline transactions in pilot; UPI relies on bank networks.', 'There is no difference; they are the same system.'],
     correctAnswerIndex: 2,
     explanation: 'According to RBI analysis, the Digital Rupee uses a central ledger and has an offline payment mode in pilot, while UPI runs through bank accounts without offline capability.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the top speed of the Kadam train (Amrit Bharat Express), as mentioned by the Railways Minister?',
     options: ['110 km/h', '120 km/h', '130 km/h', '160 km/h'],
     correctAnswerIndex: 1,
     explanation: 'This information is drawn from Railways Ministry sources (contextual knowledge). Kadam Express (Amrit Bharat series) runs at a top speed of 120 km/h, as per announcements (not directly cited above).',
   ),
-  Question(
+  const Question(
     questionText: 'Which crop’s MSP increase was announced to encourage farmers to expand its production, reflecting growing demand domestically and internationally?',
     options: ['Wheat', 'Copra (Coconut)', 'Cotton', 'Soybean'],
     correctAnswerIndex: 1,
     explanation: 'A PIB release noted that higher MSPs for milling and ball copra (coconut) – raised by 121% and 120% since 2014 – are intended to incentivize farmers to expand copra production to meet rising demand.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following was not a focus area in India’s Union Budget 2025–26 agriculture provisions?',
     options: ['Enhanced irrigation and storage facilities', 'Comprehensive promotion of vegetables and fruits with value addition', 'Establishment of a cotton productivity mission', 'Direct cash transfer to all farmers regardless of landholding'],
     correctAnswerIndex: 3,
     explanation: 'The Budget 2025–26 included schemes for irrigation (KCC limit increase), support for vegetable/fruit chains, a cotton productivity mission, pulses, etc. (Options A, B, C are budget initiatives), but there was no blanket direct cash transfer scheme for all farmers announced.',
   ),
-  Question(
+  const Question(
     questionText: 'Which state/UT government announced giving an additional ₹5 lakh top-up cover for AB PM-JAY beneficiaries on top of the central ₹5 lakh?',
     options: ['Maharashtra', 'Karnataka', 'Delhi', 'Punjab'],
     correctAnswerIndex: 2,
     explanation: 'The Delhi government announced an additional ₹5 lakh top-up, supplementing the central ₹5 lakh cover, making it ₹10 lakh total for families under AB PM-JAY in Delhi.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the full form of “NPDD” in the context of Indian agriculture schemes?',
     options: ['National Pulses Development Department', 'National Program for Dairy Development', 'New Plant Disease Database', 'National Paddy Price Directorate'],
     correctAnswerIndex: 1,
     explanation: 'NPDD stands for National Program for Dairy Development, a central sector scheme (revised with extra funding in 2025) aimed at enhancing dairy infrastructure and procurement.',
   ),
-  Question(
+  const Question(
     questionText: 'Under the Union Budget 2025–26, which area received a special focus through a dedicated agricultural mission called the “Cotton Productivity Mission”?',
     options: ['Improving cotton yield and promoting extra-long staple cotton', 'Electrifying all cotton processing units', 'Exporting cotton to Europe', 'Banning cotton imports'],
     correctAnswerIndex: 0,
     explanation: 'The Budget documents mention a five-year Cotton Productivity Mission aimed at improving cotton yield and sustainability, specifically promoting extra-long staple cotton for cotton growers.',
   ),
-  Question(
+  const Question(
     questionText: 'Which group of pulses did the Government procure for four years under the Atmanirbhar Pulses mission?',
     options: ['Arhar (Tur), Urad, and Masoor', 'Green gram, Soybean, and Bengal gram', 'Cowpea, Moth bean, and Horsegram', 'Lentil, Chickpea, and Kidney bean'],
     correctAnswerIndex: 0,
     explanation: 'The Mission for Atmanirbhar in Pulses guarantees procurement of Tur, Urad, and Masoor by NAFED and NCCF for four years to ensure remunerative prices.',
   ),
-  Question(
+  const Question(
     questionText: 'Who is the External Affairs Minister of India who would meet the UNGA President during his visit?',
     options: ['Sushma Swaraj', 'S. Jaishankar', 'Salman Khurshid', 'Subrahmanyam Jaishankar (alternate spelling)'],
     correctAnswerIndex: 3,
     explanation: 'The UNGA President’s itinerary mentioned discussions with India’s External Affairs Minister, Dr. S. Jaishankar. (Option D repeats S. Jaishankar’s full name).',
   ),
-  Question(
+  const Question(
     questionText: 'Which country’s President did UNGA President Philemon Yang pay respects to at Hiroshima’s cenotaph during his January 2025 itinerary?',
     options: ['The Emperor of Japan', 'The Prime Minister of Japan', 'He did not interact with Japan’s leaders in Hiroshima', 'General Secretary of the UN'],
     correctAnswerIndex: 2,
     explanation: 'Before visiting India, Yang concluded his Japan trip (Jan 31 – Feb 4, 2025) by visiting Hiroshima to pay respect at the atomic bomb victims’ cenotaph, not involving talks with Japanese leaders in that segment.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following best describes the RBI Digital Rupee (e₹)?',
     options: ['A decentralized cryptocurrency like Bitcoin', 'A government-backed central bank digital currency (CBDC)', 'A mobile payment app run by a private bank', 'A non-fiat stablecoin pegged to the US dollar'],
     correctAnswerIndex: 1,
     explanation: 'The RBI Digital Rupee is a sovereign digital currency issued by the Reserve Bank of India, fully backed by the government, distinguishing it from decentralized cryptocurrencies.',
   ),
-  Question(
+  const Question(
     questionText: 'As of mid-2025, which of the following global leaders had not visited India during their term?',
     options: ['Japanese Prime Minister Fumio Kishida', 'Brazilian President Luiz Inácio Lula da Silva', 'UN Secretary-General António Guterres', 'Chinese President Xi Jinping'],
     correctAnswerIndex: 2,
     explanation: 'By mid-2025, Kishida and Lula have made visits (Kishida visited Delhi in 2023 and Lula attended G20 in 2023), and Xi Jinping was scheduled for SCO 2024 (visit delayed). António Guterres had not visited India in that timeframe.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian space initiative was highlighted as an example of low-cost, high-impact missions alongside NISAR?',
     options: ['Chandrayaan-2 Mars landing', 'Chandrayaan-3 moon landing', 'Mangalyaan Mars orbiter', 'AstroSat launch'],
     correctAnswerIndex: 1,
     explanation: 'Reuters noted India’s success with Chandrayaan-3 moon landing as part of its growing profile in low-cost, high-impact space missions, in context of NISAR.',
   ),
-  Question(
+  const Question(
     questionText: 'What is ‘Gaganyaan’, as mentioned in context with India’s space program?',
     options: ['India’s first Mars rover mission', 'An upcoming human spaceflight program aiming to send astronauts to space', 'A supercomputer for astrophysics', 'India’s satellite navigation system'],
     correctAnswerIndex: 1,
     explanation: 'Gaganyaan is India’s planned human spaceflight mission, aiming to send Indian astronauts (“Vyomanauts”) to space; it was mentioned that Gaganyaan is upcoming.',
   ),
-  Question(
+  const Question(
     questionText: 'What are the two components (variants) of the RBI digital rupee?',
     options: ['e₹-I (International) and e₹-D (Domestic)', 'e₹-R (Retail) and e₹-W (Wholesale)', 'e₹-C (Consumer) and e₹-T (Treasury)', 'e₹-P (Private) and e₹-G (Government)'],
     correctAnswerIndex: 1,
     explanation: 'The RBI’s digital rupee has two variants: retail (e₹-R) for everyday transactions and wholesale (e₹-W) for interbank settlements.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following statements about the RBI digital rupee (e₹) is correct?',
     options: ['It is completely anonymous like cash.', 'It can only be used for interbank transfers.', 'It is centralized on an RBI ledger and allows offline transactions (in pilot).', 'It is already fully rolled out nationwide in 2025.'],
     correctAnswerIndex: 2,
     explanation: 'The e₹ is managed on a central RBI ledger (unlike UPI which uses bank networks) and has an offline payment pilot. UPI currently lacks offline capability.',
   ),
-  Question(
+  const Question(
     questionText: 'According to the 2025 press releases, which sector did India’s government not emphasize in budget provisions and new schemes?',
     options: ['Dairying and livestock', 'Horticulture and vegetable supply chains', 'Digital payments and fintech', 'Fisheries and coastal development'],
     correctAnswerIndex: 2,
     explanation: 'The government documents and budget emphasis listed agriculture, animal husbandry (dairying), horticulture (vegetables/fruits), and even fisheries (coastal), but digital payments/fintech (beyond e₹) were not a primary focus area in these particular policy releases.',
   ),
-  Question(
+  const Question(
     questionText: 'What is one of the expected outcomes of the Revised NPDD as per the government release?',
     options: ['Tripling of India’s tea production', 'Establishment of 10,000 new dairy cooperative societies', 'Elimination of all milk imports', 'Privatization of dairy cooperatives'],
     correctAnswerIndex: 1,
     explanation: 'Among the expected outcomes of the Revised NPDD is the establishment of 10,000 new dairy cooperative societies, and creation of 3.2 lakh new jobs (70% for women).',
   ),
-  Question(
+  const Question(
     questionText: 'What is the key difference between a Cash and a Digital Rupee (e₹) transaction?',
     options: ['Cash is physical money; digital rupee is digital but both have the same properties.', 'Cash cannot be traced; e₹ transactions can be tracked on a ledger.', 'Cash is global currency; e₹ only works in India.', 'There is no difference in traceability or technology.'],
     correctAnswerIndex: 1,
     explanation: 'The RBI Digital Rupee is fully traceable on a centralized ledger, unlike cash, and unlike decentralized cryptocurrencies.',
   ),
-  Question(
+  const Question(
     questionText: 'Which statement best describes India’s approach to purchasing Russian oil (as of mid-2025)?',
     options: ['India fully joined Western sanctions and stopped all Russian oil imports.', 'India continued buying Russian oil and considered it to be acting in its national interest despite U.S. objections.', 'India only purchased LNG from Russia, not crude oil.', 'India demanded Russia sell oil in rupees.'],
     correctAnswerIndex: 1,
     explanation: 'The Indian government rejected U.S. tariff threats as unjustified and stated it would safeguard its interests, amid reports that India became the second-largest buyer of Russian crude in early 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'Which major global organization’s development goals were highlighted during the UNGA President’s visit to India?',
     options: ['NATO Articles', 'SDGs (Sustainable Development Goals)', 'ASEAN Charter', 'World Bank poverty targets'],
     correctAnswerIndex: 1,
     explanation: 'The UNGA President’s office page mentioned the Sustainable Development Goals (SDGs) that the UN supports. Although not explicitly in the main text, the UN India site footer highlights the UN’s work on the SDGs.',
   ),
-  Question(
+  const Question(
     questionText: 'What was one of the technological improvements mentioned for Vande Bharat trains (including Sleeper and Express variants)?',
     options: ['Solar panels on the roof of coaches', 'Bluetooth passenger-to-attendant communication (Talk-Back Units)', 'Automated sleeping berths', 'Holographic infotainment'],
     correctAnswerIndex: 1,
     explanation: 'The Vande Bharat Sleeper trains are expected to have features like USB lamps, CCTV, hot-water showers, and Talk-Back Units (passenger-attendant intercom) for enhanced convenience.',
   ),
-  Question(
+  const Question(
     questionText: 'Which commodity had its Minimum Support Price (MSP) raised to ₹2,369 per quintal for common quality in the 2025-26 Rabi marketing season (from previous 2,191)?',
     options: ['Wheat', 'Rice (common)', 'Jowar', 'Bajra'],
     correctAnswerIndex: 1,
     explanation: 'The MSP table in the press release shows common grade paddy (rice) MSP increasing from ₹2,191 to ₹2,369 per quintal for 2025-26.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following was not a crop in the Kharif MSP hike table (Marketing Season 2025-26)?',
     options: ['Maize', 'Jowar (Sorghum)', 'Barley', 'Sesamum'],
     correctAnswerIndex: 2,
     explanation: 'The MSP table for Kharif 2025-26 lists rice, maize, bajra, jowar, ragi, pulses, oilseeds (sesamum, etc.), and cotton. Barley is a Rabi/annual crop and not listed among Kharif MSP crops.',
   ),
-  Question(
+  const Question(
     questionText: 'Which instrument did North Korea test under Kim Jong Un’s supervision in May 2025?',
     options: ['SLBM (Submarine-launched ballistic missile)', 'ICBM (Intercontinental ballistic missile)', 'A short-range ballistic missile and long-range artillery', 'Nuclear-powered cruise missile'],
     correctAnswerIndex: 2,
     explanation: 'Kim Jong Un oversaw tests of a short-range ballistic missile (KN-23/Hwasong-11 series) and long-range artillery, emphasizing nuclear force combat readiness.',
   ),
-  Question(
+  const Question(
     questionText: 'What did Kim Jong Un emphasize about North Korea’s nuclear forces during the 2025 weapons tests?',
     options: ['That they should be halted for peace talks', 'Their normal combat readiness must be perfected', 'They are inferior to South Korea’s arsenal', 'He made no comment on nuclear forces'],
     correctAnswerIndex: 1,
     explanation: 'The KCNA report quoted Kim Jong Un saying it is “very important to steadily perfect the normal combat readiness of the nuclear force”',
   ),
-  Question(
+  const Question(
     questionText: 'Which technology did the Vande Bharat Sleeper trains adopt from airports (mentioned in the NDTV report)?',
     options: ['Automated security scanners at doors', 'Transparent baggage pods on the roof', 'USB-integrated reading lamps in berths', 'Biometric boarding gates'],
     correctAnswerIndex: 2,
     explanation: 'The Vande Bharat Sleeper trains include amenities like USB-equipped reading lamps at each berth (an example of advanced comfort features taken from other transport modes)',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following is not an agenda item for the National Mission on High Yielding Seeds launched in 2025?',
     options: ['Strengthening research for climate-resilient seeds', 'Commercializing 100 new seed varieties released since mid-2024', 'Replacing all maize varieties with GM crops immediately', 'Ensuring a steady supply of improved seeds for food security'],
     correctAnswerIndex: 2,
     explanation: 'The mission focuses on research for high-yield, pest-resistant seeds, and availability of over 100 varieties developed since July 2024. There is no blanket mandate to replace all crops with GM types.',
   ),
-  Question(
+  const Question(
     questionText: 'Under the Budget’s fisheries framework, which regions received special focus?',
     options: ['Eastern Himalayas and Western Ghats', 'Andaman & Nicobar Islands and Lakshadweep', 'Sundarbans and Goa coast', 'Thar Desert and Kashmir valley'],
     correctAnswerIndex: 1,
     explanation: 'The fisheries development framework gives special focus to the Andaman & Nicobar and Lakshadweep Islands, aiming to sustainably harness fisheries from India’s EEZ and high seas.',
   ),
-  Question(
+  const Question(
     questionText: 'Which alternative to the US dollar was specifically discouraged by President Trump for BRICS countries in 2025?',
     options: ['Gold standard currency', 'Cryptocurrency backed by gold', 'A new currency that could replace the US dollar', 'Local barter trade'],
     correctAnswerIndex: 2,
     explanation: 'President Trump demanded that BRICS commit to not creating a new currency or supporting another currency to replace the U.S. dollar, under threat of tariffs.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the key role of NAFED and NCCF under the Minimum Support Price mechanism?',
     options: ['To provide loans to farmers', 'Central nodal agencies for procurement of certain crops (e.g., copra) under Price Support Scheme', 'To set global commodity prices', 'To issue Kisan Credit Cards'],
     correctAnswerIndex: 1,
     explanation: 'NAFED and NCCF act as central nodal agencies for procurement of copra and de-husked coconut under the Price Support Scheme.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following Indian schemes is assurance-based rather than insurance-based?',
     options: ['PMFBY (Crop Insurance)', 'PM Jeevan Jyoti Bima Yojana (Life Insurance)', 'Ayushman Bharat – PM Jan Arogya Yojana (Health Coverage)', 'Pradhan Mantri Suraksha Bima Yojana (Personal Accident Insurance)'],
     correctAnswerIndex: 2,
     explanation: 'The Health Minister emphasized that AB PM-JAY is built on trust and thus is an “assurance” scheme, not an insurance scheme.',
   ),
-  Question(
+  const Question(
     questionText: 'What cultural or scientific event was associated with Kolkata in early 2025?',
     options: ['UNESCO World Heritage listing of the Sundarbans', 'Visit of the Dalai Lama', 'None (no specific mention in provided sources)', 'Launch of India’s first quantum satellite'],
     correctAnswerIndex: 2,
     explanation: 'Kolkata did not have a notable event cited in the recent sources. (This question checks whether context could be inferred; no source information on this.)',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following was a foreign policy focus in early 2025 for India?',
     options: ['Holding back on any statements on Middle East conflicts', 'Deepening ties with Russia despite US pressure over sanctions', 'Completely siding with Western sanctions on Russia', 'Ignoring global trade discussions'],
     correctAnswerIndex: 1,
     explanation: 'India continued to deepen ties with Russia (e.g., high-level visits, oil imports) despite U.S. threats. NSA Doval’s Moscow visit and rejection of US tariff threats highlight that approach.',
   ),
-  Question(
+  const Question(
     questionText: 'Which major global sporting event was India preparing for in 2025-26?',
     options: ['T20 Cricket World Cup 2026 in India', 'Asian Games 2026 in India', 'FIFA World Cup 2026 in India', 'Olympics 2024 in France'],
     correctAnswerIndex: 1,
     explanation: 'India was preparing to host the 2026 Asian Games in Mumbai, although no specific details were in the cited sources, this was known from general current affairs.',
   ),
-  Question(
+  const Question(
     questionText: 'In 2025, which neighboring country of India held national elections for its parliament with the same party in power?',
     options: ['Bangladesh', 'Nepal', 'Myanmar', 'Pakistan'],
     correctAnswerIndex: 0,
     explanation: 'Bangladesh’s general elections are scheduled for January 2025, and while this was mentioned in the broader news, the sources here did not cover it. (This question tests knowledge of regional current affairs outside the provided citations.)',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state launched a free bus travel scheme for women in 2025?',
     options: ['Tamil Nadu', 'Gujarat', 'Andhra Pradesh', 'Assam'],
     correctAnswerIndex: 2,
     explanation: 'In 2025 Andhra Pradesh approved a scheme to provide free bus travel for women on APSRTC buses from August 15, 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'Which country became the first to offer Indian pilgrims visa-free travel for 30 days in 2025?',
     options: ['Saudi Arabia', 'United Arab Emirates', 'Thailand', 'Nepal'],
     correctAnswerIndex: 3,
     explanation: 'Nepal announced visa-free entry for Indian citizens (30 days) in 2025. (This is a factual recall beyond the provided text.)',
   ),
-  Question(
+  const Question(
     questionText: 'In 2025, which international organization’s new development bank was Saudi Arabia set to join as a first step toward BRICS membership?',
     options: ['Asian Development Bank (ADB)', 'World Bank', 'BRICS New Development Bank (NDB)', 'Asian Infrastructure Investment Bank (AIIB)'],
     correctAnswerIndex: 2,
     explanation: 'It was reported that Saudi Arabia would likely join the BRICS New Development Bank (NDB) as a precursor to full BRICS membership.',
   ),
-  Question(
+  const Question(
     questionText: 'Which term best describes the composition of India’s partnership with NASA on NISAR?',
     options: ['Indirect collaboration via a third country', 'First-ever joint space project between NASA and ISRO', 'Commercial arrangement with SpaceX', 'A temporary data-sharing agreement'],
     correctAnswerIndex: 1,
     explanation: 'NISAR is described as the first radar imaging satellite mission jointly built by the Indian Space Research Organisation (ISRO) and NASA.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the Union Cabinet’s decision regarding edible oils (NMEO-Oilseeds) in 2024?',
     options: ['Approval of a National Mission on Edible Oils – Oilseeds with an outlay of ₹10,103 crore', 'Ban on edible oil imports', 'Cutting oilseed MSP by 10%', 'Shifting oilseed production to Southeast Asia'],
     correctAnswerIndex: 0,
     explanation: 'In October 2024, the Cabinet approved the National Mission on Edible Oils – Oilseeds (NMEO), with a financial outlay of ₹10,103 crore.',
   ),
-  Question(
+  const Question(
     questionText: 'Which pension scheme’s interest rate reduction was reversed by the Indian government in 2025?',
     options: ['Atal Pension Yojana (APY)', 'Pradhan Mantri Shram Yogi Maan-dhan (PM-SYM)', 'Employees’ Provident Fund (EPF)', 'Public Provident Fund (PPF)'],
     correctAnswerIndex: 2,
     explanation: 'In 2025, the government raised the interest rate on EPF back to 8.15% after it had been cut. (This is general knowledge not in the sources.)',
   ),
-  Question(
+  const Question(
     questionText: 'What cultural festival is Kerala famous for, which coincides with early 2025 festivities?',
     options: ['Durga Puja', 'Pongal', 'Onam', 'Baisakhi'],
     correctAnswerIndex: 2,
     explanation: 'Onam, the harvest festival of Kerala, is a major cultural festival often celebrated around August-September (Menon from sources not provided, but known general knowledge).',
   ),
-  Question(
+  const Question(
     questionText: 'What was the overarching theme emphasized in India’s Union Budget 2025–26?',
     options: ['Cut all subsidies to promote austerity', 'Focus on rural development, agriculture, and infrastructure (5T vision)', 'Convert all currency to digital only', 'Nationalization of all industries'],
     correctAnswerIndex: 1,
     explanation: 'The Budget emphasized agriculture, rural prosperity, and infrastructure, aligning with the government’s broader development vision (e.g., the 5Ts – Technology, Thrust on new areas, Turant approvals, Transparency, Timely decisions). This is reflected in multiple schemes and allocations detailed above',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state became the first to implement a mobile-based e-voting system?',
     options: ['Kerala', 'Bihar', 'Andhra Pradesh', 'Tamil Nadu'],
     correctAnswerIndex: 1,
     explanation: 'Bihar became the first state in India to implement a mobile-based e-voting system, utilizing the "e-Voting SECBHR" app developed by C-DAC.',
   ),
-  Question(
+  const Question(
     questionText: 'What was India\'s real GDP growth rate for the quarter ending August 2025?',
     options: ['5.8%', '6.0%', '6.5%', '7.1%'],
     correctAnswerIndex: 2,
     explanation: 'India reported a 6.5% GDP growth for the quarter ending August 2025, attributed to robust domestic consumption, increased foreign direct investment, and government initiatives.',
   ),
-  Question(
+  const Question(
     questionText: 'Which country officially announced in August 2025 that it would no longer adhere to the 1987 Intermediate-Range Nuclear Forces (INF) Treaty?',
     options: ['United States', 'China', 'Russia', 'North Korea'],
     correctAnswerIndex: 2,
     explanation: 'Russia officially announced in August 2025 its decision to no longer adhere to the 1987 Intermediate-Range Nuclear Forces (INF) Treaty, citing recent US military activities as justification.',
   ),
-  Question(
+  const Question(
     questionText: 'The \'Heritage First\' initiative, launched by the Government of India in August 2025, primarily focuses on what?',
     options: ['Promoting digital literacy in rural areas', 'Restoring historical monuments and supporting traditional art forms', 'Expediting electric bus deployment', 'Enhancing agricultural productivity'],
     correctAnswerIndex: 1,
     explanation: 'The \'Heritage First\' initiative was launched to preserve and promote India\'s rich cultural heritage, focusing on restoring historical monuments, supporting traditional art forms, and fostering awareness.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total value of Foreign Direct Investment (FDI) inflows into India between April 2000 and December 2024?',
     options: ['USD 500 billion', 'USD 750 billion', 'USD 1.05 trillion', 'USD 1.25 trillion'],
     correctAnswerIndex: 2,
     explanation: 'Cumulative FDI inflows into India reached USD 1.05 trillion between April 2000 and December 2024.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state inaugurated India\'s first dedicated Mahouts\' Village at Mudumalai Tiger Reserve?',
     options: ['Karnataka', 'Kerala', 'Tamil Nadu', 'Assam'],
     correctAnswerIndex: 2,
     explanation: 'Tamil Nadu inaugurated India\'s first dedicated Mahouts\' Village at Mudumalai Tiger Reserve.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the Waqf (Amendment) Act, 2025, renamed as the UMEED Act?',
     options: ['To regulate foreign contributions to NGOs', 'To streamline the functioning of Waqf properties and improve transparency', 'To establish new Special Economic Zones', 'To provide direct financial aid to farmers'],
     correctAnswerIndex: 1,
     explanation: 'The Waqf (Amendment) Act, 2025, renamed the Unified Waqf Management, Empowerment, Efficiency, and Development (UMEED) Act, aims to streamline the functioning of Waqf properties and improve transparency and accountability.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian city re-emerged as a cleanliness champion in the Super Swachh League (SSL) in July 2025?',
     options: ['Indore', 'Mysuru', 'Surat', 'Bhopal'],
     correctAnswerIndex: 1,
     explanation: 'Mysuru re-emerged as a cleanliness champion in the Super Swachh League (SSL) in July 2025, being the only city from Karnataka to achieve this distinction.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the retail inflation rate in India for 2024–25, the lowest since 2018–19?',
     options: ['5.2%', '4.6%', '3.9%', '6.1%'],
     correctAnswerIndex: 1,
     explanation: 'Retail inflation in India fell to 4.6% in 2024–25, the lowest since 2018–19.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state launched its own satellite, ASSAMSAT, in collaboration with INSPACe and ISRO?',
     options: ['Kerala', 'Karnataka', 'Assam', 'Odisha'],
     correctAnswerIndex: 2,
     explanation: 'Assam became the first Indian state to launch its own satellite, ASSAMSAT, developed in collaboration with INSPACe and ISRO.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total amount of direct financial aid disbursed to farmers under the 20th installment of the PM-KISAN scheme on August 2, 2025?',
     options: ['₹15,000 crore', '₹20,500 crore', '₹25,000 crore', '₹30,000 crore'],
     correctAnswerIndex: 1,
     explanation: 'Prime Minister Narendra Modi disbursed ₹20,500 crore to over 9.7 crore farmers nationwide under the 20th installment of the PM-KISAN scheme.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was named TIME\'s Woman of the Year in February 2025?',
     options: ['Sudha Murty', 'Purnima Devi Barman', 'Arundhati Bhattacharya', 'Kiran Mazumdar-Shaw'],
     correctAnswerIndex: 1,
     explanation: 'Purnima Devi Barman was named TIME\'s Woman of the Year in February 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the primary objective of the \'Bharat Forecast System\' launched by the government in May 2025?',
     options: ['To provide real-time traffic updates', 'To offer highly localized and accurate weather predictions', 'To monitor air quality across major cities', 'To track agricultural output'],
     correctAnswerIndex: 1,
     explanation: 'The \'Bharat Forecast System\' was launched to provide highly localized and accurate weather predictions, described as the world\'s first weather model with a 6 km resolution.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian city is set to host the 2026 Asian Weightlifting Championships after a gap of 44 years?',
     options: ['New Delhi', 'Mumbai', 'Chennai', 'Bengaluru'],
     correctAnswerIndex: 0,
     explanation: 'India is set to host the 2026 Asian Weightlifting Championships after a gap of 44 years.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total value of India\'s exports in 2024–25?',
     options: ['USD 650 billion', 'USD 700 billion', 'USD 825 billion', 'USD 900 billion'],
     correctAnswerIndex: 2,
     explanation: 'India\'s total exports surged by 76% to reach USD 825 billion in 2024–25.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key ruling by the Supreme Court regarding mental health in July 2025?',
     options: ['Mental health is a separate legal category', 'Mental health is an integral part of the "Right to Life" under Article 21', 'Mental health is a state subject', 'Mental health is not covered by fundamental rights'],
     correctAnswerIndex: 1,
     explanation: 'The Supreme Court ruled that mental health is an integral part of the "Right to Life" under Article 21 of the Indian Constitution.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state became the first to establish a Senior Citizen Commission?',
     options: ['Maharashtra', 'Kerala', 'Gujarat', 'Rajasthan'],
     correctAnswerIndex: 1,
     explanation: 'Kerala became the first Indian state to establish a Senior Citizen Commission, mandated to safeguard the rights and welfare of elderly citizens.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the main reason cited by Jagdeep Dhankhar for his resignation as the Vice President of India on July 21, 2025?',
     options: ['To pursue a new political role', 'Health reasons', 'Disagreement with government policies', 'To take up an international assignment'],
     correctAnswerIndex: 1,
     explanation: 'Jagdeep Dhankhar resigned as the Vice President of India on July 21, 2025, citing health reasons and medical advice.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total amount of surplus transferred by the RBI\'s Central Board to the Government of India for FY25?',
     options: ['₹1.5 trillion', '₹2.0 trillion', '₹2.69 trillion', '₹3.0 trillion'],
     correctAnswerIndex: 2,
     explanation: 'The RBI\'s Central Board approved a record transfer of ₹2.69 trillion surplus to the Government of India for FY25.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian Air Force Group Captain became the first Indian to set foot on the International Space Station (ISS) as part of the Axiom Mission 4 (Ax-4)?',
     options: ['Rakesh Sharma', 'Ravish Malhotra', 'Subhanshu Shukla', 'Kalpana Chawla'],
     correctAnswerIndex: 2,
     explanation: 'IAF Group Captain Subhanshu Shukla became the first Indian to set foot on the International Space Station (ISS) as part of the Axiom Mission 4 (Ax-4).',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary focus of Exercise Tiger Triumph 2025, a bilateral India-US Tri-Service exercise?',
     options: ['Counter-terrorism operations', 'Maritime security', 'Humanitarian assistance and disaster relief (HADR) operations', 'Air combat maneuvers'],
     correctAnswerIndex: 2,
     explanation: 'The 4th edition of Exercise Tiger Triumph 2025, a bilateral India-US Tri-Service exercise, focused on humanitarian assistance and disaster relief (HADR) operations.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of India\'s deep-ocean manned submersible that successfully completed its wet testing in February 2025?',
     options: ['Samudrayaan-1', 'Matsya-6000', 'Varun-3000', 'Sagar Nidhi'],
     correctAnswerIndex: 1,
     explanation: 'The Matsya-6000, India\'s deep-ocean manned submersible, successfully completed its wet testing in February 2025 as part of the Deep Ocean Mission.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state declared its first Biodiversity Heritage Site (BHS) in Guneri village in February 2025?',
     options: ['Kerala', 'Maharashtra', 'Gujarat', 'West Bengal'],
     correctAnswerIndex: 2,
     explanation: 'Gujarat declared its first Biodiversity Heritage Site (BHS) in Guneri village in February 2025, significant as one of only eight known inland mangrove locations globally.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total number of medals secured by India at the ISSF Junior World Cup 2025 in Suhl, where it topped the medal tally?',
     options: ['9', '11', '13', '15'],
     correctAnswerIndex: 1,
     explanation: 'India topped the medal tally at the ISSF Junior World Cup 2025 in Suhl, securing a total of 11 medals.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary reason for Tamil Nadu substituting the Indian rupee symbol \'₹\' with the Tamil character \'ரூ\' in its state budget for 2025?',
     options: ['To simplify financial reporting', 'To promote the Tamil language and express resistance to the perceived enforcement of Hindi', 'To align with international accounting standards', 'To reduce printing costs'],
     correctAnswerIndex: 1,
     explanation: 'Tamil Nadu substituted the Indian rupee symbol \'₹\' with the Tamil character \'ரூ\' in its state budget for 2025 to promote the Tamil language and express resistance to the perceived enforcement of Hindi.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian company successfully conducted India\'s first electric motor-driven semi-cryogenic engine test firing in May 2025?',
     options: ['Skyroot Aerospace', 'Bellatrix Aerospace', 'Agnikul Cosmos', 'Dhruva Space'],
     correctAnswerIndex: 2,
     explanation: 'Agnikul Cosmos successfully conducted India\'s first electric motor-driven semi-cryogenic engine test firing in May 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total length of National Highways in India by March 2025?',
     options: ['1,00,000 km', '1,20,000 km', '1,46,204 km', '1,60,000 km'],
     correctAnswerIndex: 2,
     explanation: 'National highways in India increased from 91,287 km in 2014 to 1,46,204 km by March 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'Which organization launched the \'Samarth Program\' aimed at fostering innovation in the telecommunications and IT sector?',
     options: ['NITI Aayog', 'Centre for Development of Telematics (C-DOT)', 'ISRO', 'Ministry of Electronics and Information Technology (MeitY)'],
     correctAnswerIndex: 1,
     explanation: 'The Centre for Development of Telematics (C-DOT) launched the Samarth Program, aimed at fostering innovation in the telecommunications and IT sector.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the percentage increase in India\'s merchandise exports from 2013-14 to 2024-25?',
     options: ['25%', '39%', '50%', '65%'],
     correctAnswerIndex: 1,
     explanation: 'Merchandise exports increased by 39%, from USD 310 billion in 2013–14 to USD 437.42 billion in 2024–25.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state was declared a 100% Literate State in May 2025?',
     options: ['Kerala', 'Goa', 'Mizoram', 'Tripura'],
     correctAnswerIndex: 1,
     explanation: 'Goa was declared a 100% Literate State in May 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of India\'s first Indigenous Diving Support Ship, delivered by Hindustan Shipyard Limited in July 2025?',
     options: ['INS Chakra', 'INS Arihant', 'INS Nistar', 'INS Kalvari'],
     correctAnswerIndex: 2,
     explanation: 'INS Nistar, India\'s first Indigenous Diving Support Ship, was delivered by Hindustan Shipyard Limited in July 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the main reason for the Kashmir Valley observing a shutdown for the first time in 35 years in April 2025?',
     options: ['Political protests', 'Economic strike', 'Pahalgam Terror Attack', 'Natural disaster'],
     correctAnswerIndex: 2,
     explanation: 'The Kashmir Valley observed a shutdown for the first time in 35 years in April 2025 following the Pahalgam Terror Attack.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the projected GDP of India by 2030, as it is on track to become the world\'s third-largest economy?',
     options: ['USD5.5 trillion', 'USD6.0 trillion', 'USD7.3 trillion', 'USD8.5 trillion'],
     correctAnswerIndex: 2,
     explanation: 'India is on track to become the world\'s third-largest economy, with a projected GDP of USD7.3 trillion by 2030.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was honored with the \'Global Indian of the Year 2025\' Award by CIF in May 2025?',
     options: ['Ratan Tata', 'Mukesh Ambani', 'Sadhguru', 'Sundar Pichai'],
     correctAnswerIndex: 2,
     explanation: 'Sadhguru was honored with the \'Global Indian of the Year 2025\' Award by CIF in May 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the percentage increase in Goods and Services Tax (GST) collections in July 2025 compared to the same month last year?',
     options: ['5.0%', '6.2%', '7.5%', '8.0%'],
     correctAnswerIndex: 2,
     explanation: 'Gross GST collection for July 2025 stood at ₹1.96 lakh crore, marking a 7.5% increase compared to the same month last year.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state became the 3rd state in India to achieve 100% literacy in June 2025?',
     options: ['Kerala', 'Goa', 'Tripura', 'Himachal Pradesh'],
     correctAnswerIndex: 2,
     explanation: 'Tripura became the 3rd state in India to achieve 100% literacy in June 2025, with Mizoram being the first.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of the Indian Navy Frigate launched as part of Project 1135.6 by Goa Shipyard Limited in March 2025?',
     options: ['INS Vikrant', 'INS Tavasya', 'INS Shivalik', 'INS Talwar'],
     correctAnswerIndex: 1,
     explanation: 'The Indian Navy Frigate Tavasya was launched as part of Project 1135.6 by Goa Shipyard Limited in March 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary aim of the \'AI for Entrepreneurship\' Initiative launched in February 2025?',
     options: ['To regulate AI usage in public services', 'To promote the integration of AI in business and innovation', 'To develop ethical guidelines for AI', 'To establish AI research centers'],
     correctAnswerIndex: 1,
     explanation: 'The \'AI for Entrepreneurship\' Initiative was launched in February 2025 to promote the integration of AI in business and innovation and support the growth of tech startups.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was named Karnataka\'s Forest and Wildlife Ambassador in May 2025?',
     options: ['Sachin Tendulkar', 'Anil Kumble', 'Rahul Dravid', 'Virat Kohli'],
     correctAnswerIndex: 1,
     explanation: 'Anil Kumble was named Karnataka\'s Forest and Wildlife Ambassador in May 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total amount raised by Indian corporates through Initial Public Offerings (IPOs) in 2024–25?',
     options: ['₹1,00,000 crore', '₹1,25,000 crore', '₹1,62,387 crore', '₹2,00,000 crore'],
     correctAnswerIndex: 2,
     explanation: 'Indian corporates raised an all-time high of ₹1,62,387 crore through Initial Public Offerings (IPOs) in 2024–25.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key outcome of the UN Biodiversity Conference (COP16) in Rome in February 2025?',
     options: ['Agreement on a global climate fund', 'Agreement to raise an additional \$200 billion each year by 2030 to protect flora and fauna', 'Establishment of new protected marine areas', 'Launch of a new international biodiversity index'],
     correctAnswerIndex: 1,
     explanation: 'The UN Biodiversity Conference (COP16) concluded with an agreement to raise an additional \$200 billion each year by 2030 to better protect the world’s flora and fauna.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian city is home to the Kumram Bheem Conservation Reserve, identified as a vital tiger corridor?',
     options: ['Hyderabad', 'Nagpur', 'Adilabad', 'Warangal'],
     correctAnswerIndex: 2,
     explanation: 'The Kumram Bheem Conservation Reserve is located in Telangana and was identified as a vital tiger corridor, linking the Kawal Tiger Reserve in Telangana and the Tadoba-Andhari Tiger Reserve in Maharashtra.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the maximum Loan-to-Value (LTV) ratio capped by the RBI in its proposed draft guidelines for Gold Loan Regulations?',
     options: ['60%', '70%', '75%', '80%'],
     correctAnswerIndex: 2,
     explanation: 'The RBI proposes capping the Loan-to-Value (LTV) ratio at 75% for all gold loans in its draft guidelines.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the significance of the launch of the Aadhaar Governance Portal by MeitY in February 2025?',
     options: ['To introduce new Aadhaar cards', 'To streamline and expedite Aadhaar authentication requests', 'To link Aadhaar with bank accounts', 'To update Aadhaar demographic data'],
     correctAnswerIndex: 1,
     explanation: 'The Aadhaar Governance Portal was launched by the Ministry of Electronics and Information Technology (MeitY) in February 2025 to streamline and expedite Aadhaar authentication requests.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state unveiled India\'s first Vistadome Jungle Safari Train Experience?',
     options: ['Madhya Pradesh', 'Uttarakhand', 'Uttar Pradesh', 'Himachal Pradesh'],
     correctAnswerIndex: 2,
     explanation: 'Uttar Pradesh unveiled India\'s first Vistadome Jungle Safari Train Experience, connecting Bichia to Mailani through Dudhwa and Kishanpur wildlife sanctuaries.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the Pradhan Mantri Annadata Aay Sanrakshan Abhiyan (PM-AASHA) scheme, extended until 2025-26?',
     options: ['To provide housing for farmers', 'To ensure remunerative prices for farmers', 'To offer crop insurance', 'To promote organic farming'],
     correctAnswerIndex: 1,
     explanation: 'The PM-AASHA scheme, extended until 2025-26, is designed to ensure remunerative prices for farmers.',
   ),
-  Question(
+  const Question(
     questionText: 'Which country became the first to officially recognize Afghanistan\'s Taliban government in July 2025?',
     options: ['China', 'Pakistan', 'Russia', 'Iran'],
     correctAnswerIndex: 2,
     explanation: 'Russia became the first country to officially recognize Afghanistan\'s Taliban government in July 2025, accepting the credentials of their new ambassador.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of the Indian Navy\'s first Anti-Submarine Warfare Shallow Water Craft, inducted in June 2025?',
     options: ['INS Kalvari', 'INS Karanj', 'INS Arnala', 'INS Vagir'],
     correctAnswerIndex: 2,
     explanation: 'The Indian Navy inducted its first Anti-Submarine Warfare Shallow Water Craft, INS Arnala, in June 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total number of operational airports in India as of March 2025?',
     options: ['120', '140', '160', '180'],
     correctAnswerIndex: 2,
     explanation: 'As of March 2025, there are 160 operational airports in the country, including 145 airports, 2 water aerodromes, and 13 heliports.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key finding of the Ipsos \'What Worries the World\' study for February 2025 regarding global public opinion?',
     options: ['Climate change became the top concern', 'Inflation remained the sole top global worry', 'Crime and violence rose to become an equal concern with inflation', 'Unemployment became the primary worry'],
     correctAnswerIndex: 2,
     explanation: 'The Ipsos \'What Worries the World\' study for February 2025 revealed that crime and violence (32%) had risen to become an equal concern with inflation (32%) as the top global worry.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality won a Grammy Award in 2025 for her project "Triveni” in the New Age, Ambient, or Chant Album category?',
     options: ['Anoushka Shankar', 'Chandrika Tandon', 'Shreya Ghoshal', 'Neha Kakkar'],
     correctAnswerIndex: 1,
     explanation: 'Chandrika Tandon won a Grammy Award in 2025 for her project "Triveni” in the New Age, Ambient, or Chant Album category.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of India\'s first Solar Mission that successfully captured the first-ever image of a solar flare, \'Kernel\', in March 2025?',
     options: ['Chandrayaan-3', 'Mangalyaan', 'Aditya L1', 'Gaganyaan'],
     correctAnswerIndex: 2,
     explanation: 'India\'s first Solar Mission, Aditya L1, successfully captured the first-ever image of a solar flare, \'Kernel\', in March 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary focus of the 4th edition of Exercise Tiger Triumph 2025, a bilateral India-US Tri-Service exercise?',
     options: ['Anti-piracy operations', 'Counter-insurgency training', 'Humanitarian assistance and disaster relief (HADR) operations', 'Joint naval maneuvers'],
     correctAnswerIndex: 2,
     explanation: 'The 4th edition of Exercise Tiger Triumph 2025, a bilateral India-US Tri-Service exercise, focused on humanitarian assistance and disaster relief (HADR) operations.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian state became the first in the world to introduce governance services via WhatsApp with the \'Mana Mitra App\'?',
     options: ['Karnataka', 'Maharashtra', 'Andhra Pradesh', 'Gujarat'],
     correctAnswerIndex: 2,
     explanation: 'Andhra Pradesh became the first state in the world to introduce governance services via WhatsApp with the \'Mana Mitra App\'.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total number of people lifted out of extreme poverty in India between 2011–12 and 2022–23, according to a World Bank report?',
     options: ['10.5 crore', '12.8 crore', '17.1 crore', '20.0 crore'],
     correctAnswerIndex: 2,
     explanation: 'A World Bank report indicated that 17.1 crore people were lifted out of extreme poverty in India between 2011–12 and 2022–23.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of the world\'s largest vertical propellant mixer developed by ISRO in February 2025?',
     options: ['VPM-1000', 'VPM-2000', 'VPM-3000', 'The specific name is not mentioned, but it is described as the world\'s largest vertical propellant mixer.'],
     correctAnswerIndex: 3,
     explanation: 'ISRO developed the world\'s largest vertical propellant mixer in February 2025, crucial for manufacturing large solid rocket motors.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the \'Merchant Shipping Bill, 2025\' passed by Parliament in August 2025?',
     options: ['To regulate fishing activities', 'To overhaul India\'s maritime legal framework and promote ease of doing business', 'To establish new ports', 'To control marine pollution'],
     correctAnswerIndex: 1,
     explanation: 'The \'Merchant Shipping Bill, 2025\' aims to overhaul India\'s maritime legal framework, replacing outdated colonial-era laws and promoting ease of doing business.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was awarded the UN Population Award 2025 for her lifelong work in promoting gender equality and preventing sex-selective abortions?',
     options: ['Medha Patkar', 'Aruna Roy', 'Varsha Deshpande', 'Vandana Shiva'],
     correctAnswerIndex: 2,
     explanation: 'Varsha Deshpande won the UN Population Award 2025 for her lifelong work in promoting gender equality and preventing sex-selective abortions.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the main reason for the Supreme Court\'s ruling in July 2025 that police notices under Section 35 of BNSS must be served physically, not electronically?',
     options: ['Lack of digital infrastructure', 'To ensure transparency in police operations', 'Because such notices directly impact a person\'s liberty and the law does not explicitly allow electronic service', 'To reduce cybercrime'],
     correctAnswerIndex: 2,
     explanation: 'The Supreme Court ruled that police notices under Section 35 of the Bharatiya Nagarik Suraksha Sanhita (BNSS) must be served physically because they directly impact a person\'s liberty and the law does not explicitly mention electronic service.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of the Indian Navy\'s second stealth frigate of Project 17A, commissioned in July 2025?',
     options: ['INS Nilgiri', 'INS Himgiri', 'INS Udaygiri', 'INS Taragiri'],
     correctAnswerIndex: 2,
     explanation: 'INS Udaygiri is the second stealth frigate of Project 17A, built at Mazagon Dock Shipbuilders Limited (MDSL), and was commissioned in July 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the theme of the Union Budget 2025, presented by Finance Minister Nirmala Sitharaman?',
     options: ['Viksit Bharat', 'Aatmanirbhar Bharat', 'Sabka Vikas', 'Digital India'],
     correctAnswerIndex: 2,
     explanation: 'The theme of the Union Budget 2025 was "Sabka Vikas," aiming to stimulate balanced growth across all regions.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was appointed as the new SEBI Chairman in February 2025 for a three-year tenure?',
     options: ['Ajay Tyagi', 'Madhabi Puri Buch', 'Tuhin Kanta Pandey', 'U.K. Sinha'],
     correctAnswerIndex: 2,
     explanation: 'Tuhin Kanta Pandey was appointed as the new SEBI Chairman in February 2025 for a three-year tenure, succeeding Madhabi Puri Buch.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total length of the New Pamban Bridge, India\'s first-ever vertical-lift sea bridge, inaugurated by Prime Minister Narendra Modi?',
     options: ['1.5 km', '2.07 km', '2.5 km', '3.0 km'],
     correctAnswerIndex: 1,
     explanation: 'The New Pamban Bridge, India\'s first-ever vertical-lift sea bridge, has a total length of 2.07 km.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the percentage of India\'s contribution to global milk production in March 2025?',
     options: ['Over 15%', 'Over 20%', 'Over 24%', 'Over 30%'],
     correctAnswerIndex: 2,
     explanation: 'India contributes over 24% of the global milk production, making it the largest milk producer in the world.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was awarded the Col. C. K. Nayudu Lifetime Achievement Award at the BCCI Awards 2025?',
     options: ['M.S. Dhoni', 'Rahul Dravid', 'Sachin Tendulkar', 'Sourav Ganguly'],
     correctAnswerIndex: 2,
     explanation: 'Sachin Tendulkar received the Col. C. K. Nayudu Lifetime Achievement Award at the BCCI Awards 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the Bima Trinity initiative launched by IRDAI in February 2025?',
     options: ['To regulate banking services', 'To enhance insurance accessibility, affordability, and efficiency', 'To promote digital payments', 'To provide financial literacy'],
     correctAnswerIndex: 1,
     explanation: 'The Bima Trinity initiative was launched by IRDAI to enhance insurance accessibility, affordability, and efficiency across the country.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total value of the agreement finalized between India and France for 26 Rafale-M fighter jets for the Indian Navy?',
     options: ['₹50,000 crore', '₹63,000 crore', '₹75,000 crore', '₹80,000 crore'],
     correctAnswerIndex: 1,
     explanation: 'India and France finalized a ₹63,000-crore deal for 26 Rafale-M fighter jets for the Indian Navy.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the name of the Indian Army\'s VTOL (Vertical Take-off and Landing) Drone successfully tested at the Pokhran firing range in June 2025, demonstrating a range of 170 km?',
     options: ['Nishant', 'Rustom', 'Rudrastra', 'Tapas'],
     correctAnswerIndex: 2,
     explanation: 'The Rudrastra VTOL Drone was successfully tested by the Indian Army at the Pokhran firing range in June 2025, demonstrating a range of 170 km.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary aim of the NAKSHA Pilot Program launched under the Ministry of Rural Development & Agriculture & Farmers’ Welfare?',
     options: ['To promote organic farming', 'To modernize urban land survey processes and update land records', 'To provide financial assistance to rural households', 'To develop new agricultural technologies'],
     correctAnswerIndex: 1,
     explanation: 'The NAKSHA Pilot Program aims to modernize urban land survey processes, create and update land records, and consequently reduce land disputes while enhancing transparency in property management.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the percentage increase in India\'s services exports from 2013-14 to 2024-25?',
     options: ['50%', '75%', 'More than doubled', 'Tripled'],
     correctAnswerIndex: 2,
     explanation: 'Services exports more than doubled, growing from US\$ 158 billion in 2013–14 to US\$ 387 billion in 2024–25.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality won the FIDE Women\'s Chess World Cup in July 2025, becoming the first Indian woman to achieve this title?',
     options: ['Humpy Koneru', 'Dronavalli Harika', 'R Vaishali', 'Divya Deshmukh'],
     correctAnswerIndex: 3,
     explanation: 'Divya Deshmukh made history by winning the FIDE Women\'s Chess World Cup in July 2025, becoming the first Indian woman to achieve this title.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary focus of the \'Coastal Shipping Bill, 2025\' passed by the Rajya Sabha?',
     options: ['Regulating international shipping routes', 'Simplifying and modernizing the legal framework governing coastal shipping', 'Promoting deep-sea fishing', 'Establishing new naval bases'],
     correctAnswerIndex: 1,
     explanation: 'The Coastal Shipping Bill, 2025, aims to simplify and modernize the legal framework governing coastal shipping, replacing Part XIV of the Merchant Shipping Act, 1958.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the total number of winners announced for the Bal Sahitya Puraskar 2025 by the Sahitya Akademi?',
     options: ['18', '20', '22', '24'],
     correctAnswerIndex: 3,
     explanation: 'The Sahitya Akademi announced 24 winners of the Bal Sahitya Puraskar 2025 across various Indian languages.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the main reason for the US announcing a 20% tariff on Sri Lankan exports in August 2025?',
     options: ['Trade imbalance', 'Part of a renewed global trade war initiated by Donald Trump', 'Environmental concerns', 'Human rights issues'],
     correctAnswerIndex: 1,
     explanation: 'The US announced a 20% tariff on Sri Lankan exports, and Donald Trump, upon his inauguration, implemented a sweeping tariff regime, signaling a renewed global trade war.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the estimated tax-to-GDP ratio for India for FY26?',
     options: ['10%', '11%', '12%', '13%'],
     correctAnswerIndex: 2,
     explanation: 'The tax-to-GDP ratio is estimated at 12% for FY26.',
   ),
-  Question(
+  const Question(
     questionText: 'Which Indian personality was named the First Woman Navy Fighter Pilot Trainee in July 2025?',
     options: ['Shivangi Singh', 'Bhawana Kanth', 'Avani Chaturvedi', 'Sub Lt Aastha Poonia'],
     correctAnswerIndex: 3,
     explanation: 'Sub Lt Aastha Poonia became the First Woman Navy Fighter Pilot Trainee in July 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the Pradhan Mantri Janjati Adivasi Nyaya Maha Abhiyan (PM-JANMAN) launched in February 2025?',
     options: ['To provide urban housing', 'To address the welfare needs of tribal communities', 'To promote digital education', 'To support small businesses'],
     correctAnswerIndex: 1,
     explanation: 'The Pradhan Mantri Janjati Adivasi Nyaya Maha Abhiyan (PM-JANMAN) was launched specifically addressing the welfare needs of tribal communities.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary focus of the joint military exercise \'Tiger Claw\' between the Indian Air Force\'s Garud Special Forces and the United States Air Force (USAF) Special Forces in June 2025?',
     options: ['Naval operations', 'Special operations and interoperability', 'Humanitarian aid', 'Cyber warfare'],
     correctAnswerIndex: 1,
     explanation: 'Exercise \'Tiger Claw\' was the first-ever joint special operations exercise between the Indian Air Force\'s Garud Special Forces and the United States Air Force (USAF) Special Forces, enhancing interoperability and strategic cooperation.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key achievement highlighted on the 11th anniversary of the Digital India initiative in June 2025?',
     options: ['Launch of a new satellite', 'Widespread adoption of Direct Benefit Transfer (DBT) and Aadhaar', 'Establishment of new manufacturing units', 'Significant increase in agricultural exports'],
     correctAnswerIndex: 1,
     explanation: 'The 11th anniversary of the Digital India initiative highlighted its transformative impact on governance and service delivery, including the widespread adoption of Direct Benefit Transfer (DBT) and Aadhaar.',
   ),
-  Question(
+  const Question(
     questionText: 'Which country took the Presidency of the UN Security Council in July 2025?',
     options: ['India', 'Pakistan', 'Brazil', 'South Africa'],
     correctAnswerIndex: 1,
     explanation: 'Pakistan took the Presidency of the UN Security Council in July 2025, with Ambassador Asim Iftikhar Ahmad presiding.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the collaboration between the Ministry of MSME and the Denmark Patent Office under the Support for Commercialisation of IP (MSME-SCIP) programme?',
     options: ['To promote cultural exchange', 'To enhance IPR accessibility for Indian enterprises', 'To facilitate trade agreements', 'To develop new technologies'],
     correctAnswerIndex: 1,
     explanation: 'The Ministry of MSME collaborated with the Denmark Patent Office under the Support for Commercialisation of IP (MSME-SCIP) programme to enhance IPR accessibility for Indian enterprises.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary aim of the Gaganyaan mission, successfully launched by ISRO in August 2025?',
     options: ['To explore Mars', 'To send Indian astronauts to space', 'To launch a new communication satellite', 'To study the Sun'],
     correctAnswerIndex: 1,
     explanation: 'ISRO successfully launched the Gaganyaan mission in August 2025, aiming to send Indian astronauts to space.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the main reason for the Supreme Court\'s ruling that projects with a built-up area exceeding 20,000 square meters cannot be exempted from the Environment Impact Assessment (EIA) 2006 regime?',
     options: ['To promote industrial growth', 'To ensure sustainable development and environmental protection', 'To reduce construction costs', 'To simplify regulatory processes'],
     correctAnswerIndex: 1,
     explanation: 'The Supreme Court held that projects with a built-up area exceeding 20,000 square meters cannot be exempted from the Environment Impact Assessment (EIA) 2006 regime, reinforcing environmental protection laws and sustainable development.',
   ),
-  Question(
+  const Question(
     questionText: 'Which two countries joined the New Development Bank (NDB) in July 2025, just before the 17th BRICS Summit?',
     options: ['Argentina and Egypt', 'Colombia and Uzbekistan', 'Indonesia and Vietnam', 'Nigeria and Turkey'],
     correctAnswerIndex: 1,
     explanation: 'The New Development Bank (NDB) welcomed Colombia and Uzbekistan as new members in July 2025.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the Pradhan Mantri Surakshit Matritva Abhiyan (PMSMA), which continued its operations in June 2025?',
     options: ['To provide free education to children', 'To reduce maternal and neonatal mortality by providing free, quality antenatal care services', 'To promote family planning', 'To offer nutritional support to infants'],
     correctAnswerIndex: 1,
     explanation: 'The Pradhan Mantri Surakshit Matritva Abhiyan (PMSMA) continued its objective to reduce maternal and neonatal mortality by providing free, quality antenatal care services to pregnant women.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key change proposed by the RBI in its draft guidelines for Gold Loan Regulations regarding collateral?',
     options: ['Allowing raw gold as collateral', 'Allowing gold-backed financial products as collateral', 'Allowing loans against silver for the first time', 'Removing the cap on gold weight'],
     correctAnswerIndex: 2,
     explanation: 'For the first time, silver will also be acceptable as collateral under these guidelines.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary aim of the \'SaptaSur: Seven Nations, One Melody\' festival organized by the Indian Council for Cultural Relations (ICCR)?',
     options: ['To promote Indian classical music globally', 'To celebrate the distinct musical traditions of the seven BIMSTEC countries', 'To foster cultural exchange with European nations', 'To showcase modern Indian art'],
     correctAnswerIndex: 1,
     explanation: 'The \'SaptaSur: Seven Nations, One Melody\' festival, organized by the ICCR, witnessed the celebration of the distinct musical traditions of the seven BIMSTEC countries.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the NITI Aayog\'s report titled “Designing a Policy for Medium Enterprises”?',
     options: ['To define micro-enterprises', 'To define medium enterprises and highlight their strategic role in exports and employment', 'To promote large-scale industries', 'To regulate foreign investments'],
     correctAnswerIndex: 1,
     explanation: 'The NITI Aayog\'s report titled “Designing a Policy for Medium Enterprises” defined them as businesses with an investment of up to ₹125 crores and a turnover of up to ₹500 crores, highlighting their disproportionately high contribution to MSME exports.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the significance of the 80th anniversary of Hiroshima in August 2025?',
     options: ['Celebration of technological advancement', 'A reminder of the devastation wrought by nuclear weapons and a call for disarmament', 'Commemoration of a peace treaty', 'Launch of a new international aid program'],
     correctAnswerIndex: 1,
     explanation: 'The 80th anniversary of Hiroshima served as a stark reminder of the unprecedented devastation wrought by nuclear weapons, underscoring the urgent global call for nuclear disarmament amidst rising international tensions.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary focus of the UN conference for landlocked developing countries scheduled for early August in Awaza, Turkmenistan?',
     options: ['To discuss climate change adaptation', 'To promote tourism in landlocked countries', 'To "rewire the global system" to support 32 landlocked developing countries', 'To establish new trade routes'],
     correctAnswerIndex: 2,
     explanation: 'The UN conference for landlocked developing countries aims to "rewire the global system" to support 32 landlocked developing countries, which often face economic disadvantages due to their lack of access to the sea.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key recommendation of the UK Strategic Defence Review (SDR) in June 2025 regarding nuclear weapons?',
     options: ['To reduce spending on nuclear weapons', 'To commit 15 billion GBP to the UK nuclear weapons programme and construct new nuclear-powered submarines', 'To dismantle existing nuclear arsenals', 'To ban nuclear weapons testing'],
     correctAnswerIndex: 1,
     explanation: 'The UK Strategic Defence Review (SDR) includes recommendations committing 15 billion GBP to the UK nuclear weapons programme and plans to construct up to 12 new conventionally armed nuclear-powered submarines.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary purpose of the \'Carriage of Goods by Sea Bill, 2025\' passed by Parliament in August 2025?',
     options: ['To regulate passenger ships', 'To overhaul India\'s maritime legal framework and promote ease of doing business', 'To establish new fishing zones', 'To control maritime pollution'],
     correctAnswerIndex: 1,
     explanation: 'The \'Carriage of Goods by Sea Bill, 2025\' overhauls India\'s maritime legal framework, replacing outdated colonial-era laws and promoting ease of doing business.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key outcome of the WHO Member States formally adopting the world\'s first WHO Pandemic Agreement in May 2025?',
     options: ['To establish a new global health organization', 'To strengthen global preparedness and response to future pandemics', 'To provide universal healthcare', 'To regulate pharmaceutical companies'],
     correctAnswerIndex: 1,
     explanation: 'The World Health Organization (WHO) Member States formally adopted the world\'s first WHO Pandemic Agreement by consensus during the 78th World Health Assembly in Geneva, a crucial step towards strengthening global preparedness and response to future pandemics.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the \'Remission of Duties and Taxes on Exported Products (RoDTEP) scheme\' extension in May 2025?',
     options: ['To reduce import duties', 'To boost exports by reimbursing embedded duties and taxes', 'To promote domestic consumption', 'To regulate foreign trade'],
     correctAnswerIndex: 1,
     explanation: 'The RoDTEP scheme benefits were extended to Export Oriented Units (EOUs), Advance Authorisation (AA) holders, and units in Special Economic Zones (SEZs) to boost exports by reimbursing embedded duties and taxes.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary reason for India\'s decision to put the Indus Waters Treaty (IWT) on hold after the Pahalgam Terror Attack?',
     options: ['To renegotiate the terms of the treaty', 'As a strategic tool in response to security challenges and cross-border terrorism', 'Due to water scarcity in India', 'To build new dams on the Indus River'],
     correctAnswerIndex: 1,
     explanation: 'India\'s decision to put the Indus Waters Treaty (IWT) on hold was part of a five-pronged Indian response to the Pahalgam Terror Attack, illustrating its use as a strategic tool in response to security challenges.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the \'AI-Assisted Autism Diagnosis\' reported in March 2025?',
     options: ['To develop new treatments for autism', 'To improve early diagnosis capabilities for autism', 'To provide therapy for individuals with autism', 'To conduct research on the causes of autism'],
     correctAnswerIndex: 1,
     explanation: 'AI-Assisted Autism Diagnosis was reported in March 2025, indicating progress in early diagnosis capabilities.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the key finding of the ILO and NASK inaugural report released in May 2025?',
     options: ['Impact of climate change on labor markets', 'Generative AI\'s impact on global employment', 'Future of remote work', 'Rise of gig economy'],
     correctAnswerIndex: 1,
     explanation: 'The International Labour Organization (ILO) and NASK released an inaugural report highlighting Generative AI\'s impact on global employment.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the \'NAKSHA Pilot Program\' launched under the Ministry of Rural Development & Agriculture & Farmers’ Welfare?',
     options: ['To promote organic farming', 'To modernize urban land survey processes and update land records', 'To provide financial assistance to rural households', 'To develop new agricultural technologies'],
     correctAnswerIndex: 1,
     explanation: 'The NAKSHA Pilot Program aims to modernize urban land survey processes, create and update land records, and consequently reduce land disputes while enhancing transparency in property management.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary focus of the \'Link West\' policy, under which India\'s strategic and economic ties with West Asia are gaining importance?',
     options: ['To establish military bases', 'To secure energy, boost trade, and enhance India\'s role in West Asian geopolitics', 'To promote cultural exchange', 'To provide humanitarian aid'],
     correctAnswerIndex: 1,
     explanation: 'India\'s strategic and economic ties with West Asia are gaining importance under the \'Link West\' policy, which aims to secure energy, boost trade, and enhance its role in West Asian geopolitics.',
   ),
-  Question(
+  const Question(
     questionText: 'What was the primary objective of the \'Pradhan Mantri Janjati Adivasi Nyaya Maha Abhiyan (PM-JANMAN)\' launched in February 2025?',
     options: ['To provide urban housing', 'To address the welfare needs of tribal communities', 'To promote digital education', 'To support small businesses'],
     correctAnswerIndex: 1,

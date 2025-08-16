@@ -3,524 +3,524 @@
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
 
 final List<Question> ibAcioNumericalAptitudeQuestions = [
-  Question(
+  const Question(
     questionText: 'If 5 men can complete a work in 10 days, how many days will 10 men take to complete the same work?',
     options: ['5 days', '7 days', '10 days', '20 days'],
     correctAnswerIndex: 0,
     explanation: 'This is an inverse proportion problem. (5 men * 10 days) = (10 men * X days) => X = 5 days.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the simple interest on Rs. 1000 at 10% per annum for 2 years?',
     options: ['Rs. 100', 'Rs. 200', 'Rs. 300', 'Rs. 400'],
     correctAnswerIndex: 1,
     explanation: 'Simple Interest = (Principal * Rate * Time) / 100 = (1000 * 10 * 2) / 100 = Rs. 200.',
   ),
-  Question(
+  const Question(
     questionText: 'Find the value of x: 2x + 5 = 15',
     options: ['2', '5', '7', '10'],
     correctAnswerIndex: 1,
     explanation: '2x = 15 - 5 => 2x = 10 => x = 5.',
   ),
   // Add more Numerical Aptitude questions here
-  Question(
+  const Question(
     questionText: 'What is the HCF of 24 and 36?',
     options: ['6', '12', '18', '72'],
     correctAnswerIndex: 1,
     explanation: 'To find the Highest Common Factor (HCF) of 24 and 36, we list their factors: Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24. Factors of 36: 1, 2, 3, 4, 6, 9, 12, 18, 36. The common factors are 1, 2, 3, 4, 6, and 12. The highest among these is 12.',
   ),
-  Question(
+  const Question(
     questionText: 'What is 25% of 200?',
     options: ['40', '50', '75', '100'],
     correctAnswerIndex: 1,
     explanation: 'To calculate 25% of 200, convert the percentage to a decimal or fraction: 25% = 0.25 or 1/4. Then, multiply: 0.25 × 200 = 50. Alternatively, (1/4) × 200 = 50.',
   ),
-  Question(
+  const Question(
     questionText: 'The average of 10, 20, and 30 is:',
     options: ['15', '20', '25', '30'],
     correctAnswerIndex: 1,
     explanation: 'The average is calculated by summing the numbers and dividing by the count of numbers. Sum = 10 + 20 + 30 = 60. Count = 3. Average = 60 / 3 = 20.',
   ),
-  Question(
+  const Question(
     questionText: 'If 2:3 = x:12, what is the value of x?',
     options: ['6', '8', '9', '10'],
     correctAnswerIndex: 1,
     explanation: 'In a proportion, the product of the means equals the product of the extremes. So, 2 × 12 = 3 × x => 24 = 3x => x = 24 / 3 => x = 8.',
   ),
-  Question(
+  const Question(
     questionText: 'A book bought for Rs. 100 is sold for Rs. 120. What is the profit percentage?',
     options: ['10%', '15%', '20%', '25%'],
     correctAnswerIndex: 2,
     explanation: 'Cost Price (CP) = Rs. 100. Selling Price (SP) = Rs. 120. Profit = SP - CP = 120 - 100 = Rs. 20. Profit Percentage = (Profit / CP) × 100 = (20 / 100) × 100 = 20%.',
   ),
-  Question(
+  const Question(
     questionText: 'Find the simple interest on Rs. 5000 at 5% per annum for 2 years.',
     options: ['Rs. 250', 'Rs. 500', 'Rs. 750', 'Rs. 1000'],
     correctAnswerIndex: 1,
     explanation: 'Simple Interest (SI) = (Principal × Rate × Time) / 100 => SI = (5000 × 5 × 2) / 100 => SI = 50000 / 100 => SI = Rs. 500.',
   ),
-  Question(
+  const Question(
     questionText: 'A can do a work in 10 days. B can do the same work in 15 days. How many days will they take to complete the work together?',
     options: ['5 days', '6 days', '8 days', '12 days'],
     correctAnswerIndex: 1,
     explanation: 'A\'s 1-day work = 1/10. B\'s 1-day work = 1/15. Combined 1-day work = (1/10) + (1/15) = (3/30) + (2/30) = 5/30 = 1/6. If they complete 1/6 of the work in one day, they will complete the whole work in 6 days.',
   ),
-  Question(
+  const Question(
     questionText: 'A car travels at 60 km/h for 2 hours. What is the distance covered?',
     options: ['30 km', '60 km', '90 km', '120 km'],
     correctAnswerIndex: 3,
     explanation: 'Distance = Speed × Time => Distance = 60 km/h × 2 hours => Distance = 120 km.',
   ),
-  Question(
+  const Question(
     questionText: 'The perimeter of a square field with side 10 m is:',
     options: ['10 m', '20 m', '40 m', '100 m'],
     correctAnswerIndex: 2,
     explanation: 'The perimeter of a square = 4 × side => Perimeter = 4 × 10 m = 40 m.',
   ),
-  Question(
+  const Question(
     questionText: 'Which of the following is a prime number?',
     options: ['9', '15', '17', '21'],
     correctAnswerIndex: 2,
     explanation: 'A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. 9 is divisible by 3. 15 is divisible by 3 and 5. 17 is only divisible by 1 and 17. 21 is divisible by 3 and 7. Therefore, 17 is the prime number.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the value of (1/2) + (1/4)?',
     options: ['1/6', '2/6', '3/4', '1'],
     correctAnswerIndex: 2,
     explanation: 'To add fractions, find a common denominator. The least common multiple of 2 and 4 is 4. (1/2) = (2/4). (2/4) + (1/4) = 3/4.',
   ),
-  Question(
+  const Question(
     questionText: 'Convert 0.75 into a fraction.',
     options: ['1/4', '1/2', '3/4', '7/5'],
     correctAnswerIndex: 2,
     explanation: '0.75 can be written as 75/100. Simplify the fraction by dividing both numerator and denominator by their greatest common divisor, which is 25. 75 ÷ 25 = 3 and 100 ÷ 25 = 4. So, 0.75 = 3/4.',
   ),
-  Question(
+  const Question(
     questionText: 'If a dozen (12) eggs cost Rs. 60, what is the cost of 5 eggs?',
     options: ['Rs. 20', 'Rs. 25', 'Rs. 30', 'Rs. 35'],
     correctAnswerIndex: 1,
     explanation: 'Cost of 12 eggs = Rs. 60. Cost of 1 egg = 60 / 12 = Rs. 5. Cost of 5 eggs = 5 × 5 = Rs. 25.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the next number in the series: 2, 4, 6, 8, __?',
     options: ['9', '10', '11', '12'],
     correctAnswerIndex: 1,
     explanation: 'This is an arithmetic progression where each number is obtained by adding 2 to the previous number. 8 + 2 = 10.',
   ),
-  Question(
+  const Question(
     questionText: 'A rectangle has a length of 8 cm and a width of 5 cm. What is its area?',
     options: ['13 sq cm', '26 sq cm', '40 sq cm', '80 sq cm'],
     correctAnswerIndex: 2,
     explanation: 'Area of a rectangle = Length × Width. Area = 8 cm × 5 cm = 40 sq cm.',
   ),
-  Question(
+  const Question(
     questionText: 'If x + 5 = 12, what is the value of x?',
     options: ['5', '7', '10', '17'],
     correctAnswerIndex: 1,
     explanation: 'To solve for x, subtract 5 from both sides of the equation: x = 12 - 5 => x = 7.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the LCM of 8 and 12?',
     options: ['4', '24', '36', '48'],
     correctAnswerIndex: 1,
     explanation: 'To find the Least Common Multiple (LCM) of 8 and 12, list their multiples: Multiples of 8: 8, 16, 24, 32,... Multiples of 12: 12, 24, 36,... The smallest common multiple is 24.',
   ),
-  Question(
+  const Question(
     questionText: 'A bag contains 5 red balls and 5 blue balls. If one ball is drawn at random, what is the probability of drawing a red ball?',
     options: ['1/5', '1/2', '5/10', '1'],
     correctAnswerIndex: 1,
     explanation: 'Total number of balls = 5 red + 5 blue = 10 balls. Number of red balls = 5. Probability of drawing a red ball = (Number of red balls) / (Total number of balls) = 5/10 = 1/2.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the value of 5²?',
     options: ['10', '20', '25', '50'],
     correctAnswerIndex: 2,
     explanation: '5² means 5 multiplied by itself, i.e., 5 × 5. 5 × 5 = 25.',
   ),
-  Question(
+  const Question(
     questionText: 'If a person walks 3 km North and then 4 km East, how far is he from his starting point?',
     options: ['5 km', '7 km', '12 km', '25 km'],
     correctAnswerIndex: 0,
     explanation: 'This forms a right-angled triangle where the North and East movements are the two perpendicular sides. The distance from the starting point is the hypotenuse. Using the Pythagorean theorem (a² + b² = c²): 3² + 4² = c² => 9 + 16 = c² => 25 = c² => c = √25 = 5 km.',
   ),
-  Question(
+  const Question(
     questionText: 'A number when divided by 8, 12 and 15 leaves a remainder of 5 in each case. What is the smallest such number greater than 500?',
     options: ['605', '545', '585', '625'],
     correctAnswerIndex: 0,
     explanation: 'The number (N) must be of the form (LCM of 8, 12, 15) * k + 5. First, find the LCM of 8, 12, and 15: 8 = 2³, 12 = 2² × 3, 15 = 3 × 5. LCM(8, 12, 15) = 2³ × 3 × 5 = 8 × 3 × 5 = 120. So, the numbers that leave a remainder of 5 when divided by 8, 12, and 15 are of the form 120k + 5. We need the smallest such number greater than 500. If k = 4, N = 120(4) + 5 = 480 + 5 = 485 (not greater than 500). If k = 5, N = 120(5) + 5 = 600 + 5 = 605. The smallest number greater than 500 is 605.',
   ),
-  Question(
+  const Question(
     questionText: 'The difference between compound interest and simple interest on a sum of money at 5% per annum for 2 years is Rs. 25. What is the principal amount?',
     options: ['Rs. 8,000', 'Rs. 10,000', 'Rs. 12,000', 'Rs. 16,000'],
     correctAnswerIndex: 1,
     explanation: 'For 2 years, the difference between Compound Interest (CI) and Simple Interest (SI) is given by the formula: CI - SI = P(R/100)², where P is the principal and R is the rate of interest. Given: CI - SI = Rs. 25, R = 5%. 25 = P × (5/100)² => 25 = P × (1/20)² => 25 = P × (1/400) => P = 25 × 400 => P = Rs. 10,000.',
   ),
-  Question(
+  const Question(
     questionText: 'If x - 1/x = 5, then what is the value of x² + 1/x²?',
     options: ['23', '25', '27', '29'],
     correctAnswerIndex: 2,
     explanation: 'We are given x - 1/x = 5. To find x² + 1/x², we can square both sides of the given equation: (x - 1/x)² = 5². Using the algebraic identity (a - b)² = a² + b² - 2ab: x² + (1/x)² - 2(x)(1/x) = 25 => x² + 1/x² - 2 = 25 => x² + 1/x² = 25 + 2 => x² + 1/x² = 27.',
   ),
-  Question(
+  const Question(
     questionText: 'A shopkeeper marks an item 50% above its cost price. He then offers a discount of 20%. What is his profit percentage?',
     options: ['20% profit', '25% profit', '15% profit', '10% profit'],
     correctAnswerIndex: 0,
     explanation: 'Let the Cost Price (CP) of the item be Rs. 100. The item is marked 50% above CP, so Marked Price (MP) = 100 + 50% of 100 = 100 + 50 = Rs. 150. A discount of 20% is offered on the MP. Discount amount = 20% of 150 = (20/100) × 150 = Rs. 30. Selling Price (SP) = MP - Discount = 150 - 30 = Rs. 120. Profit = SP - CP = 120 - 100 = Rs. 20. Profit Percentage = (Profit / CP) × 100 = (20 / 100) × 100 = 20%.',
   ),
-  Question(
+  const Question(
     questionText: 'A car covers a distance of 360 km in 6 hours. What is its average speed?',
     options: ['50 km/h', '60 km/h', '70 km/h', '80 km/h'],
     correctAnswerIndex: 1,
     explanation: 'Average Speed = Total Distance / Total Time. Given Distance = 360 km. Given Time = 6 hours. Average Speed = 360 km / 6 hours = 60 km/h.',
   ),
-  Question(
+  const Question(
     questionText: 'Two pipes A and B can fill a tank in 12 hours and 15 hours respectively. A third pipe C can empty the tank in 20 hours. If all three pipes are opened together, in how much time will the tank be filled?',
     options: ['8 hours', '9 hours', '10 hours', '12 hours'],
     correctAnswerIndex: 2,
     explanation: 'Pipe A\'s 1-hour work = 1/12 of the tank. Pipe B\'s 1-hour work = 1/15 of the tank. Pipe C\'s 1-hour work (emptying) = -1/20 of the tank. When all three pipes are opened together, their combined 1-hour work rate is: (1/12) + (1/15) - (1/20). Find the Least Common Multiple (LCM) of 12, 15, and 20, which is 60. (5/60) + (4/60) - (3/60) = (5 + 4 - 3)/60 = 6/60 = 1/10. This means 1/10 of the tank is filled in 1 hour. Therefore, the entire tank will be filled in 10 hours.',
   ),
-  Question(
+  const Question(
     questionText: 'The sides of a right triangle are in the ratio 3:4:5. If its perimeter is 48 cm, what is the length of the hypotenuse?',
     options: ['12 cm', '16 cm', '20 cm', '24 cm'],
     correctAnswerIndex: 2,
     explanation: 'Let the sides of the right triangle be 3x, 4x, and 5x. The hypotenuse is the longest side, 5x. The perimeter of the triangle is the sum of its sides: 3x + 4x + 5x = 12x. Given that the perimeter is 48 cm. So, 12x = 48 => x = 48 / 12 => x = 4. The length of the hypotenuse is 5x = 5 × 4 = 20 cm.',
   ),
-  Question(
+  const Question(
     questionText: 'A mixture contains milk and water in the ratio 5:2. If 10 litres of water are added, the ratio becomes 5:3. What is the quantity of milk in the original mixture?',
     options: ['40 litres', '50 litres', '60 litres', '70 litres'],
     correctAnswerIndex: 1,
     explanation: 'Let the initial quantity of milk be 5x litres and water be 2x litres. When 10 litres of water are added, the quantity of water becomes (2x + 10) litres. The quantity of milk remains 5x. The new ratio of milk to water is 5:3. So, (5x) / (2x + 10) = 5/3. Cross-multiply: 3 × (5x) = 5 × (2x + 10) => 15x = 10x + 50 => 15x - 10x = 50 => 5x = 50 => x = 10. The quantity of milk in the original mixture was 5x = 5 × 10 = 50 litres.',
   ),
-  Question(
+  const Question(
     questionText: 'If 12 men or 18 boys can build a wall in 48 days, then how long will 6 men or 9 boys build the wall?',
     options: ['48 days', '36 days', '64 days', '72 days', '96 days'],
     correctAnswerIndex: 4,
     explanation: 'The problem states that 12 men can build a wall in 48 days. It also states that 18 boys can build the same wall in 48 days. We need to find how long 6 men or 9 boys will take. Consider the men: If 12 men take 48 days, then 6 men (which is half the number of men) will take twice the time to complete the same work, assuming their efficiency remains constant. Time for 6 men = 48 days × 2 = 96 days. Consider the boys: If 18 boys take 48 days, then 9 boys (which is half the number of boys) will also take twice the time. Time for 9 boys = 48 days × 2 = 96 days. Since both scenarios (6 men or 9 boys) yield the same result, the answer is 96 days.',
   ),
-  Question(
+  const Question(
     questionText: 'The circumference of a circle is increased by 10 per cent. By what percentage does its area increase?',
     options: ['10 per cent', '21 per cent', '20 per cent', '11 per cent'],
     correctAnswerIndex: 1,
     explanation: 'Let the original radius of the circle be \'r\'. Original Circumference (C) = 2πr. Original Area (A) = πr². If the circumference is increased by 10%, the new circumference (C\') = C + 0.10C = 1.10C. Since C\' = 2πr\', we have 1.10(2πr) = 2πr\'. This implies r\' = 1.10r. The new radius is 1.10 times the original radius. Now, calculate the new area (A\') using the new radius r\': A\' = π(r\')² = π(1.10r)² = π(1.21r²) = 1.21(πr²). So, A\' = 1.21A. The increase in area is A\' - A = 1.21A - A = 0.21A. Percentage increase in area = (Increase in Area / Original Area) × 100 = (0.21A / A) × 100 = 0.21 × 100 = 21%.',
   ),
-  Question(
+  const Question(
     questionText: 'A mixture of milk and water is in the ratio 7:2. If 30 litres of water are added, the new ratio becomes 7:5. What is the initial quantity of milk in the mixture?',
     options: ['60 litres', '70 litres', '80 litres', '50 litres'],
     correctAnswerIndex: 1,
     explanation: 'Let the initial quantity of milk be 7x litres and water be 2x litres. When 30 litres of water are added, the quantity of water becomes (2x+30). The new ratio is 7:5. (7x)/(2x+30) = 7/5. Cross-multiplying: 5(7x) = 7(2x+30) => 35x = 14x + 210 => 21x = 210 => x = 10. The initial quantity of milk is 7x = 7 × 10 = 70 litres.',
   ),
-  Question(
+  const Question(
     questionText: 'If 6 men or 8 women can do a piece of work in 24 days, in how many days will 3 men and 4 women finish the same work?',
     options: ['12 days', '16 days', '20 days', '24 days'],
     correctAnswerIndex: 3,
     explanation: 'According to the problem, the work done by 6 men is equivalent to the work done by 8 women. This means 6 men = 8 women. Dividing both sides by 2, we get 3 men = 4 women. The new team consists of "3 men and 4 women." Since 3 men are equivalent to 4 women, the new team is essentially 4 women + 4 women = 8 women. The problem states that 8 women can do the work in 24 days. Therefore, the new team of 8 women will also take 24 days to complete the work.',
   ),
-  Question(
+  const Question(
     questionText: 'The circumference of a circle is increased by 10 per cent. By what percentage does its area increase?',
     options: ['10 per cent', '21 per cent', '20 per cent', '11 per cent'],
     correctAnswerIndex: 1,
     explanation: 'Let the original radius be r. The original circumference is C=2πr. The original area is A=πr². If the circumference is increased by 10%, the new circumference is C\'=1.10C. Since C\' is proportional to the new radius r\', the new radius is also 1.10r. The new area is A\'=π(r\')²=π(1.10r)²=π(1.21r²)=1.21A. The percentage increase in area is ((A\'-A)/A) × 100 = ((1.21A - A)/A) × 100 = 0.21 × 100 = 21%.',
   ),
-  Question(
+  const Question(
     questionText: 'A man sold two bicycles for Rs. 12,000 each. On one he gained 20 per cent and on the other he lost 20 per cent. What is his overall gain or loss percent?',
     options: ['4 per cent loss', 'No gain, no loss', '4 per cent gain', '2 per cent loss'],
     correctAnswerIndex: 0,
     explanation: 'When two items are sold at the same price, and there is a gain of x% on one and a loss of x% on the other, there is always a net loss. The overall loss percentage is given by the formula (x/10)². Here, x=20. Overall loss percentage = (20/10)²% = 2²% = 4%.',
   ),
-  Question(
+  const Question(
     questionText: 'The average of eight consecutive odd numbers is 38. What is the smallest number among them?',
     options: ['29', '31', '33', '27'],
     correctAnswerIndex: 1,
     explanation: 'The average of a set of consecutive odd numbers is the middle value. Since there are 8 numbers, the average (38) lies exactly between the 4th and 5th numbers. The 4th and 5th consecutive odd numbers must be 37 and 39. The eight consecutive odd numbers are: 31, 33, 35, 37, 39, 41, 43, 45. The smallest number is 31.',
   ),
-  Question(
+  const Question(
     questionText: 'If 3¹⁰ × 3⁻⁴ × 3⁻² = 3ˣ, then the value of x is:',
     options: ['6', '4', '2', '8'],
     correctAnswerIndex: 1,
     explanation: 'According to the laws of exponents, when multiplying powers with the same base, you add the exponents. 3¹⁰⁺(⁻⁴)⁺(⁻²) = 3ˣ => 3¹⁰⁻⁴⁻² = 3ˣ => 3⁴ = 3ˣ. Since the bases are equal, the exponents must also be equal. Therefore, x=4.',
   ),
-  Question(
+  const Question(
     questionText: 'A sum of money amounts to Rs. 1,200 in 2 years and to Rs. 1,500 in 5 years at simple interest. The rate of interest per annum is:',
     options: ['8 per cent', '10 per cent', '12 per cent', '9 per cent'],
     correctAnswerIndex: 1,
     explanation: 'The simple interest (SI) accrued in the time period between year 2 and year 5 is the difference between the amounts. SI for (5 - 2) = 3 years = 1,500 - 1,200 = Rs. 300. SI for 1 year = 300/3 = Rs. 100. The Principal (P) is the amount at year 2 minus the interest for 2 years. Principal = 1,200 - (100 × 2) = 1,200 - 200 = Rs. 1,000. Using the SI formula: SI = (P × R × T)/100 => 100 = (1000 × R × 1)/100 => 100 = 10R => R = 100/10 = 10%.',
   ),
-  Question(
+  const Question(
     questionText: 'If 5x + 3y = 26 and 3x + 5y = 30, what is the value of x+y?',
     options: ['6', '7', '8', '9'],
     correctAnswerIndex: 1,
     explanation: 'We have two equations: 5x + 3y = 26 and 3x + 5y = 30. To find the value of x+y, add the two equations together: (5x + 3y) + (3x + 5y) = 26 + 30 => 8x + 8y = 56. Factor out 8: 8(x+y) = 56. Divide both sides by 8: x+y = 56/8 = 7.',
   ),
-  Question(
+  const Question(
     questionText: 'Find the least number which when increased by 12 is divisible by 6, 10 and 12.',
     options: ['28', '48', '68', '88'],
     correctAnswerIndex: 1,
     explanation: 'Let the number be \'N\'. The problem states that N+12 is a multiple of 6, 10, and 12. Therefore, N+12 must be the Least Common Multiple (LCM) of these three numbers. To find the LCM of 6, 10, and 12: 6 = 2 × 3, 10 = 2 × 5, 12 = 2² × 3. LCM = 2² × 3 × 5 = 4 × 3 × 5 = 60. So, N+12 = 60 => N = 60 - 12 = 48.',
   ),
-  Question(
+  const Question(
     questionText: 'The length, breadth, and height of a cuboid are in the ratio 2:3:4. If its total surface area is 468 square units, what is its volume?',
     options: ['384 cubic units', '448 cubic units', '512 cubic units', '648 cubic units'],
     correctAnswerIndex: 3,
     explanation: 'Let the length be 2x, breadth be 3x, and height be 4x. The total surface area (TSA) of a cuboid is given by the formula 2(lb+bh+hl). 468 = 2((2x)(3x)+(3x)(4x)+(4x)(2x)) => 468 = 2(6x² + 12x² + 8x²) => 468 = 2(26x²) => 468 = 52x² => x² = 468/52 = 9 => x = 3. The dimensions are: Length = 2x = 6, Breadth = 3x = 9, Height = 4x = 12. Volume = l × b × h = 6 × 9 × 12 = 648 cubic units.',
   ),
-  Question(
+  const Question(
     questionText: 'A shopkeeper sells an item at Rs. 80. The price is 10% higher than an earlier price, which gave him a 20% profit on the original cost price. What was the original cost price?',
     options: ['Rs. 60.61', 'Rs. 58', 'Rs. 55', 'Rs. 62'],
     correctAnswerIndex: 0,
     explanation: 'The current selling price is Rs. 80, which is 10% higher than the earlier selling price. Earlier selling price = 80/1.10 = 800/11. The earlier selling price provided a 20% profit on the original cost price (CP). Earlier selling price = CP × (1 + 20/100) = 1.20 × CP. 800/11 = 1.20 × CP => CP = 800 / (11 × 1.20) = 800 / 13.2 ≈ Rs. 60.61.',
   ),
-  Question(
+  const Question(
     questionText: 'In a class, 3/7 of the students are girls and the rest are boys. If 1/5 of the girls and 1/10 of the boys are absent on a particular day, what fraction of the total class is present?',
     options: ['11/14', '33/35', '23/28', '6/7'],
     correctAnswerIndex: 3,
     explanation: 'Let the total number of students be T. Number of girls = (3/7)T. Number of boys = T - (3/7)T = (4/7)T. Girls absent = (1/5) × (3/7)T = (3/35)T. Boys absent = (1/10) × (4/7)T = (4/70)T = (2/35)T. Total students absent = (3/35)T + (2/35)T = (5/35)T = (1/7)T. Total students present = T - (1/7)T = (6/7)T. The fraction of the class present is (6/7)T / T = 6/7.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the greatest number which, on dividing 1223 and 2351, leaves remainders 90 and 85, respectively?',
     options: ['1133', '127', '42', '1100'],
     correctAnswerIndex: 0,
     explanation: 'If a number leaves a remainder of 90 when dividing 1223, it means the number is a divisor of (1223 - 90) = 1133. If the same number leaves a remainder of 85 when dividing 2351, it means the number is a divisor of (2351 - 85) = 2266. The greatest such number is the Highest Common Factor (HCF) of 1133 and 2266. 1133. 2266 = 2 × 1133. The HCF of 1133 and 2266 is 1133.',
   ),
-  Question(
+  const Question(
     questionText: 'If the HCF of two numbers is 11 and their product is 363, what is the greater number?',
     options: ['9', '22', '33', '11'],
     correctAnswerIndex: 2,
     explanation: 'Let the two numbers be \'a\' and \'b\'. The product of two numbers is equal to the product of their HCF and LCM. a × b = HCF × LCM => 363 = 11 × LCM => LCM = 363/11 = 33. Let the two numbers be 11x and 11y, where x and y are co-prime integers. Their product is (11x)(11y) = 121xy = 363. xy = 363/121 = 3. Since x and y are co-prime integers, the only possible pair is (1, 3). The two numbers are 11 × 1 = 11 and 11 × 3 = 33. The greater of the two numbers is 33.',
   ),
-  Question(
+  const Question(
     questionText: 'A train covers a distance of 12 km in 10 minutes. If it takes 6 seconds to pass a telegraph post, then the length of the train is:',
     options: ['90 m', '100 m', '120 m', '140 m'],
     correctAnswerIndex: 2,
     explanation: 'First, calculate the speed of the train in metres per second (m/s). Distance = 12 km = 12,000 meters. Time = 10 minutes = 10 × 60 = 600 seconds. Speed = Distance/Time = 12000/600 = 20 m/s. When a train passes a stationary object like a telegraph post, the distance it travels is equal to its own length. Length of the train = Speed × Time = 20 m/s × 6 s = 120 metres.',
   ),
-  Question(
+  const Question(
     questionText: 'What number must be added to each term of the ratio 7:3 so that the ratio becomes 2:3?',
     options: ['1', '2', '5', 'Cannot be determined'],
     correctAnswerIndex: 3,
     explanation: 'Let the number to be added be x. The new ratio is (7+x)/(3+x) = 2/3. Cross-multiplying gives: 3(7+x) = 2(3+x) => 21 + 3x = 6 + 2x => 3x - 2x = 6 - 21 => x = -15. The value of x is negative, which means a positive number cannot be added to satisfy the condition. Therefore, the answer cannot be determined from the given options.',
   ),
-  Question(
+  const Question(
     questionText: 'The ratio of two numbers is 3:4 and their sum is 420. The greater of the two numbers is:',
     options: ['175', '200', '240', '315'],
     correctAnswerIndex: 2,
     explanation: 'Let the two numbers be 3x and 4x. Their sum is 3x + 4x = 7x. We are given that their sum is 420, so 7x = 420 => x = 420/7 = 60. The two numbers are 3x = 3 × 60 = 180 and 4x = 4 × 60 = 240. The greater of the two numbers is 240.',
   ),
-  Question(
+  const Question(
     questionText: 'A walks at 4 km/hr and 4 hours after his departure, B cycles after him at 10 km/hr. How far from the starting point will B catch up with A?',
     options: ['24 km', '26.67 km', '25 km', '28 km'],
     correctAnswerIndex: 1,
     explanation: 'In the 4 hours before B starts, A covers a distance of 4 km/hr × 4 hrs = 16 km. The relative speed of B with respect to A is 10 km/hr - 4 km/hr = 6 km/hr. The time taken for B to catch up with A is the distance A has covered divided by the relative speed: Time = 16 km / 6 km/hr = 8/3 hours. The distance from the starting point where B catches up with A is the distance B travels in this time. Distance = Speed of B × Time = 10 km/hr × 8/3 hours = 80/3 ≈ 26.67 km.',
   ),
-  Question(
+  const Question(
     questionText: 'A car covers a certain distance at 50 km/hr in 8 hours. To cover the same distance in 5 hours, what should be its speed?',
     options: ['70 km/hr', '75 km/hr', '80 km/hr', '85 km/hr'],
     correctAnswerIndex: 2,
     explanation: 'First, find the total distance covered. Distance = Speed × Time = 50 km/hr × 8 hrs = 400 km. To cover this same distance in 5 hours, the new speed is: New Speed = Distance/Time = 400 km / 5 hrs = 80 km/hr.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the difference between the simple interest and compound interest on Rs. 10,000 at 10% per annum for 2 years?',
     options: ['Rs. 100', 'Rs. 10', 'Rs. 1,000', 'Rs. 10,000'],
     correctAnswerIndex: 0,
     explanation: 'The difference between compound interest (CI) and simple interest (SI) for 2 years can be calculated using the formula: Difference = P(R/100)². Where P = Principal (Rs. 10,000) and R = Rate (10%). Difference = 10000 × (10/100)² = 10000 × (0.1)² = 10000 × 0.01 = Rs. 100.',
   ),
-  Question(
+  const Question(
   questionText: 'The ages of A and B are in the ratio 5:7. Five years ago, their ages were in the ratio 5:8. The respective present ages (in years) are:',
   options: ['20,28', '15,21', '25,40', '10,14'],
   correctAnswerIndex: 1,
   explanation: 'Let the present ages of A and B be 5x and 7x years, respectively. Five years ago, their ages were (5x - 5) and (7x - 5) years. According to the problem, five years ago, their ages were in the ratio 5:8. So, (5x - 5) / (7x - 5) = 5 / 8. Cross-multiplying gives 8(5x - 5) = 5(7x - 5), which simplifies to 40x - 40 = 35x - 25. Solving for x, we get 5x = 15, so x = 3. The present age of A is 5x = 5 * 3 = 15 years, and the present age of B is 7x = 7 * 3 = 21 years. The respective present ages are 15, 21.',
   ),
-  Question(
+  const Question(
     questionText: 'At present, Ranveer is 15 years older than Deepika. 5 years later Deepika will be 10 years old. What is the Present age of Ranveer (in years)?',
     options: ['15', '20', '25', '30'],
     correctAnswerIndex: 1,
     explanation: 'Let Deepika\'s age 5 years later be D_future. D_future = 10 years. Deepika\'s present age (D_present) = D_future - 5 = 10 - 5 = 5 years. Ranveer\'s present age (R_present) = Deepika\'s present age + 15 = 5 + 15 = 20 years.',
   ),
-  Question(
+  const Question(
     questionText: 'A number when divided by 8, 12 and 15 leaves a remainder of 5 in each case. What is the smallest such number greater than 500?',
     options: ['545', '565', '605', '645'],
     correctAnswerIndex: 2,
     explanation: 'To find the smallest number that leaves a remainder of 5 when divided by 8, 12, and 15, we first find the Least Common Multiple (LCM) of 8, 12, and 15. The prime factorization is 8 = 2^3, 12 = 2^2 * 3, and 15 = 3 * 5. LCM(8, 12, 15) = 2^3 * 3 * 5 = 120. The numbers that leave a remainder of 5 are of the form 120k + 5. We need the smallest such number greater than 500. For k = 5, the number is 120(5) + 5 = 605.',
   ),
-  Question(
+  const Question(
     questionText: 'The difference between compound interest and simple interest on a sum of money at 8 per cent per annum for 2 years is Rs. 128. What is the principal amount?',
     options: ['Rs. 8 000', 'Rs. 20 000', 'Rs. 12 000', 'Rs. 16 000'],
     correctAnswerIndex: 1,
     explanation: 'For 2 years, the difference between Compound Interest (CI) and Simple Interest (SI) is given by the formula: CI - SI = P*(R/100)^2. Given CI - SI = Rs. 128 and Rate (R) = 8% per annum. So, 128 = P (8/100)^2, which simplifies to 128 = P (4/625). Solving for P, we get P = 128 \\times (625/4) = 32 \\times 625 = 20000. The principal amount is Rs. 20,000.',
   ),
-  Question(
+  const Question(
     questionText: 'What is the value of the expression x^3 + 1/x^3 if x+1/x=10?',
     options: ['990', '970', '1020', '1000'],
     correctAnswerIndex: 1,
     explanation: 'We use the algebraic identity (a+b)^3 = a^3 + b^3 + 3ab(a+b). For this question, a=x and b=1/x. So, (x+1/x)^3 = x^3 + 1/x^3 + 3(x)(1/x)(x+1/x). Given x+1/x=10, we have 10^3 = x^3 + 1/x^3 + 3(1)(10), which simplifies to 1000 = x^3 + 1/x^3 + 30. Therefore, x^3 + 1/x^3 = 1000 - 30 = 970.',
   ),
-  Question(
+  const Question(
     questionText:'What is the last digit of 7^{99}?',
     options: ['1', '3', '5', '7'],
     correctAnswerIndex: 1,
     explanation: 'To find the last digit of 7^{99}, note that the last digit of powers of 7 cycle with period 4: 7, 9, 3, 1, ... Specifically: 7^1 ends in 7, 7^2 ends in 9, 7^3 ends in 3, 7^4 ends in 1, then the cycle repeats. Since 99 \\pmod{4} = 3, the last digit of 7^{99} is the same as that of 7^3, which is 3.',
   ),
-  Question(
+  const Question(
     questionText:'The binary number 101101 is equal to what decimal number?',
     options:['56', '44', '45', '58'],
     correctAnswerIndex:2,
     explanation:'Convert binary 101101 to decimal by summing powers of 2: 1 \\times 2^5 + 0 \\times 2^4 + 1 \\times 2^3 + 1 \\times 2^2 + 0 \\times 2^1 + 1 \\times 2^0 = 32 + 0 + 8 + 4 + 0 + 1 = 45. Thus, 101101_2 = 45_{10}.',
   ),
-  Question(
+  const Question(
     questionText:'How many trailing zeros does 100! (100 factorial) have?',
     options:['22', '24', '25', '20'],
     correctAnswerIndex:1,
     explanation:'The number of trailing zeros in n! is given by \\lfloor n/5 \\rfloor + \\lfloor n/25 \\rfloor + \\lfloor n/125 \\rfloor + \\dots For 100!: \\lfloor 100/5 \\rfloor = 20, \\lfloor 100/25 \\rfloor = 4. Higher terms are 0. The sum is 20+4=24.',
   ),
-  Question(
+  const Question(
     questionText:'If the HCF of two numbers is 12 and their LCM is 252, and one number is 84, what is the other number?',
     options:['36', '42', '28', '56'],
     correctAnswerIndex:0,
     explanation:'For any two numbers a and b, HCF \\times LCM = a \\times b. Here 12 \\times 252 = a \\times 84. So a = \\frac{12 \\times 252}{84} = 36.',
   ),
-  Question(
+  const Question(
     questionText:'Find the LCM of 8, 12, and 20.',
     options:['40', '120', '240', '60'],
     correctAnswerIndex:1,
     explanation:'Prime factorize each: 8 = 2^3, 12 = 2^2 \\times 3, 20 = 2^2 \\times 5. The LCM uses the highest powers: 2^3 \\times 3 \\times 5 = 8 \\times 3 \\times 5 = 120.',
   ),
-  Question(
+  const Question(
     questionText:'What is 20% of 150?',
     options:['20', '25', '30', '35'],
     correctAnswerIndex:2,
     explanation:'20% of 150 is 0.20 \\times 150 = 30.',
   ),
-  Question(
+  const Question(
     questionText:'An item priced at ₹500 is discounted by 15%. What is the sale price?',
     options:['₹425', '₹450', '₹400', '₹475'],
     correctAnswerIndex:0,
     explanation:'A 15% discount on ₹500 is 0.15 \\times 500 = ₹75 off. Sale price = 500 - 75 = ₹425.',
   ),
-  Question(
+  const Question(
     questionText:'A shopkeeper sells an article at ₹240 after making a 20% profit. What was his cost price?',
     options:['₹200', '₹220', '₹180', '₹250'],
     correctAnswerIndex:0,
     explanation:'If selling price (SP) is ₹240 after 20% profit, then cost price (CP) is \\text{SP} / (1 + \\text{profit%}) = 240 / 1.20 = 200.',
   ),
-  Question(
+  const Question(
     questionText:'The number of students increased from 120 to 150. What is the percentage increase?',
     options:['20%', '25%', '30%', '15%'],
     correctAnswerIndex:1,
     explanation:'Increase = 150 - 120 = 30. Percentage increase = (30/120) \\times 100\\% = 25\\%.',
   ),
-  Question(
+  const Question(
     questionText:'30 is 25% of which number?',
     options:['120', '100', '150', '125'],
     correctAnswerIndex:0,
     explanation:'If 30 is 25% of x, then 0.25x = 30. So x = 30 / 0.25 = 120.',
   ),
-  Question(
+  const Question(
     questionText:'A shopkeeper buys an article for ₹100 and sells it for ₹120. What is his profit percentage?',
     options:['18%', '25%', '20%', '15%'],
     correctAnswerIndex:2,
     explanation:'Profit = 120 - 100 = ₹20. Profit percentage = (20/100) \\times 100\\% = 20\\%.',
   ),
-  Question(
+  const Question(
     questionText:'A person buys goods for ₹300 and sells them at a loss of 15%. What is the selling price?',
     options:['₹255', '₹285', '₹270', '₹225'],
     correctAnswerIndex:0,
     explanation:'Loss of 15% on ₹300 is 0.15 \\times 300 = ₹45. Selling price = 300 - 45 = ₹255.',
   ),
-  Question(
+  const Question(
     questionText:'If the cost price to selling price ratio of an article is 5:6, what is the profit percentage?',
     options:['20%', '15%', '25%', '10%'],
     correctAnswerIndex:0,
     explanation:'If CP:SP = 5:6, then assume CP = 5k and SP = 6k. Profit = 6k - 5k = k. Profit percentage = (k/5k) \\times 100\\% = 20\\%.',
   ),
-  Question(
+  const Question(
     questionText:'One merchant sells a phone at 10% profit, and another sells the same phone at 20% profit. What is the combined profit percent on the original price if profits are successive?',
     options:['30%', '32%', '28%', '34%'],
     correctAnswerIndex:1,
     explanation:'The successive profit factor is 1.10 \\times 1.20 = 1.32. This is equivalent to a 32% total profit on the original price.',
   ),
-  Question(
+  const Question(
     questionText:'A shopkeeper bought 40 pens at ₹3 each and sold them at 2 for ₹5. What is his profit or loss percentage?',
     options:['16.67% Loss', '20% Loss', '15% Profit', '16.67% Profit'],
     correctAnswerIndex:0,
     explanation:'Total cost price = 40 \\times ₹3 = ₹120. Selling price per pen = ₹5/2 = ₹2.50. Total selling price = 40 \\times ₹2.50 = ₹100. Since the selling price is less than the cost price, there is a loss. Loss = ₹120 - ₹100 = ₹20. Loss percentage = (₹20 / ₹120) \\times 100\\% = 16.67\\%.',
   ),
-  Question(
+  const Question(
     questionText:'A alone can do a job in 12 days, and B alone in 18 days. How long will they take working together?',
     options:['6 days', '7\\frac{1}{5} days', '8 days', '5 days'],
     correctAnswerIndex:1,
     explanation:'Combined rate = 1/12 + 1/18 = (3+2)/36 = 5/36. Time = 36/5 = 7.2 days, which is 7\\frac{1}{5}',
   ),
-  Question(
+  const Question(
     questionText:'A can do a work in 8 days and B in 12 days. A works for 3 days and then leaves. The remaining work is done by B. How many total days will it take to finish the work?',
     options:['14 days', '17 days', '15 days', '12 days'],
     correctAnswerIndex:1,
     explanation:"In 3 days, A does 3 \\times (1/8) = 3/8 of the work. Remaining work = 1 - 3/8 = 5/8. B's rate is 1/12 per day. Time for B to complete the remaining work is (5/8) / (1/12) = (5/8) \\times 12 = 7.5 days. Total time is 3 + 7.5 = 10.5 days. There is an inconsistency between the provided solution and the given answer options.",
   ),
-  Question(
+  const Question(
     questionText:'A and B can complete a work in 6 days together. If A alone can do it in 10 days, how many days will B alone take?',
     options:['15', '12', '20', '30'],
     correctAnswerIndex:0,
     explanation:'Combined rate = 1/6. A\'s rate = 1/10. So B\'s rate = 1/6 - 1/10 = (5-3)/30 = 2/30 = 1/15. Hence B takes 15 days.',
   ),
-  Question(
+  const Question(
     questionText:'A can do a work in 5 days and B in 10 days. In how many days can they finish the work if they work together?',
     options:['\\frac{10}{3} days', '\\frac{50}{15} days', '4 days', '3 days'],
     correctAnswerIndex:0,
     explanation:'Combined rate = 1/5 + 1/10 = 2/10 + 1/10 = 3/10. Time = 10/3 days.',
   ),
-  Question(
+  const Question(
     questionText:'A car travels at 60 km/h. How long will it take to cover 90 km?',
     options:['1 hour', '1.5 hours', '2 hours', '1 hour 45 minutes'],
     correctAnswerIndex:1,
     explanation:'Time = Distance/Speed = 90/60=1.5 hours (1 hour 30 minutes).',
   ),
-  Question(
+  const Question(
     questionText:'A train covers 180 km in 3 hours. What is its speed?',
     options:['50 km/h', '60 km/h', '65 km/h', '45 km/h'],
     correctAnswerIndex:1,
     explanation:'Speed = 180 \\text{ km}/3 \\text{ h} = 60 \\text{ km/h}.',
   ),
-  Question(
+  const Question(
     questionText:'A boat goes 30 km downstream in 1 hour and 20 km upstream in 1 hour. What is the speed of the stream?',
     options:['5 km/h', '7.5 km/h', '10 km/h', '2.5 km/h'],
     correctAnswerIndex:0,
     explanation:'Downstream speed = 30 km/h, upstream speed = 20 km/h. Let boat’s still-water speed = b, stream speed = s. Then b+s=30 and b-s=20. Solving gives s=(30-20)/2=5 km/h.',
   ),
-  Question(
+  const Question(
     questionText:'Two persons 15 km apart walk toward each other, one at 6 km/h and the other at 4 km/h. After how many hours will they meet?',
     options:['1 hour', '1.5 hours', '2 hours', '0.75 hours'],
     correctAnswerIndex:1,
     explanation:'Closing speed = 6+4=10 km/h. Time = Distance/Relative speed = 15/10=1.5 hours.',
   ),
-  Question(
+  const Question(
     questionText:'A car travels at 50 km/h. How far will it go in 18 minutes?',
     options:['10 km', '15 km', '20 km', '12 km'],
     correctAnswerIndex:1,
     explanation:'Time = 18 minutes = 18/60 = 0.3 hours. Distance = 50 \\times 0.3 = 15 km.',
   ),
-  Question(
+  const Question(
     questionText:'What is the simple interest on ₹1000 at 5% per annum for 2 years? (Use SI formula)',
     options:['₹100', '₹150', '₹50', '₹200'],
     correctAnswerIndex:0,
     explanation:'Simple Interest (SI) = (P \\times R \\times T)/100 = (1000 \\times 5 \\times 2)/100 = ₹100.',
   ),
-  Question(
+  const Question(
     questionText:'A person borrows ₹5000 at 10% simple interest and pays ₹600 interest at the end of the term. For how many years did he borrow the money?',
     options:['1.2 years', '2 years', '1 year', '3 years'],
     correctAnswerIndex:0,
     explanation:'SI = 600. Using 600=(5000 \\times 10 \\times T)/100. Simplify: 600 = 5000 \\times 0.1 \\times T = 500 \\times T. So T = 600/500 = 1.2 years.',
   ),
-  Question(
+  const Question(
     questionText:'What is the compound interest on ₹1000 for 2 years at 10% per annum compounded annually? (Use CI formula)',
     options:['₹210', '₹200', '₹220', '₹110'],
     correctAnswerIndex:0,
     explanation:'Compound Interest (CI) = P[(1+R/100)^T-1]. Here P=1000, R=10, T=2. CI = 1000[(1.10)^2-1] = 1000(1.21-1) = ₹210',
   ),
-  Question(
+  const Question(
     questionText:'If ₹5000 is invested at 8% compound interest annually for 2 years, how much interest is earned?',
     options:['₹832', '₹800', '₹832', '₹864'],
     correctAnswerIndex:0,
     explanation:'CI = 5000[(1+0.08)^2-1] = 5000(1.1664-1) = 5000(0.1664) = ₹832.',
   ),
-  Question(
+  const Question(
     questionText:'A sum of money amounts to ₹11898 in 2 years at compound interest. If the simple interest on it for 2 years is ₹880, what is the principal?',
     options:['₹10900', '₹11000', '₹10700', '₹9500'],
     correctAnswerIndex:1,
