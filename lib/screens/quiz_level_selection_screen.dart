@@ -4,9 +4,8 @@ import 'package:exam_prep_adda/screens/quiz_screen.dart'; // Import the new Quiz
 import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 import 'package:exam_prep_adda/services/progress_service.dart'; // Import the progress service
 
-// Placeholder for quiz data files.
-// You'll need to create these files.
-import 'package:exam_prep_adda/data/ib_acio/quizzes/ib_acio_quiz_1.dart'; // Example quiz file
+// Import the new section-based quiz data file.
+import 'package:exam_prep_adda/data/ib_acio/quizzes/ib_acio_quiz_1.dart';
 
 class QuizLevelSelectionScreen extends StatefulWidget {
   final String examName;
@@ -114,13 +113,14 @@ class _QuizLevelSelectionScreenState extends State<QuizLevelSelectionScreen> {
                         final double? score = _quizScores[quizName];
 
                         // This is a placeholder for a list of questions.
-                        final List<Question> quizQuestions;
+                        // *** MODIFIED: Load the sectioned data instead of a flat list ***
+                        final List<QuizSection> quizSections;
                         switch (quizNumber) {
                           case 1:
-                            quizQuestions = ibAcioQuiz1Questions;
+                            quizSections = ibAcioQuiz1Sections;
                             break;
                           default:
-                            quizQuestions = [];
+                            quizSections = [];
                         }
 
                         // Build the quiz card
@@ -134,7 +134,8 @@ class _QuizLevelSelectionScreenState extends State<QuizLevelSelectionScreen> {
                                   builder: (context) => QuizScreen(
                                     examName: widget.examName,
                                     quizName: quizName,
-                                    questions: quizQuestions,
+                                    // *** MODIFIED: Pass the 'sections' parameter ***
+                                    sections: quizSections,
                                   ),
                                 ),
                               );

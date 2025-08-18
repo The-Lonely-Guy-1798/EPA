@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:exam_prep_adda/screens/profile_screen.dart';
 import 'package:exam_prep_adda/screens/exam_detail_screen.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:intl/intl.dart'; // Package to format dates
+import 'dart:async'; // For Timer
 import 'dart:math'; // For the flip animation
 
-// Import the new daily questions data file
-import 'package:exam_prep_adda/data/daily_questions.dart';
+// Import the new hourly questions data file
+import 'package:exam_prep_adda/data/question_hour.dart';
 // Import the app theme file to access the new background
 import 'package:exam_prep_adda/utils/app_theme.dart';
-
 
 // Custom logging function that only prints in debug mode
 void log(String message) {
@@ -38,10 +37,11 @@ class _HomeScreenState extends State<HomeScreen>
   bool _isBannerAdLoaded = false;
 
   final List<String> exams = const [
-    'AFCAT', 'BSF Constable', 'CAT', 'CDS', 'CRPF Constable', 'CTET', 'GATE', 'IAF (Group X & Y)', 'IB-ACIO', 'IBPS Clerk', 'IBPS PO',
-    'IBPS RRB', 'Indian Navy Sailor (SSR & AA)', 'ISRO', 'JEE Main', 'NDA', 'NEET-UG', 'SBI Clerk', 'SBI PO', 'SSC CHSL',
-    'SSC CGL', 'SSC GD Constable', 'SSC Stenographer', 'State PSC', 'UGC NET', 'UPSC CAPF',
-    'UPSC', 'UPSC ESE', 'RBI Grade B', 'RRB NTPC', 'RRB Group D', 'LIC AAO', 'IPPB Officer',
+    'AFCAT', 'BSF Constable', 'CAT', 'CDS', 'CRPF Constable', 'CTET', 'GATE', 'IAF (Group X & Y)', 'IB-ACIO', 
+    'IBPS Clerk', 'IBPS PO', 'IBPS RRB', 'Indian Navy Sailor (SSR & AA)', 'ISRO', 'JEE Mains', 'NDA', 
+    'NEET-UG', 'SBI Clerk', 'SBI PO', 'SSC CHSL', 'SSC CGL', 'SSC GD Constable', 'SSC Stenographer', 
+    'UGC NET', 'UPSC CAPF', 'UPSC', 'UPSC ESE', 'RBI Grade B', 'RRB NTPC', 'RRB Group D', 'LIC AAO', 
+    'IPPB Officer', 'UPPSC', 'BPSC', 'MPPSC', 'HPSC', 'GPSC', 'RPSC', 'MPSC',
   ];
 
   late final List<String> _sortedExams;
@@ -54,8 +54,10 @@ class _HomeScreenState extends State<HomeScreen>
   late AnimationController _pulsingAnimationController;
   late AnimationController _gridAnimationController; // For staggered grid
 
-  // State for the Daily Challenge
-  Question? _questionOfTheDay;
+  // State for the Hourly Challenge
+  Question? _questionOfTheHour;
+  Timer? _countdownTimer;
+  Duration _timeUntilNextQuestion = Duration.zero;
 
   @override
   void initState() {
@@ -68,7 +70,8 @@ class _HomeScreenState extends State<HomeScreen>
     }
 
     _initializeAnimations();
-    _loadQuestionOfTheDay();
+    _loadQuestionOfTheHour();
+    _startCountdown();
 
     // Show the dialog and start grid animation after the first frame is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -101,14 +104,42 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  void _loadQuestionOfTheDay() {
-    // Get today's date formatted as 'yyyy-MM-dd'
-    final String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    if (dailyQuestions.containsKey(today)) {
+  void _loadQuestionOfTheHour() {
+    if (mounted) {
       setState(() {
-        _questionOfTheDay = dailyQuestions[today];
+        _questionOfTheHour = getQuestionOfTheHour();
       });
     }
+  }
+
+  void _startCountdown() {
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      DateTime now = DateTime.now();
+      int currentHour = now.hour;
+      DateTime nextQuestionTime;
+
+      if (currentHour >= 23 || currentHour < 6) {
+        // If it's 11 PM or later, or before 6 AM, the next question is at 6 AM tomorrow.
+        DateTime tomorrow = DateTime(now.year, now.month, now.day + 1);
+        nextQuestionTime = DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 6, 0, 0);
+      } else {
+        // Otherwise, the next question is at the start of the next hour.
+        nextQuestionTime = DateTime(now.year, now.month, now.day, currentHour + 1, 0, 0);
+      }
+
+      final remaining = nextQuestionTime.difference(now);
+
+      if (mounted) {
+        setState(() {
+          _timeUntilNextQuestion = remaining;
+        });
+      }
+
+      // Check if it's time for a new question
+      if (remaining.isNegative || remaining.inSeconds == 0) {
+        _loadQuestionOfTheHour();
+      }
+    });
   }
 
   void _showUpdateDialog() {
@@ -127,7 +158,8 @@ class _HomeScreenState extends State<HomeScreen>
                 child: AnimatedBuilder(
                   animation: _pulsingAnimationController,
                   builder: (context, child) {
-                    final scale = 1.0 + (_pulsingAnimationController.value * 0.05);
+                    final scale =
+                        1.0 + (_pulsingAnimationController.value * 0.05);
                     return Transform.scale(
                       scale: scale,
                       child: child,
@@ -149,7 +181,8 @@ class _HomeScreenState extends State<HomeScreen>
                             ),
                             SizedBox(height: 12),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 55.0),
+                              padding:
+                                  EdgeInsets.symmetric(horizontal: 55.0),
                               child: Text(
                                 'New Questions and Practice Sets every Sunday!',
                                 textAlign: TextAlign.center,
@@ -228,6 +261,7 @@ class _HomeScreenState extends State<HomeScreen>
     _dialogAnimationController.dispose();
     _pulsingAnimationController.dispose();
     _gridAnimationController.dispose();
+    _countdownTimer?.cancel(); // Cancel the countdown timer
     super.dispose();
   }
 
@@ -267,17 +301,20 @@ class _HomeScreenState extends State<HomeScreen>
           )
         ],
       ),
-      body: AppBackground( // Wrap the body with the new AppBackground widget
+      body: AppBackground(
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
               child: Column(
                 children: [
                   const SizedBox(height: 16.0),
-                  if (_questionOfTheDay != null)
+                  if (_questionOfTheHour != null)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: DailyChallengeCard(question: _questionOfTheDay!),
+                      child: HourlyChallengeCard(
+                        question: _questionOfTheHour!,
+                        timeUntilNext: _timeUntilNextQuestion,
+                      ),
                     ),
                   const SizedBox(height: 16.0),
                   SafeArea(
@@ -293,7 +330,8 @@ class _HomeScreenState extends State<HomeScreen>
                     padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
                     child: Text(
                       'Choose Your Exam',
-                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -311,7 +349,8 @@ class _HomeScreenState extends State<HomeScreen>
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     // Staggered Animation Logic
-                    final animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+                    final animation =
+                        Tween<double>(begin: 0.0, end: 1.0).animate(
                       CurvedAnimation(
                         parent: _gridAnimationController,
                         curve: Interval(
@@ -347,9 +386,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget _buildAdCard(int index) {
     final adIndex = index - (index ~/ 5);
-    final nativeAd = _nativeAds.length > (adIndex ~/ 4)
-        ? _nativeAds[adIndex ~/ 4]
-        : null;
+    final nativeAd =
+        _nativeAds.length > (adIndex ~/ 4) ? _nativeAds[adIndex ~/ 4] : null;
     return nativeAd != null
         ? AdWidget(ad: nativeAd)
         : const NativeAdPlaceholder();
@@ -385,18 +423,18 @@ class ComicCloudPainter extends CustomPainter {
       Canvas canvas, Size size, Paint fillPaint, Paint strokePaint) {
     final Path path = Path();
     path.moveTo(size.width * 0.15, size.height * 0.5);
-    path.quadraticBezierTo(
-        size.width * 0.1, size.height * 0.2, size.width * 0.3, size.height * 0.2);
-    path.quadraticBezierTo(
-        size.width * 0.4, size.height * 0.1, size.width * 0.5, size.height * 0.2);
-    path.quadraticBezierTo(
-        size.width * 0.75, size.height * 0.15, size.width * 0.85, size.height * 0.4);
-    path.quadraticBezierTo(
-        size.width * 0.95, size.height * 0.5, size.width * 0.8, size.height * 0.7);
-    path.quadraticBezierTo(
-        size.width * 0.7, size.height * 0.9, size.width * 0.5, size.height * 0.8);
-    path.quadraticBezierTo(
-        size.width * 0.3, size.height * 0.9, size.width * 0.15, size.height * 0.5);
+    path.quadraticBezierTo(size.width * 0.1, size.height * 0.2,
+        size.width * 0.3, size.height * 0.2);
+    path.quadraticBezierTo(size.width * 0.4, size.height * 0.1,
+        size.width * 0.5, size.height * 0.2);
+    path.quadraticBezierTo(size.width * 0.75, size.height * 0.15,
+        size.width * 0.85, size.height * 0.4);
+    path.quadraticBezierTo(size.width * 0.95, size.height * 0.5,
+        size.width * 0.8, size.height * 0.7);
+    path.quadraticBezierTo(size.width * 0.7, size.height * 0.9,
+        size.width * 0.5, size.height * 0.8);
+    path.quadraticBezierTo(size.width * 0.3, size.height * 0.9,
+        size.width * 0.15, size.height * 0.5);
     path.close();
     canvas.drawPath(path, fillPaint);
     canvas.drawPath(path, strokePaint);
@@ -421,12 +459,12 @@ class ComicCloudPainter extends CustomPainter {
     final Path path = Path();
     final double r = size.width * scale;
     path.moveTo(center.dx, center.dy - r * 0.5);
-    path.quadraticBezierTo(
-        center.dx - r * 0.8, center.dy - r * 0.8, center.dx - r, center.dy);
-    path.quadraticBezierTo(
-        center.dx - r * 0.5, center.dy + r * 0.8, center.dx, center.dy + r * 0.5);
-    path.quadraticBezierTo(
-        center.dx + r * 0.6, center.dy + r * 0.9, center.dx + r * 0.8, center.dy);
+    path.quadraticBezierTo(center.dx - r * 0.8, center.dy - r * 0.8,
+        center.dx - r, center.dy);
+    path.quadraticBezierTo(center.dx - r * 0.5, center.dy + r * 0.8,
+        center.dx, center.dy + r * 0.5);
+    path.quadraticBezierTo(center.dx + r * 0.6, center.dy + r * 0.9,
+        center.dx + r * 0.8, center.dy);
     path.quadraticBezierTo(
         center.dx + r * 0.8, center.dy - r * 0.8, center.dx, center.dy - r * 0.5);
     path.close();
@@ -562,17 +600,19 @@ class _ExamCardState extends State<ExamCard>
   }
 }
 
-// New Widget for the Daily Challenge Card
-class DailyChallengeCard extends StatefulWidget {
+// New Widget for the Hourly Challenge Card
+class HourlyChallengeCard extends StatefulWidget {
   final Question question;
+  final Duration timeUntilNext;
 
-  const DailyChallengeCard({super.key, required this.question});
+  const HourlyChallengeCard(
+      {super.key, required this.question, required this.timeUntilNext});
 
   @override
-  State<DailyChallengeCard> createState() => _DailyChallengeCardState();
+  State<HourlyChallengeCard> createState() => _HourlyChallengeCardState();
 }
 
-class _DailyChallengeCardState extends State<DailyChallengeCard>
+class _HourlyChallengeCardState extends State<HourlyChallengeCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   bool _isFlipped = false;
@@ -585,6 +625,21 @@ class _DailyChallengeCardState extends State<DailyChallengeCard>
       duration: const Duration(milliseconds: 600),
       vsync: this,
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant HourlyChallengeCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // If the question changes, reset the card to the front face
+    if (widget.question.questionText != oldWidget.question.questionText) {
+      if (_isFlipped) {
+        _controller.reverse();
+      }
+      setState(() {
+        _isFlipped = false;
+        _selectedOptionIndex = null;
+      });
+    }
   }
 
   @override
@@ -604,11 +659,21 @@ class _DailyChallengeCardState extends State<DailyChallengeCard>
     });
   }
 
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String hours = twoDigits(duration.inHours);
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$hours:$minutes:$seconds";
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (_selectedOptionIndex != null) {
+        if (_selectedOptionIndex != null && !_isFlipped) {
+          _flipCard();
+        } else if (_isFlipped) {
           _flipCard();
         }
       },
@@ -632,7 +697,8 @@ class _DailyChallengeCardState extends State<DailyChallengeCard>
   }
 
   Widget _buildCardFace({required bool isFront}) {
-    final transform = isFront ? Matrix4.identity() : (Matrix4.identity()..rotateY(pi));
+    final transform =
+        isFront ? Matrix4.identity() : (Matrix4.identity()..rotateY(pi));
     return Transform(
       transform: transform,
       alignment: Alignment.center,
@@ -663,10 +729,33 @@ class _DailyChallengeCardState extends State<DailyChallengeCard>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "Question of the Day",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              "Question of the Hour",
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                const Text(
+                  "Next in:",
+                  style: TextStyle(fontSize: 12, color: Colors.white70),
+                ),
+                Text(
+                  _formatDuration(widget.timeUntilNext),
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ],
+            )
+          ],
         ),
         const SizedBox(height: 8),
         Text(
@@ -681,11 +770,14 @@ class _DailyChallengeCardState extends State<DailyChallengeCard>
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             child: InkWell(
               onTap: () {
-                setState(() {
-                  _selectedOptionIndex = index;
-                });
-                // Automatically flip after a short delay
-                Future.delayed(const Duration(milliseconds: 300), _flipCard);
+                if (!_isFlipped) {
+                  setState(() {
+                    _selectedOptionIndex = index;
+                  });
+                  // Automatically flip after a short delay
+                  Future.delayed(
+                      const Duration(milliseconds: 300), _flipCard);
+                }
               },
               child: Container(
                 padding: const EdgeInsets.all(10),
@@ -748,7 +840,7 @@ class _DailyChallengeCardState extends State<DailyChallengeCard>
         const SizedBox(height: 10),
         Text(
           'Tap to flip back',
-          style: TextStyle(color: Colors.white.withAlpha(179), fontSize: 12), // 70% opacity
+          style: TextStyle(color: Colors.white.withAlpha(179), fontSize: 12),
         ),
       ],
     );

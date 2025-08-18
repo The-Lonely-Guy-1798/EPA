@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
-import 'package:exam_prep_adda/screens/quiz_analysis_screen.dart'; // Import the new analysis screen
-import 'dart:async'; // Required for the Timer class
-import 'dart:math'; // Required for the ceil function
-import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
-import 'package:exam_prep_adda/services/progress_service.dart'; // Import the progress service
+import 'package:exam_prep_adda/screens/exam_detail_screen.dart';
+import 'package:exam_prep_adda/screens/quiz_analysis_screen.dart';
+import 'dart:async';
+import 'dart:math';
+import 'package:exam_prep_adda/screens/home_screen.dart';
+import 'package:exam_prep_adda/services/progress_service.dart';
+
+// Import the new data structure from the quiz data file
+import 'package:exam_prep_adda/data/ib_acio/quizzes/ib_acio_quiz_1.dart';
 
 class QuizScreen extends StatefulWidget {
   final String examName;
   final String quizName;
-  final List<Question> questions;
+  // The screen now accepts a list of QuizSection objects
+  final List<QuizSection> sections;
 
   const QuizScreen({
     super.key,
     required this.examName,
     required this.quizName,
-    required this.questions,
+    required this.sections,
   });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
-  int _currentQuestionIndex = 0;
+class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
+  late TabController _tabController;
+  late PageController _pageController;
+
+  // State variables
+  late List<Question> _allQuestions;
+  late List<int?> _userAnswers;
+  int _currentGlobalQuestionIndex = 0;
   bool _quizFinished = false;
-  // Use a list to store the selected option for each question. null means not answered.
-  final List<int?> _userAnswers = [];
 
   // Timer variables
   late Timer _timer;
@@ -37,38 +45,95 @@ class _QuizScreenState extends State<QuizScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize the user answers list with null values
-    _userAnswers.addAll(List<int?>.filled(widget.questions.length, null));
-    // Calculate total time: number of questions * 40 seconds
-    _totalQuizTimeInSeconds = widget.questions.length * 40;
-    // Calculate the warning time based on the new rules
+    // Initialize controllers and flatten data
+    _tabController = TabController(length: widget.sections.length, vsync: this);
+    _pageController = PageController();
+    _allQuestions =
+        widget.sections.expand((section) => section.questions).toList();
+    _userAnswers = List<int?>.filled(_allQuestions.length, null);
+
+    // Initialize timer
+    _totalQuizTimeInSeconds = _allQuestions.length * 40;
     _warningTimeInSeconds = _calculateWarningTime(_totalQuizTimeInSeconds);
     _timeLeft = _totalQuizTimeInSeconds;
     _startTimer();
+
+    // Add listeners to sync the page view (questions) and tab bar (sections)
+    _pageController.addListener(_syncPageToTab);
+    _tabController.addListener(_syncTabToPage);
   }
 
   @override
   void dispose() {
     _timer.cancel();
+    _pageController.removeListener(_syncPageToTab);
+    _tabController.removeListener(_syncTabToPage);
+    _tabController.dispose();
+    _pageController.dispose();
     super.dispose();
   }
 
-  // New method to calculate warning time
-  int _calculateWarningTime(int totalTime) {
-    if (totalTime <= 600) {
-      return 60; // For quizzes up to 10 minutes, warning at 1 minute
-    } else {
-      return 180; // For quizzes longer than 10 minutes, warning at 3 minutes
+  // --- Helper Methods for Section and Question Indexing ---
+
+  /// Gets the section index for a given global question index.
+  int _getSectionIndex(int globalIndex) {
+    int count = 0;
+    for (int i = 0; i < widget.sections.length; i++) {
+      count += widget.sections[i].questions.length;
+      if (globalIndex < count) {
+        return i;
+      }
+    }
+    return widget.sections.length - 1;
+  }
+
+  /// Gets the global index from a section and a question's index within that section.
+  int _getGlobalIndex(int sectionIndex, int questionIndexInSection) {
+    int globalIndex = 0;
+    for (int i = 0; i < sectionIndex; i++) {
+      globalIndex += widget.sections[i].questions.length;
+    }
+    return globalIndex + questionIndexInSection;
+  }
+
+  // --- Syncing Logic for UI Controllers ---
+
+  /// Updates the TabBar when the user swipes between questions in the PageView.
+  void _syncPageToTab() {
+    final page = _pageController.page?.round() ?? 0;
+    if (_currentGlobalQuestionIndex != page) {
+      setState(() {
+        _currentGlobalQuestionIndex = page;
+        final newSectionIndex = _getSectionIndex(page);
+        if (_tabController.index != newSectionIndex) {
+          // Temporarily remove listener to prevent a feedback loop
+          _tabController.removeListener(_syncTabToPage);
+          _tabController.animateTo(newSectionIndex);
+          _tabController.addListener(_syncTabToPage);
+        }
+      });
     }
   }
 
-  // Method to start the quiz timer
+  /// Jumps the PageView to the first question of a section when a tab is tapped.
+  void _syncTabToPage() {
+    if (!_tabController.indexIsChanging) {
+      final sectionIndex = _tabController.index;
+      final firstQuestionOfSection = _getGlobalIndex(sectionIndex, 0);
+      _pageController.jumpToPage(firstQuestionOfSection);
+    }
+  }
+
+  // --- Core Quiz Logic (Timer, Answering, Navigation) ---
+
+  int _calculateWarningTime(int totalTime) {
+    return totalTime <= 600 ? 60 : 180;
+  }
+
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timeLeft > 0) {
-        setState(() {
-          _timeLeft--;
-        });
+        setState(() => _timeLeft--);
       } else {
         _timer.cancel();
         _finishQuiz();
@@ -82,225 +147,261 @@ class _QuizScreenState extends State<QuizScreen> {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
-  /// Updated to allow changing or deselecting an answer.
-  void _checkAnswer(int selectedIndex) {
+  void _selectAnswer(int selectedIndex) {
     setState(() {
-      // If the user taps the same option again, deselect it.
-      if (_userAnswers[_currentQuestionIndex] == selectedIndex) {
-        _userAnswers[_currentQuestionIndex] = null;
+      if (_userAnswers[_currentGlobalQuestionIndex] == selectedIndex) {
+        _userAnswers[_currentGlobalQuestionIndex] = null; // Deselect
       } else {
-        // Otherwise, select the new option.
-        _userAnswers[_currentQuestionIndex] = selectedIndex;
+        _userAnswers[_currentGlobalQuestionIndex] = selectedIndex; // Select
       }
     });
   }
 
   void _nextQuestion() {
-    if (_currentQuestionIndex < widget.questions.length - 1) {
-      setState(() {
-        _currentQuestionIndex++;
-      });
+    if (_currentGlobalQuestionIndex < _allQuestions.length - 1) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeIn,
+      );
     } else {
       _handleFinishAttempt();
     }
   }
 
-  /// Skips the current question and moves to the next one.
-  void _skipQuestion() {
-    if (_currentQuestionIndex < widget.questions.length - 1) {
-      setState(() {
-        _currentQuestionIndex++;
-      });
-    } else {
-      _handleFinishAttempt();
-    }
-  }
-
-  /// Jumps to a specific question index.
-  void _jumpToQuestion(int questionIndex) {
-    if (questionIndex >= 0 && questionIndex < widget.questions.length) {
-      setState(() {
-        _currentQuestionIndex = questionIndex;
-      });
-    }
-  }
-
-  /// Checks for skipped questions before finishing the quiz.
   void _handleFinishAttempt() {
-    final skippedQuestionIndexes = <int>[];
-    for (int i = 0; i < _userAnswers.length; i++) {
-      if (_userAnswers[i] == null) {
-        skippedQuestionIndexes.add(i);
-      }
-    }
+    final skippedIndexes = [
+      for (int i = 0; i < _userAnswers.length; i++)
+        if (_userAnswers[i] == null) i
+    ];
 
-    if (skippedQuestionIndexes.isNotEmpty && mounted) {
-      _showSkippedQuestionsDialog(skippedQuestionIndexes);
+    if (skippedIndexes.isNotEmpty && mounted) {
+      _showSkippedQuestionsDialog(skippedIndexes);
     } else {
       _finishQuiz();
     }
   }
 
-  /// Shows a dialog to the user if they have skipped questions.
   void _showSkippedQuestionsDialog(List<int> skippedIndexes) {
-    final skippedQuestionNumbers = skippedIndexes.map((i) => i + 1).toList();
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Skipped Questions'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                const Text('You have skipped the following questions:'),
-                const SizedBox(height: 8),
-                Text(
-                  skippedQuestionNumbers.join(', '),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                const Text('Do you want to go back or finish the quiz?'),
-              ],
-            ),
+      builder: (ctx) => AlertDialog(
+        title: const Text('Skipped Questions'),
+        content: Text(
+            'You have skipped questions: ${skippedIndexes.map((i) => i + 1).join(', ')}. Do you want to finish anyway?'),
+        actions: [
+          TextButton(
+            child: const Text('Go Back'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _pageController.jumpToPage(skippedIndexes.first);
+            },
           ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Go Back'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _jumpToQuestion(skippedIndexes.first);
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Finish Anyway'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _finishQuiz();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  /// This method is called when the quiz ends.
-  /// It calculates the score and saves it to the device using ProgressService.
-  void _finishQuiz() {
-    _timer.cancel();
-    _saveQuizResult(); // Save the score
-    if (mounted) {
-      setState(() {
-        _quizFinished = true;
-      });
-    }
-  }
-
-  /// Calculates the final score and uses the ProgressService to save it locally.
-  Future<void> _saveQuizResult() async {
-    int correctAnswers = 0;
-    for (int i = 0; i < widget.questions.length; i++) {
-      if (_userAnswers[i] == widget.questions[i].correctAnswerIndex) {
-        correctAnswers++;
-      }
-    }
-    final totalQuestions = widget.questions.length;
-    if (totalQuestions > 0) {
-      final scorePercentage = (correctAnswers / totalQuestions) * 100;
-      // Use the service to save the score
-      await ProgressService.saveQuizScore(
-          widget.examName, widget.quizName, scorePercentage);
-      // Also, mark this quiz as completed
-      await ProgressService.saveCompletionStatus(
-          widget.examName, widget.quizName);
-    }
-  }
-
-  void _goToAnalysisScreen() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => QuizAnalysisScreen(
-          examName: widget.examName,
-          quizName: widget.quizName,
-          questions: widget.questions,
-          userAnswers: _userAnswers,
-        ),
+          ElevatedButton(
+            child: const Text('Finish'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _finishQuiz();
+            },
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildQuizFinishedView() {
+  Future<void> _finishQuiz() async {
+    _timer.cancel();
+    // Calculate and save score
     int correctAnswers = 0;
-    int incorrectAnswers = 0;
-    int notAttempted = 0;
-
-    for (int i = 0; i < widget.questions.length; i++) {
-      if (_userAnswers[i] == null) {
-        notAttempted++;
-      } else if (_userAnswers[i] == widget.questions[i].correctAnswerIndex) {
+    for (int i = 0; i < _allQuestions.length; i++) {
+      if (_userAnswers[i] == _allQuestions[i].correctAnswerIndex) {
         correctAnswers++;
-      } else {
-        incorrectAnswers++;
       }
     }
+    if (_allQuestions.isNotEmpty) {
+      final score = (correctAnswers / _allQuestions.length) * 100;
+      await ProgressService.saveQuizScore(
+          widget.examName, widget.quizName, score);
+      await ProgressService.saveCompletionStatus(
+          widget.examName, widget.quizName);
+    }
 
-    final totalQuestions = widget.questions.length;
-    final scorePercentage =
-        totalQuestions > 0 ? (correctAnswers / totalQuestions) * 100 : 0.0;
+    if (mounted) setState(() => _quizFinished = true);
+  }
+
+  // --- UI Building Methods ---
+
+  @override
+  Widget build(BuildContext context) {
+    if (_quizFinished) {
+      return _buildQuizFinishedView();
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.quizName),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Chip(
+              label: Text(
+                _formatTime(_timeLeft),
+                style: TextStyle(
+                  color: _timeLeft <= _warningTimeInSeconds
+                      ? Colors.red
+                      : Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              backgroundColor: _timeLeft <= _warningTimeInSeconds
+                  ? Colors.red.shade100
+                  : Colors.grey.shade200,
+            ),
+          ),
+        ],
+        bottom: TabBar(
+          controller: _tabController,
+          isScrollable: true,
+          tabs: widget.sections
+              .map((section) => Tab(text: section.sectionName))
+              .toList(),
+        ),
+      ),
+      body: PageView.builder(
+        controller: _pageController,
+        itemCount: _allQuestions.length,
+        itemBuilder: (context, index) {
+          final question = _allQuestions[index];
+          return _buildQuestionView(question, index);
+        },
+      ),
+    );
+  }
+
+  /// Builds the view for a single question.
+  Widget _buildQuestionView(Question question, int globalIndex) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Question ${globalIndex + 1}/${_allQuestions.length}',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          const SizedBox(height: 16),
+          Card(
+            elevation: 4,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(question.questionText,
+                  style: Theme.of(context).textTheme.headlineSmall),
+            ),
+          ),
+          const SizedBox(height: 24),
+          ...question.options.asMap().entries.map((entry) {
+            return OptionTile(
+              option: entry.value,
+              index: entry.key,
+              selectedOptionIndex: _userAnswers[globalIndex],
+              onTap: () => _selectAnswer(entry.key),
+            );
+          }),
+          const SizedBox(height: 24),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                onPressed: _nextQuestion,
+                child: Text(
+                  globalIndex == _allQuestions.length - 1
+                      ? 'Finish'
+                      : 'Save & Next',
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          const NativeAdPlaceholder(),
+          const SizedBox(height: 32),
+        ],
+      ),
+    );
+  }
+
+  /// Builds the final summary screen shown after the quiz is finished.
+  Widget _buildQuizFinishedView() {
+    int correct = 0;
+    int incorrect = 0;
+    for (int i = 0; i < _allQuestions.length; i++) {
+      if (_userAnswers[i] == _allQuestions[i].correctAnswerIndex) {
+        correct++;
+      } else if (_userAnswers[i] != null) {
+        incorrect++;
+      }
+    }
+    final int notAttempted = _allQuestions.length - correct - incorrect;
+    final score =
+        _allQuestions.isNotEmpty ? (correct / _allQuestions.length) * 100 : 0.0;
 
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Practice Set Complete!',
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Practice Set Complete!',
                   style: Theme.of(context).textTheme.headlineLarge,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.center),
+              const SizedBox(height: 32),
+              SizedBox(
+                height: 200,
+                width: 200,
+                child: AnimatedPieChart(
+                  correctAnswers: correct,
+                  incorrectAnswers: incorrect,
+                  totalQuestions: _allQuestions.length,
                 ),
-                const SizedBox(height: 32),
-                SizedBox(
-                  height: 200,
-                  width: 200,
-                  child: AnimatedPieChart(
-                    correctAnswers: correctAnswers,
-                    incorrectAnswers: incorrectAnswers,
-                    totalQuestions: totalQuestions,
+              ),
+              const SizedBox(height: 16),
+              Text('Your Score: ${score.toStringAsFixed(2)}%',
+                  style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 32),
+              ElevatedButton(
+                onPressed: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => QuizAnalysisScreen(
+                      examName: widget.examName,
+                      quizName: widget.quizName,
+                      questions: _allQuestions,
+                      userAnswers: _userAnswers,
+                    ),
                   ),
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  'Your Score: ${scorePercentage.toStringAsFixed(2)}%',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                const SizedBox(height: 32),
-                ElevatedButton(
-                  onPressed: _goToAnalysisScreen,
-                  child: const Text('View Analysis'),
-                ),
-                const SizedBox(height: 24),
-                // Display quiz statistics
-                _buildQuizStats(correctAnswers, incorrectAnswers, notAttempted),
-                const SizedBox(height: 24),
-                // Native Ad Placeholder at the very bottom
-                const NativeAdPlaceholder(),
-                // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
-                const SizedBox(height: 32),
-              ],
-            ),
+                child: const Text('View Analysis'),
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Back to Levels'),
+              ),
+              const SizedBox(height: 24),
+              _buildQuizStats(correct, incorrect, notAttempted),
+              const SizedBox(height: 16),
+              _buildSectionalStats(), // Sectional stats table added here
+            ],
           ),
         ),
       ),
     );
   }
 
+  /// Builds the statistics table for the quiz summary.
   Widget _buildQuizStats(int correct, int incorrect, int notAttempted) {
-    final totalQuestions = widget.questions.length;
+    final totalQuestions = _allQuestions.length;
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -375,108 +476,89 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_quizFinished) {
-      return _buildQuizFinishedView();
-    }
+  /// Builds the section-wise statistics table for the quiz summary.
+  Widget _buildSectionalStats() {
+    List<TableRow> sectionRows = [];
+    int globalIndexOffset = 0;
 
-    final currentQuestion = widget.questions[_currentQuestionIndex];
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.quizName),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Chip(
-              label: Text(
-                _formatTime(_timeLeft),
-                style: TextStyle(
-                  color: _timeLeft <= _warningTimeInSeconds
-                      ? Colors.red
-                      : Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: _timeLeft <= _warningTimeInSeconds
-                  ? Colors.red.shade100
-                  : Colors.grey.shade200,
+    // Add a header row for the sections table
+    sectionRows.add(
+      TableRow(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              'Section',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              'Score',
+              textAlign: TextAlign.end,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Question ${_currentQuestionIndex + 1}/${widget.questions.length}',
-                style: Theme.of(context).textTheme.titleLarge,
+    );
+
+    // Calculate and build a row for each section
+    for (var section in widget.sections) {
+      int correctInSection = 0;
+      for (int i = 0; i < section.questions.length; i++) {
+        int currentGlobalIndex = globalIndexOffset + i;
+        if (_userAnswers[currentGlobalIndex] ==
+            section.questions[i].correctAnswerIndex) {
+          correctInSection++;
+        }
+      }
+
+      sectionRows.add(
+        TableRow(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Text(
+                section.sectionName,
+                style: const TextStyle(fontSize: 16),
               ),
-              const SizedBox(height: 16),
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    currentQuestion.questionText,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Text(
+                '$correctInSection/${section.questions.length}',
+                textAlign: TextAlign.end,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
-              const SizedBox(height: 24),
-              ...currentQuestion.options.asMap().entries.map((entry) {
-                int index = entry.key;
-                String option = entry.value;
-                return OptionTile(
-                  option: option,
-                  index: index,
-                  selectedOptionIndex: _userAnswers[_currentQuestionIndex],
-                  onTap: () => _checkAnswer(index),
-                );
-              }),
-              const SizedBox(height: 24),
-              // Row for Skip and Next buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: _skipQuestion,
-                    child: const Text('Skip'),
-                  ),
-                  ElevatedButton(
-                    onPressed: _userAnswers[_currentQuestionIndex] != null
-                        ? _nextQuestion
-                        : null,
-                    child: Text(
-                      _currentQuestionIndex == widget.questions.length - 1
-                          ? 'Finish'
-                          : 'Next',
-                    ),
-                  ),
-                ],
-              ),
-              // Spacing before the native ad
-              const SizedBox(height: 24),
-              // Native Ad Placeholder at the very bottom
-              const NativeAdPlaceholder(),
-              // A SizedBox is used here to provide a final gap and padding at the bottom of the screen.
-              const SizedBox(height: 32),
-            ],
-          ),
+            ),
+          ],
+        ),
+      );
+      globalIndexOffset += section.questions.length;
+    }
+
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Table(
+          columnWidths: const {
+            0: FlexColumnWidth(3),
+            1: FlexColumnWidth(1),
+          },
+          children: sectionRows,
         ),
       ),
     );
   }
 }
 
-// Helper widget for displaying options without revealing correctness
+// --- Helper Widgets (OptionTile, AnimatedPieChart, etc.) ---
+
 class OptionTile extends StatelessWidget {
   const OptionTile({
     super.key,
@@ -491,42 +573,37 @@ class OptionTile extends StatelessWidget {
   final int? selectedOptionIndex;
   final VoidCallback onTap;
 
-  Color _getTileColor(BuildContext context) {
-    // Only show a color change for the selected option, no red or green
-    return selectedOptionIndex == index
-        ? Theme.of(context).colorScheme.primary.withAlpha((255 * 0.5).round())
-        : Colors.white;
-  }
-
-  Color _getTextColor() {
-    return Colors.black;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final isSelected = selectedOptionIndex == index;
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      color: _getTileColor(context),
+      elevation: isSelected ? 4 : 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(
+          color: isSelected
+              ? Theme.of(context).colorScheme.primary
+              : Colors.transparent,
+          width: 2,
+        ),
+      ),
+      color: isSelected
+          ? Theme.of(context).colorScheme.primary.withAlpha(50)
+          : Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
-        title: Text(
-          option,
-          style: TextStyle(color: _getTextColor(), fontWeight: FontWeight.w500),
-        ),
-        leading: selectedOptionIndex == index
-            ? Icon(
-                Icons.check_circle,
-                color: Theme.of(context).colorScheme.primary,
-              )
-            : null,
+        title:
+            Text(option, style: const TextStyle(fontWeight: FontWeight.w500)),
+        leading: isSelected
+            ? Icon(Icons.check_circle,
+                color: Theme.of(context).colorScheme.primary)
+            : Icon(Icons.circle_outlined, color: Colors.grey.shade400),
         onTap: onTap,
       ),
     );
   }
 }
 
-// Animated pie chart widget
 class AnimatedPieChart extends StatefulWidget {
   final int correctAnswers;
   final int incorrectAnswers;
@@ -583,7 +660,6 @@ class _AnimatedPieChartState extends State<AnimatedPieChart>
   }
 }
 
-// CustomPainter for a 3D-style pie chart with separation
 class PieChart3DPainter extends CustomPainter {
   final double animationValue;
   final int correctAnswers;
@@ -599,7 +675,7 @@ class PieChart3DPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (totalQuestions == 0) return; // Avoid division by zero
+    if (totalQuestions == 0) return;
 
     final correctPercentage = correctAnswers / totalQuestions;
     final incorrectPercentage = incorrectAnswers / totalQuestions;
@@ -611,141 +687,75 @@ class PieChart3DPainter extends CustomPainter {
     final notAttemptedSweepAngle = (2 * pi * notAttemptedPercentage);
 
     double currentStartAngle = -pi / 2;
-    const double gapAngle = 0.04; // Small gap between slices
+    const double gapAngle = 0.04;
 
-    final slices = <_SliceData>[];
-
-    // Correct slice
-    if (correctPercentage > 0) {
-      slices.add(
+    final slices = [
+      if (correctPercentage > 0)
         _SliceData(
           startAngle: currentStartAngle,
           sweepAngle: correctSweepAngle,
           color: Colors.green.shade600,
-          sideColor: Colors.green.shade800,
-          isExtruded: false,
         ),
-      );
-      currentStartAngle += correctSweepAngle;
-    }
-
-    // Incorrect slice - This one will be extruded
-    if (incorrectPercentage > 0) {
-      slices.add(
+      if (incorrectPercentage > 0)
         _SliceData(
-          startAngle: currentStartAngle,
+          startAngle: currentStartAngle + correctSweepAngle,
           sweepAngle: incorrectSweepAngle,
           color: Colors.red.shade600,
-          sideColor: Colors.red.shade800,
-          isExtruded: true,
         ),
-      );
-      currentStartAngle += incorrectSweepAngle;
-    }
-
-    // Not attempted slice
-    if (notAttemptedPercentage > 0) {
-      slices.add(
+      if (notAttemptedPercentage > 0)
         _SliceData(
-          startAngle: currentStartAngle,
+          startAngle:
+              currentStartAngle + correctSweepAngle + incorrectSweepAngle,
           sweepAngle: notAttemptedSweepAngle,
           color: Colors.grey.shade600,
-          sideColor: Colors.grey.shade800,
-          isExtruded: false,
         ),
-      );
-    }
-
-    // Sort the slices by end angle to draw them in the correct order for a 3D effect.
-    slices.sort(
-      (a, b) =>
-          (b.startAngle + b.sweepAngle).compareTo(a.startAngle + a.sweepAngle),
-    );
+    ];
 
     for (final slice in slices) {
       _drawSlice(
-        canvas,
-        size,
-        slice.startAngle,
-        slice.sweepAngle,
-        slice.color,
-        slice.sideColor,
-        slice.isExtruded,
-        gapAngle,
-      );
+          canvas, size, slice.startAngle, slice.sweepAngle, slice.color, gapAngle);
     }
   }
 
-  void _drawSlice(
-    Canvas canvas,
-    Size size,
-    double startAngle,
-    double sweepAngle,
-    Color topColor,
-    Color sideColor,
-    bool isExtruded,
-    double gapAngle,
-  ) {
+  void _drawSlice(Canvas canvas, Size size, double startAngle,
+      double sweepAngle, Color color, double gapAngle) {
     final center = size.center(Offset.zero);
     final radius = size.width / 2;
-    const tiltOffset = 15.0; // Adjust for tilt effect
-    const extrusionOffset = 10.0; // Offset for the extruded slice
+    const tiltOffset = 15.0;
 
-    // Apply animation and gap
     final animatedSweep = sweepAngle * animationValue;
-    final animatedStart = startAngle;
 
-    final centerOffset = isExtruded
-        ? Offset(
-            extrusionOffset * cos(animatedStart + animatedSweep / 2),
-            extrusionOffset * sin(animatedStart + animatedSweep / 2),
-          )
-        : Offset.zero;
-
-    // Draw the side/bottom part of the slice (for 3D effect)
-    final sidePaint = Paint()..color = sideColor;
-    final path = Path();
-    path.moveTo(center.dx + centerOffset.dx, center.dy + centerOffset.dy);
-    path.lineTo(
-      center.dx + centerOffset.dx + radius * cos(animatedStart + gapAngle / 2),
-      center.dy +
-          centerOffset.dy +
-          radius * sin(animatedStart + gapAngle / 2) +
-          tiltOffset,
-    );
-    path.arcTo(
-      Rect.fromCircle(
-        center: Offset(
-          center.dx + centerOffset.dx,
-          center.dy + centerOffset.dy + tiltOffset,
-        ),
-        radius: radius,
-      ),
-      animatedStart + gapAngle / 2,
-      animatedSweep - gapAngle,
-      false,
-    );
-    path.lineTo(
-      center.dx +
-          centerOffset.dx +
-          radius * cos(animatedStart + animatedSweep - gapAngle / 2),
-      center.dy +
-          centerOffset.dy +
-          radius * sin(animatedStart + animatedSweep - gapAngle / 2) +
-          tiltOffset,
-    );
-    path.lineTo(
-      center.dx + centerOffset.dx,
-      center.dy + centerOffset.dy + tiltOffset,
-    );
-    path.close();
+    // Draw the side/bottom part
+    final sidePaint = Paint()..color = color.withOpacity(0.7);
+    final path = Path()
+      ..moveTo(center.dx, center.dy)
+      ..lineTo(
+          center.dx + radius * cos(startAngle + gapAngle / 2),
+          center.dy +
+              radius * sin(startAngle + gapAngle / 2) +
+              tiltOffset)
+      ..arcTo(
+        Rect.fromCircle(
+            center: Offset(center.dx, center.dy + tiltOffset),
+            radius: radius),
+        startAngle + gapAngle / 2,
+        animatedSweep - gapAngle,
+        false,
+      )
+      ..lineTo(
+          center.dx + radius * cos(startAngle + animatedSweep - gapAngle / 2),
+          center.dy +
+              radius * sin(startAngle + animatedSweep - gapAngle / 2) +
+              tiltOffset)
+      ..lineTo(center.dx, center.dy + tiltOffset)
+      ..close();
     canvas.drawPath(path, sidePaint);
 
-    // Draw the top part of the slice
-    final topPaint = Paint()..color = topColor;
+    // Draw the top part
+    final topPaint = Paint()..color = color;
     canvas.drawArc(
-      Rect.fromCircle(center: center + centerOffset, radius: radius),
-      animatedStart + gapAngle / 2,
+      Rect.fromCircle(center: center, radius: radius),
+      startAngle + gapAngle / 2,
       animatedSweep - gapAngle,
       true,
       topPaint,
@@ -753,27 +763,15 @@ class PieChart3DPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant PieChart3DPainter oldDelegate) {
-    return oldDelegate.animationValue != animationValue ||
-        oldDelegate.correctAnswers != correctAnswers ||
-        oldDelegate.incorrectAnswers != incorrectAnswers ||
-        oldDelegate.totalQuestions != totalQuestions;
-  }
+  bool shouldRepaint(covariant PieChart3DPainter oldDelegate) => true;
 }
 
-// A helper class to hold slice data
 class _SliceData {
   final double startAngle;
   final double sweepAngle;
   final Color color;
-  final Color sideColor;
-  final bool isExtruded;
-
-  _SliceData({
-    required this.startAngle,
-    required this.sweepAngle,
-    required this.color,
-    required this.sideColor,
-    required this.isExtruded,
-  });
+  _SliceData(
+      {required this.startAngle,
+      required this.sweepAngle,
+      required this.color});
 }
