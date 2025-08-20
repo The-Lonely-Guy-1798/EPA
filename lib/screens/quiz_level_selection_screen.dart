@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:exam_prep_adda/screens/exam_detail_screen.dart'; // Import Question class
+// Import Question class
 import 'package:exam_prep_adda/screens/quiz_screen.dart'; // Import the new QuizScreen
 import 'package:exam_prep_adda/screens/home_screen.dart'; // Import home screen to access ad widgets
 import 'package:exam_prep_adda/services/progress_service.dart'; // Import the progress service

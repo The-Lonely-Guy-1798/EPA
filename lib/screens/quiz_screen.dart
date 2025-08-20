@@ -483,16 +483,16 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
 
     // Add a header row for the sections table
     sectionRows.add(
-      TableRow(
+      const TableRow(
         children: [
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(bottom: 8.0),
             child: Text(
               'Section',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(bottom: 8.0),
             child: Text(
               'Score',
