@@ -6,12 +6,16 @@ import 'package:exam_prep_adda/screens/exam_syllabus_screen.dart'; // Import the
 import 'package:exam_prep_adda/screens/exam_pattern_screen.dart'; // Import the new Exam Pattern Screen
 import 'package:exam_prep_adda/utils/app_theme.dart'; // Import the app theme for the background
 
+// Import the new study material screen and its data
+import 'package:exam_prep_adda/screens/study_material_screen.dart';
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_study_material_data.dart';
+
 // Import all your subject-specific question data files
-import 'package:exam_prep_adda/data/ib_acio/current_affairs_questions.dart';
-import 'package:exam_prep_adda/data/ib_acio/general_studies_questions.dart';
-import 'package:exam_prep_adda/data/ib_acio/numerical_aptitude_questions.dart';
-import 'package:exam_prep_adda/data/ib_acio/reasoning_logical_aptitude_questions.dart';
-import 'package:exam_prep_adda/data/ib_acio/english_questions.dart';
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_current_affairs_questions.dart';
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_general_studies_questions.dart';
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_numerical_aptitude_questions.dart';
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_reasoning_logical_aptitude_questions.dart';
+import 'package:exam_prep_adda/data/ib_acio/ib_acio_english_questions.dart';
 
 // You would also import files for other exams similarly:
 // import 'package:exam_prep_adda/data/bank_clerk/reasoning_ability_questions.dart';
@@ -54,6 +58,14 @@ class ExamDetailScreen extends StatelessWidget {
     return {}; // Return an empty map for other exams
   }
 
+  // A method to get the study material for a given exam.
+  Map<String, List<StudyTopic>> getStudyMaterial(String examName) {
+    if (examName == 'IB-ACIO') {
+      return ibAcioStudyMaterial;
+    }
+    return {}; // Return an empty map for other exams
+  }
+
   // Placeholder for quiz data. You would fetch this based on the exam.
   final Map<int, String> ibAcioQuizzes = const {
     1: 'Practice Set 1',
@@ -71,13 +83,14 @@ class ExamDetailScreen extends StatelessWidget {
     13: 'Practice Set 13',
     14: 'Practice Set 14',
     15: 'Practice Set 15',
-    
   };
 
   @override
   Widget build(BuildContext context) {
     final topicsWithQuestions = getTopicsWithQuestions(examName);
-    final Map<int, String> quizzesForExam = examName == 'IB-ACIO' ? ibAcioQuizzes : {};
+    final studyMaterial = getStudyMaterial(examName);
+    final Map<int, String> quizzesForExam =
+        examName == 'IB-ACIO' ? ibAcioQuizzes : {};
 
     return Scaffold(
       appBar: AppBar(
@@ -86,7 +99,8 @@ class ExamDetailScreen extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
       ),
-      body: AppBackground( // Added the AppBackground widget here
+      body: AppBackground(
+        // Added the AppBackground widget here
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -110,7 +124,8 @@ class ExamDetailScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SyllabusScreen(examName: examName),
+                            builder: (context) =>
+                                SyllabusScreen(examName: examName),
                           ),
                         );
                       },
@@ -125,7 +140,8 @@ class ExamDetailScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ExamPatternScreen(examName: examName),
+                            builder: (context) =>
+                                ExamPatternScreen(examName: examName),
                           ),
                         );
                       },
@@ -137,6 +153,37 @@ class ExamDetailScreen extends StatelessWidget {
 
               // Banner Ad Placeholder
               const BannerAdPlaceholder(),
+              const SizedBox(height: 16),
+
+              // *** NEW: Study Material Expandable Bar ***
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ListTile(
+                  leading: const Icon(Icons.menu_book, color: Colors.green),
+                  title: const Text(
+                    'Study Material',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StudyMaterialScreen(
+                          examName: examName,
+                          studyMaterial: studyMaterial,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
               const SizedBox(height: 16),
 
               // Practice Questions Expandable Bar
